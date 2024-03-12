@@ -30,4 +30,6 @@ fclean: clean
 	make fclean -C ./src/Games/
 	make fclean -C ./src/Graphical/
 
+tests_run:
+
 re:	fclean all

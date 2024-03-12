@@ -10,11 +10,11 @@ all:
 	make -C ./CENTIPEDE/
 
 clean:
-	make clean -C ./SNAKE
-	make clean -C ./CENTIPEDE
+	make clean -C ./SNAKE/
+	make clean -C ./CENTIPEDE/
 
 fclean:
-	make clean -C ./SNAKE/
+	make fclean -C ./SNAKE/
 	make fclean -C ./CENTIPEDE/
 
 re : fclean all

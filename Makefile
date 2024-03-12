@@ -15,6 +15,7 @@ core:
 	make -C ./src/Core/
 
 games:
+	make -C ./src/Games/
 
 graphicals:
 

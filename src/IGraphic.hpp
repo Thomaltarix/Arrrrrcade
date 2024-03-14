@@ -14,7 +14,6 @@
 
 class IGraphic {
     public:
-        IGraphic() = default;
         virtual ~IGraphic() = default;
 
         //Window

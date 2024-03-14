@@ -14,7 +14,6 @@
 
 class IGame {
     public:
-        IGame() = default;
         virtual ~IGame() = default;
 
         //Game

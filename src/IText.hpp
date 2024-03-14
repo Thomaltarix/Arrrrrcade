@@ -14,7 +14,6 @@
 
 class IText {
     public:
-        IText() = default;
         virtual ~IText() = default;
 
         //setters
@@ -32,34 +31,4 @@ class IText {
         virtual std::vector<std::size_t> getPos() const = 0;
         virtual std::vector<std::size_t> getSize() const = 0;
         virtual float getRotation() const = 0;
-};
-
-class Text : public Text {
-    public:
-        Text();
-        ~Text();
-
-        //setters
-        void setFontPath(const std::string &fontPath);
-        void setText(const std::string &text);
-        void setColor(std::unique_ptr<IColor> color);
-        void setPos(std::size_t x, std::size_t y);
-        void setSize(std::size_t x, std::size_t y);
-        void setRotation(float rotation);
-
-        //getters
-        std::string getFontPath();
-        std::string getText();
-        std::shared_ptr<IColor> getColor();
-        std::vector<std::size_t> getPos();
-        std::vector<std::size_t> getSize();
-        float getRotation();
-
-    private:
-        std::string _fontPath;
-        std::string _text;
-        std::unique_ptr<IColor> _color;
-        std::vector<std::size_t> _size;
-        std::vector<std::size_t> _pos;
-        float _rotation;
 };

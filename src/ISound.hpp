@@ -9,7 +9,6 @@
 
 class ISound {
     public:
-        ISound() = default;
         virtual ~ISound() = default;
 
         //setters

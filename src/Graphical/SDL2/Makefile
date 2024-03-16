@@ -5,14 +5,16 @@
 ## Sdl2 Makefile
 ##
 
-SRC			= sdl2.cpp \
+SRC			= 	getInstance.cpp \
+				sdl2.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_sdl2.so
 
+INCLUDE		=	-I../../include/
 GRPHFLAGS	=	-lSDL2
-CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS)
+CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) $(INCLUDE)
 
 all: $(NAME)
 

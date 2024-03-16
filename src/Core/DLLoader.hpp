@@ -21,17 +21,16 @@ class DLLoader {
     public:
 
         DLLoader();
-        ~DLLoader() = default;
+        ~DLLoader();
 
         void load(const std::string &libso);
-        void close(void);
 
         template<typename T>
         std::unique_ptr<T> getInstance(void)
         {
             std::function<std::unique_ptr<T>()> sym;
 
-            sym = (std::unique_ptr<T>(*)())dlsym(_handle, "entryPoint");
+            sym = (std::unique_ptr<T>(*)())dlsym(_handle, "getInstance");
             if (!sym) {
                 printf("%s\n", dlerror());
                 return nullptr;

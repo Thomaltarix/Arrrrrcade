@@ -17,14 +17,14 @@ SDL2_lib::SDL2_lib()
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
-        //throw error
+        throw Error("Fail to init SDL");
     }
 
     if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &_pWindow, &_pRenderer) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());    
         SDL_Quit();
-        //throw error
+        throw Error("Fail to create window and renderer in SDL");
     }
 }
 

@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include "IGraphic.hpp"
+#include "AGraphic.hpp"
 #include <SDL2/SDL.h>
 
-class SDL2_lib : public virtual IGraphic {
+class SDL2_lib : public AGraphic {
 
     private:
         SDL_Window *_pWindow;

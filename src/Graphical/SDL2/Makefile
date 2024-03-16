@@ -14,7 +14,8 @@ NAME		= arcade_sdl2.so
 
 INCLUDE		=	-I../ -I../../include
 GRPHFLAGS	=	-lSDL2
-CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) $(INCLUDE)
+CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) \
+				$(INCLUDE)
 
 all: $(NAME)
 

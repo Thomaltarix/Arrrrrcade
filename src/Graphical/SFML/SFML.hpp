@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../AGraphic.hpp"
+#include "AGraphic.hpp"
 #include <SFML/Graphics.hpp>
 
 class SFML_lib : public AGraphic {

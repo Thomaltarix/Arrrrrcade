@@ -8,7 +8,7 @@
 #include <memory>
 #include "sdl2.hpp"
 
-SDL2_lib::SDL2_lib()
+SDL2lib::SDL2lib()
 {
     _Window = nullptr;
     _Renderer = nullptr;
@@ -28,51 +28,51 @@ SDL2_lib::SDL2_lib()
     }
 }
 
-SDL2_lib::~SDL2_lib()
+SDL2lib::~SDL2lib()
 {
     SDL_Quit();
 }
 
 //Window
 
-bool SDL2_lib::isWindowOpen() const
+bool SDL2lib::isWindowOpen() const
 {
     return _isOpen;
 }
 
-void SDL2_lib::closeWindow()
+void SDL2lib::closeWindow()
 {
 }
 
-void SDL2_lib::clearWindow()
+void SDL2lib::clearWindow()
 {
 }
 
 //Event
 
-int SDL2_lib::getKeyEvent()
+int SDL2lib::getKeyEvent()
 {
     return 0;
 }
 
 //Display
 
-void SDL2_lib::displayWindow()
+void SDL2lib::displayWindow()
 {
     SDL_RenderPresent(_Renderer);
 }
 
-void SDL2_lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
+void SDL2lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
     (void) entities;
 }
 
-void SDL2_lib::displayText(std::vector<std::shared_ptr<IText>> texts)
+void SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
     (void) texts;
 }
 
-void SDL2_lib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
+void SDL2lib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 {
     (void) sounds;
 }

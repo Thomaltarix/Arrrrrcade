@@ -10,7 +10,7 @@
 #include "AGraphic.hpp"
 #include <SDL2/SDL.h>
 
-class SDL2_lib : public AGraphic {
+class SDL2lib : public AGraphic {
 
     private:
         SDL_Window *_Window;
@@ -18,8 +18,8 @@ class SDL2_lib : public AGraphic {
         bool _isOpen;
 
     public:
-        SDL2_lib();
-        ~SDL2_lib() override;
+        SDL2lib();
+        ~SDL2lib() override;
 
         //Window
         bool isWindowOpen() const override;

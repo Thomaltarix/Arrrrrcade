@@ -10,8 +10,8 @@
 
 SDL2_lib::SDL2_lib()
 {
-    _pWindow = nullptr;
-    _pRenderer = nullptr;
+    _Window = nullptr;
+    _Renderer = nullptr;
     _isOpen = true;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -20,7 +20,7 @@ SDL2_lib::SDL2_lib()
         throw Error("Fail to init SDL");
     }
 
-    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &_pWindow, &_pRenderer) < 0)
+    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &_Window, &_Renderer) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());    
         SDL_Quit();
@@ -59,7 +59,7 @@ int SDL2_lib::getKeyEvent()
 
 void SDL2_lib::displayWindow()
 {
-    SDL_RenderPresent(_pRenderer);
+    SDL_RenderPresent(_Renderer);
 }
 
 void SDL2_lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)

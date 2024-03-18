@@ -13,8 +13,8 @@
 class SDL2_lib : public AGraphic {
 
     private:
-        SDL_Window *_pWindow;
-        SDL_Renderer *_pRenderer;
+        SDL_Window *_Window;
+        SDL_Renderer *_Renderer;
         bool _isOpen;
 
     public:

@@ -42,6 +42,7 @@ bool SDL2lib::isWindowOpen() const
 
 void SDL2lib::closeWindow()
 {
+    _isOpen = false;
 }
 
 void SDL2lib::clearWindow()

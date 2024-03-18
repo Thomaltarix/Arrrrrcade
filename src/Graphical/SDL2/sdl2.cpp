@@ -47,6 +47,8 @@ void SDL2lib::closeWindow()
 
 void SDL2lib::clearWindow()
 {
+    SDL_SetRenderDrawColor(_Renderer, 0, 0, 0, 255);
+    SDL_RenderClear(_Renderer);
 }
 
 //Event

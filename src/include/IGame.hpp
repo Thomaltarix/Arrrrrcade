@@ -22,7 +22,7 @@ class IGame {
         virtual int getScore() = 0;
         virtual void simulate() = 0;
 
-        //Event
+        // //Event
         virtual void catchKeyEvent(int key) = 0;
 
         //Display

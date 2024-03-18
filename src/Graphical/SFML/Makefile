@@ -5,14 +5,17 @@
 ## Sfml Makefile
 ##
 
-SRC			= sfml.cpp \
+SRC			=	getInstance.cpp \
+				SFML.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_sfml.so
 
+INCLUDE		=	-I../ -I../../include/
 GRPHFLAGS	=	-lsfml-graphics
-CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS)
+CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) \
+				$(INCLUDE)
 
 all: $(NAME)
 

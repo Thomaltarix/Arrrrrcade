@@ -9,8 +9,6 @@
 
 SFMLlib::SFMLlib()
 {
-    if (isWindowOpen())
-        closeWindow();
     _window.create(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Close);
     _window.setFramerateLimit(60);
     if (!isWindowOpen())

@@ -17,6 +17,9 @@ class SDL2lib : public AGraphic {
         SDL_Renderer *_Renderer;
         bool _isOpen;
 
+        SDL_Rect getRect(std::vector<std::size_t> pos, std::vector<std::size_t> size);
+        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> getTexture(std::string path);
+
     public:
         SDL2lib();
         ~SDL2lib() override;

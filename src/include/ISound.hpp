@@ -9,6 +9,12 @@
 
 class ISound {
     public:
+        enum Status {
+            START,
+            LOOP,
+            STOP,
+            DONE
+        };
         virtual ~ISound() = default;
 
         //setters

@@ -17,9 +17,9 @@ extern "C"
         std::cout << "Loading SFML library ..." << std::endl;
     }
 
-    std::unique_ptr<SFML_lib> getInstance()
+    std::unique_ptr<SFMLlib> getInstance()
     {
-        return std::make_unique<SFML_lib>();
+        return std::make_unique<SFMLlib>();
     }
 
     __attribute__((destructor))

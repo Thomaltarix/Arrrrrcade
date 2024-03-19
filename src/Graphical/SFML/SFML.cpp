@@ -7,7 +7,7 @@
 
 #include "SFML.hpp"
 
-SFML_lib::SFML_lib()
+SFMLlib::SFMLlib()
 {
     if (isWindowOpen() == true)
         closeWindow();
@@ -19,45 +19,45 @@ SFML_lib::SFML_lib()
     _event = sf::Event();
 }
 
-SFML_lib::~SFML_lib()
+SFMLlib::~SFMLlib()
 {
     closeWindow();
 }
 
 // ------------------ WINDOW ------------------ //
 
-bool SFML_lib::isWindowOpen() const
+bool SFMLlib::isWindowOpen() const
 {
     return _window.isOpen();
 }
 
-void SFML_lib::closeWindow()
+void SFMLlib::closeWindow()
 {
     _window.close();
     if (isWindowOpen())
         throw Error("SFML: Failed to close window");
 }
 
-void SFML_lib::clearWindow()
+void SFMLlib::clearWindow()
 {
     _window.clear();
 }
 
 // ------------------ EVENT ------------------ //
 
-int SFML_lib::getKeyEvent()
+int SFMLlib::getKeyEvent()
 {
     return 0;
 }
 
 // ------------------ DISPLAY ------------------ //
 
-void SFML_lib::displayWindow()
+void SFMLlib::displayWindow()
 {
     _window.display();
 }
 
-void SFML_lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
+void SFMLlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
     (void) entities;
 }

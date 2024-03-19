@@ -71,7 +71,7 @@ void SFMLlib::displayWindow()
 void SFMLlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
     for (auto &entity : entities)
-        _window.draw(createSprite(entity));
+        _window.draw(getSprite(entity));
 }
 
 void SFMLlib::displayText(std::vector<std::shared_ptr<IText>> texts)
@@ -101,7 +101,7 @@ void SFMLlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 
 // ------------------ PRIVATE ------------------ //
 
-sf::Sprite SFMLlib::createSprite(std::shared_ptr<IEntity> entity)
+sf::Sprite SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
 {
     sf::Sprite sprite;
 

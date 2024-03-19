@@ -39,7 +39,7 @@ class SFMLlib : public AGraphic {
         std::unordered_map<std::string, sf::SoundBuffer> _soundBuffers;
         std::unordered_map<std::string, sf::Sound> _sounds;
 
-        sf::Sprite createSprite(std::shared_ptr<IEntity> entity);
+        sf::Sprite getSprite(std::shared_ptr<IEntity> entity);
         sf::Text createText(std::shared_ptr<IText> text);
         void playSound(std::shared_ptr<ISound> sound, bool loop);
 

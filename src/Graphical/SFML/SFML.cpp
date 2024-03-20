@@ -102,14 +102,15 @@ void SFMLlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 sf::Sprite SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
 {
     sf::Sprite sprite;
+    std::string path = entity->getPath();
 
-    if (_textures.find(entity->getPath()) == _textures.end()) {
+    if (_textures.find(path) == _textures.end()) {
         sf::Texture texture;
-        if (!texture.loadFromFile(entity->getPath() + ".png"))
+        if (!texture.loadFromFile(path + ".png")) {
             throw Error("SFML: Failed to load texture");
-        _textures[entity->getPath()] = texture;
+        }
+        _textures[path] = texture;
     }
-    sprite.setTexture(_textures[entity->getPath()]);
     sprite.setPosition(entity->getPos()[0], entity->getPos()[1]);
     sprite.setScale(entity->getSize()[0], entity->getSize()[1]);
     sprite.setRotation(entity->getRotation());

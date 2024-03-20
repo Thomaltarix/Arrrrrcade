@@ -60,7 +60,18 @@ void SDL2lib::clearWindow()
 
 int SDL2lib::getKeyEvent()
 {
-    return 0;
+    while (SDL_PollEvent(&_event)) {
+        if (_event.type == SDL_QUIT)
+            closeWindow();
+        if (_event.type == SDL_KEYDOWN) {
+            for (auto &mykey : _keyMap) {
+                if (_event.key.keysym.sym == mykey.first)
+                    return mykey.second;
+            }
+        }
+        return -1;
+    }
+    return -1;
 }
 
 //Display

@@ -9,6 +9,7 @@ MAIN 		= main.cpp \
 
 SRC			= 	DLLoader.cpp \
 				Core.cpp \
+				Arcade.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 

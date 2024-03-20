@@ -6,13 +6,11 @@
 */
 
 #include <iostream>
-#include "Core.hpp"
+#include "Arcade.hpp"
 
 int main(int argc, char **argv)
 {
-    Core core;
+    Arcade arcade;
 
-    (void) argc;
-    (void) argv;
-    return 0;
+    return arcade.start(argc, argv);
 }

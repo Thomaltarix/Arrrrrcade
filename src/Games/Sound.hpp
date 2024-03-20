@@ -23,7 +23,6 @@ class Sound : public ISound {
         std::string getPathSound() override;
         float getVolume() const override;
         int getStatus() const override;
-    protected:
     private:
         std::string _pathSound;
         float _volume;

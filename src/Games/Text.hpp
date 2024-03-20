@@ -30,7 +30,6 @@ class Text : public IText {
         std::vector<std::size_t> getPos() const override;
         std::size_t getSize() const override;
         float getRotation() const override;
-    protected:
     private:
         std::string _fontPath;
         std::string _text;

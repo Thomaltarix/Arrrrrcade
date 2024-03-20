@@ -109,10 +109,10 @@ void SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
     for (auto &text : texts) {
         std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font = getFont(text.get()->getFontPath(), text.get()->getSize());
-        SDL_Color color = { text.get()->getColor().get()->getR(),
-                            text.get()->getColor().get()->getG(),
-                            text.get()->getColor().get()->getB(),
-                            text.get()->getColor().get()->getA()};
+        SDL_Color color = { (Uint8)text.get()->getColor().get()->getR(),
+                            (Uint8)text.get()->getColor().get()->getG(),
+                            (Uint8)text.get()->getColor().get()->getB(),
+                            (Uint8)text.get()->getColor().get()->getA()};
         std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(TTF_RenderText_Solid(font.get(), text.get()->getText().c_str(), color), SDL_FreeSurface);
         std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(_Renderer, surface.get()), SDL_DestroyTexture);
         std::vector<size_t> size;

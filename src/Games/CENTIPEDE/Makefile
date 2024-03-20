@@ -5,12 +5,15 @@
 ## Centipede Makefile
 ##
 
-SRC			= centipede.cpp \
+SRC			=	centipede.cpp \
+				../Sound.cpp \
+				../Text.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_centipede.so
 
+INCLUDE		=	-I../ -I../../include/
 CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20
 
 all: $(NAME)

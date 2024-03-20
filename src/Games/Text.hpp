@@ -8,6 +8,7 @@
 #pragma once
 
 #include "../include/IText.hpp"
+#include "Entity.hpp"
 
 class Text : public IText {
     public:

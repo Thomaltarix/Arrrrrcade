@@ -62,7 +62,6 @@ std::shared_ptr<IColor> Text::getColor() const
 
     color->setColor(_color->getR(), _color->getG(), _color->getB(), _color->getA());
     return color;
-    return _color;
 }
 
 std::vector<std::size_t> Text::getPos() const

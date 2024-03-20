@@ -8,7 +8,7 @@
 #pragma once
 
 #include "AGraphic.hpp"
-#include <SDL2/SDL.h>
+#include <ncurses.h>
 #include <unordered_map>
 
 class NCURSESlib : public AGraphic {
@@ -43,26 +43,26 @@ class NCURSESlib : public AGraphic {
         {121, 24},  // Y
         {122, 25},  // Z
         {27, 26},   // Escape
-        {9, 27},    // Tab
-        {16, 28},   // LShift
-        {29, 29},   // LControl
-        {32, 30},   // Space
-        {10, 31},   // Enter
-        {127, 32},  // BackSpace
-        {259, 33},  // Up
-        {258, 34},  // Down
-        {260, 35},  // Left
-        {261, 36},  // Right
-        {48, 37},   // Num0
-        {49, 38},   // Num1
-        {50, 39},   // Num2
-        {51, 40},   // Num3
-        {52, 41},   // Num4
-        {53, 42},   // Num5
-        {54, 43},   // Num6
-        {55, 44},   // Num7
-        {56, 45},   // Num8
-        {57, 46}    // Num9
+        {9, -1},    // Tab
+        {16, -1},   // LShift
+        {29, -1},   // LControl
+        {' ', 30},   // Space
+        {KEY_ENTER, 31},   // Enter
+        {KEY_BACKSPACE, 32},  // BackSpace
+        {KEY_UP, 33},  // Up
+        {KEY_DOWN, 34},  // Down
+        {KEY_LEFT, 35},  // Left
+        {KEY_RIGHT, 36},  // Right
+        {48, '0'},   // Num0
+        {49, '1'},   // Num1
+        {50, '2'},   // Num2
+        {51, '3'},   // Num3
+        {52, '4'},   // Num4
+        {53, '5'},   // Num5
+        {54, '6'},   // Num6
+        {55, '7'},   // Num7
+        {56, '8'},   // Num8
+        {57, '9'}    // Num9
     };
 
     public:

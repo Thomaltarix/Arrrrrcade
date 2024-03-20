@@ -6,18 +6,25 @@
 */
 
 #include <iostream>
+#include "SFML.hpp"
+#include <memory>
 
 extern "C"
 {
     __attribute__((constructor))
     static void initsharedlibrary()
     {
-        std::cout << "Loading foo library ..." << std::endl;
+        std::cout << "Loading SFML library ..." << std::endl;
+    }
+
+    std::unique_ptr<SFMLlib> getInstance()
+    {
+        return std::make_unique<SFMLlib>();
     }
 
     __attribute__((destructor))
     static void destroysharedlibrary()
     {
-        std::cout << "foo closing ..." << std::endl;
+        std::cout << "SFML closing ..." << std::endl;
     }
 }

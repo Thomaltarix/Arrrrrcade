@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** Arcade
 ** File description:
-** sdl2
+** ncurses
 */
 
 #pragma once

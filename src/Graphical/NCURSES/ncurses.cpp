@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** Arcade
 ** File description:
-** sfml
+** ncurses
 */
 
 #include "ncurses.hpp"

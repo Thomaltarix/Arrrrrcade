@@ -13,7 +13,7 @@ extern "C"
     __attribute__((constructor))
     static void initsharedlibrary()
     {
-        std::cout << "Loading foo library ..." << std::endl;
+        std::cout << "Loading foo ncurses ..." << std::endl;
     }
 
 
@@ -25,6 +25,6 @@ extern "C"
     __attribute__((destructor))
     static void destroysharedlibrary()
     {
-        std::cout << "foo closing ..." << std::endl;
+        std::cout << "ncurses closing ..." << std::endl;
     }
 }

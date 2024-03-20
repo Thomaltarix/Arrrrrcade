@@ -7,8 +7,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  check_mirror_url:
+    name: Check mirror URL
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check mirror URL
+        run: |
+          if [[ -z "${MIRROR_URL}" ]]; then
+            exit 0
+          fi
+
   push_to_mirror:
     name: Cloning to Epitech repository
+    needs: check_mirror_url
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +35,3 @@ jobs:
             ${{ secrets.MIRROR_URL }}
           ssh_private_key:
             ${{ secrets.SSH_PRIVATE_KEY }}
-

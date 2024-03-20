@@ -6,11 +6,13 @@
 */
 
 #include <iostream>
+#include "Core.hpp"
 
 int main(int argc, char **argv)
 {
+    Core core;
+
     (void) argc;
     (void) argv;
-    std::cout << "Core Program" << std::endl;
     return 0;
 }

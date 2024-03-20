@@ -8,11 +8,11 @@
 #include "ncurses.hpp"
 #include <ncurses.h>
 
-NCURSESlib::~NCURSESlib(){
+NCURSESlib::~NCURSESlib() {
     _isOpen = false;
 };
 
-NCURSESlib::NCURSESlib(){
+NCURSESlib::NCURSESlib() {
     _isOpen = true;
     initscr();
     keypad(stdscr, TRUE);
@@ -57,7 +57,7 @@ void NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
     }
 };
 
-void NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts){
+void NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts) {
     for (auto &text : texts) {
         mvprintw(text.get()->getPos()[0], text.get()->getPos()[1], text.get()->getText().c_str());
     }

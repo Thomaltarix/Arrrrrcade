@@ -7,8 +7,14 @@
 
 #pragma once
 
+#include "DLLoader.hpp"
+
 class Core {
 
     private:
+        DLLoader _loader;
+
     public:
+        Core();
+        ~Core();
 };

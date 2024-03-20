@@ -11,7 +11,7 @@ class Arcade {
 
     public:
         Arcade();
-        ~Arcade();
+        ~Arcade() = default;
 
     private:
 };

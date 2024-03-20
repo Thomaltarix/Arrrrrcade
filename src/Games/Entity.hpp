@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "IEntity.hpp"
+#include "../include/IEntity.hpp"
 
 class Color: public virtual IColor {
 

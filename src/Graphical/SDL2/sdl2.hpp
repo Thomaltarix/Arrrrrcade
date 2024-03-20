@@ -9,6 +9,7 @@
 
 #include "AGraphic.hpp"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 class SDL2lib : public AGraphic {
 
@@ -18,7 +19,8 @@ class SDL2lib : public AGraphic {
         bool _isOpen;
 
         SDL_Rect getRect(std::vector<std::size_t> pos, std::vector<std::size_t> size);
-        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> getTexture(std::string path);
+        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> getEntityTexture(std::string path);
+        std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> getFont(std::string path, std::size_t size);
 
     public:
         SDL2lib();

@@ -13,7 +13,7 @@ OBJ			= $(SRC:.cpp=.o)
 NAME		= arcade_sdl2.so
 
 INCLUDE		=	-I../ -I../../include
-GRPHFLAGS	=	-lSDL2 -lSDL2_image
+GRPHFLAGS	=	-lSDL2 -lSDL2_image -lSDL2_ttf
 CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) \
 				$(INCLUDE)
 

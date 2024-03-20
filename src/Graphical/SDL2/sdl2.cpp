@@ -8,6 +8,7 @@
 #include <memory>
 #include "sdl2.hpp"
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 SDL2lib::SDL2lib()
 {
@@ -27,6 +28,7 @@ SDL2lib::SDL2lib()
         SDL_Quit();
         throw Error("SDL: Fail to create window and renderer in SDL");
     }
+    TTF_Init();
 }
 
 SDL2lib::~SDL2lib()
@@ -71,7 +73,7 @@ void SDL2lib::displayWindow()
 void SDL2lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
     for (auto &entity : entities) {
-        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture = getTexture(entity.get()->getPath());
+        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture = getEntityTexture(entity.get()->getPath());
         SDL_Rect dstrect = getRect(entity.get()->getPos(), entity.get()->getSize());
         SDL_RenderCopy(_Renderer, texture.get(), NULL, &dstrect);
     }
@@ -85,7 +87,7 @@ SDL_Rect SDL2lib::getRect(std::vector<std::size_t> pos, std::vector<std::size_t>
     return rect;
 }
 
-std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> SDL2lib::getTexture(std::string path)
+std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> SDL2lib::getEntityTexture(std::string path)
 {
     std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(IMG_Load((path + ".png").c_str()), SDL_FreeSurface);
     std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(_Renderer, surface.get()), SDL_DestroyTexture);
@@ -94,10 +96,30 @@ std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> SDL2lib::getTexture(
 
 void SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
-    (void) texts;
+    for (auto &text : texts) {
+        std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font = getFont(text.get()->getFontPath(), text.get()->getSize());
+        SDL_Color color = { text.get()->getColor().get()->getR(),
+                            text.get()->getColor().get()->getG(),
+                            text.get()->getColor().get()->getB(),
+                            text.get()->getColor().get()->getA()};
+        std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(TTF_RenderText_Solid(font.get(), text.get()->getText().c_str(), color), SDL_FreeSurface);
+        std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(_Renderer, surface.get()), SDL_DestroyTexture);
+        std::vector<size_t> size;
+        size.push_back(text.get()->getText().length() * text.get()->getSize());
+        size.push_back(text.get()->getSize());
+        SDL_Rect dstrect = getRect(text.get()->getPos(), size);
+        SDL_RenderCopy(_Renderer, texture.get(), NULL, &dstrect);
+    }
+}
+
+std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> SDL2lib::getFont(std::string path, std::size_t size)
+{
+    std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font(TTF_OpenFont(path.c_str(), size), TTF_CloseFont);
+    return font;
 }
 
 void SDL2lib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 {
     (void) sounds;
+    return;
 }

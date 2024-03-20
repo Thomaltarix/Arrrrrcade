@@ -10,7 +10,7 @@ SRC			=	getInstance.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
-NAME		= arcade_sfml.so
+NAME		= arcade_ncurses.so
 
 INCLUDE		=	-I../ -I../../include/
 GRPHFLAGS	=	-lsfml-graphics

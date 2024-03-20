@@ -17,9 +17,9 @@ extern "C"
         std::cout << "Loading SDL2 library ..." << std::endl;
     }
 
-    std::unique_ptr<SDL2_lib> getInstance(void)
+    std::unique_ptr<SDL2lib> getInstance(void)
     {
-        return std::make_unique<SDL2_lib>();
+        return std::make_unique<SDL2lib>();
     }
 
     __attribute__((destructor))

@@ -19,11 +19,22 @@ class Core {
         std::unique_ptr<IGraphic> _graphicLib;
         std::unique_ptr<IGame> _gameLib;
         bool _isRunning;
+        std::vector<std::string> _listGraphic;
+        std::vector<std::string> _listGame;
+        std::size_t _idxGame;
+        std::size_t _idxGraphic;
 
         void loadGraphic(const std::string & graphicLib);
         void loadGame(const std::string & gameLib);
         void gameLoop();
         void manageEvents();
+        void createlistsLibs(const std::string & graphicLib);
+
+        void commandExit();
+        void commandBackMenu();
+        void commandNextGame();
+        void commandNextGraphic();
+        void commandRestartGame();
 
     public:
         Core();

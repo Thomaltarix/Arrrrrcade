@@ -32,7 +32,6 @@ class DLLoader {
 
             sym = (std::unique_ptr<T>(*)())dlsym(_handle, function.c_str());
             if (!sym) {
-                printf("%s\n", dlerror());
                 return nullptr;
             }
             return sym();

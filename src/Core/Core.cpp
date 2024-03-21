@@ -136,6 +136,12 @@ void Core::commandRestartGame()
 
 }
 
+void Core::updateDraw()
+{
+    _graphicLib->playSound(_gameLib->getSounds());
+    _graphicLib->displayEntities(_gameLib->getEntities());
+    _graphicLib->displayText(_gameLib->getTexts());
+}
 
 void Core::renderDraw()
 {

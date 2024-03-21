@@ -30,6 +30,7 @@ class Core {
         void manageEvents();
         void createlistsLibs(const std::string & graphicLib);
         void renderDraw();
+        void updateDraw();
 
         void commandExit();
         void commandBackMenu();

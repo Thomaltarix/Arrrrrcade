@@ -20,5 +20,13 @@ Core::~Core()
 
 void Core::start(const std::string & graphicLib)
 {
-    (void) graphicLib;
+    loadGraphic(graphicLib);
+}
+
+void Core::loadGraphic(const std::string & graphicLib)
+{
+    _loader.load(graphicLib);
+    _graphicLib = _loader.getInstance<IGraphic>();
+    if (!_graphicLib)
+        throw Error("failed to load Graphic Library (" + graphicLib + ")");
 }

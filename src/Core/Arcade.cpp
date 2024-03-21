@@ -16,7 +16,11 @@ int Arcade::start(int argc, char **argv)
 {
     if (!isSuccessfulParsing(argc))
         return 84;
-    _core.start(argv[1]);
+    try {
+        _core.start(argv[1]);
+    } catch (const std::exception& e) {
+        return 84;
+    }
     return 0;
 }
 

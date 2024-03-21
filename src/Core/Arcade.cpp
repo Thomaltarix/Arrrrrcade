@@ -14,7 +14,7 @@ Arcade::Arcade()
 
 int Arcade::start(int argc, char **argv)
 {
-    if (!isSuccessfulParsing(argc, argv))
+    if (!isSuccessfulParsing(argc))
         return 84;
     return 0;
 }

@@ -14,19 +14,23 @@ Arcade::Arcade()
 
 int Arcade::start(int argc, char **argv)
 {
-    if (!isSuccessfulParsing(argc, argv))
+    if (!isSuccessfulParsing(argc))
         return 84;
+    try {
+        _core.start(argv[1]);
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return 84;
+    }
     return 0;
 }
 
-bool Arcade::isSuccessfulParsing(int argc, char **argv)
+bool Arcade::isSuccessfulParsing(int argc)
 {
-    (void) argv;
-    if (argc != 2) {
-        displayUsage();
-        return false;
-    }
-    return 0;
+    if (argc == 2)
+        return true;
+    displayUsage();
+    return false;
 }
 
 void Arcade::displayUsage()

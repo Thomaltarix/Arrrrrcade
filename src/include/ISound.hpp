@@ -5,6 +5,8 @@
 ** ISound
 */
 
+#pragma once
+
 #include <string>
 
 class ISound {

@@ -9,7 +9,7 @@
 
 SFMLlib::SFMLlib()
 {
-    _window.create(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Close);
+    _window.create(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Close | sf::Style::Fullscreen);
     _window.setFramerateLimit(60);
     if (!isWindowOpen())
         throw Error("SFML: Failed to create window");
@@ -112,8 +112,10 @@ sf::Sprite SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
         _textures[path] = texture;
     }
     sprite.setPosition(entity->getPos()[0], entity->getPos()[1]);
-    sprite.setScale(entity->getSize()[0], entity->getSize()[1]);
+    sprite.setScale(entity->getSize()[0] / _textures[path].getSize().x,
+                    entity->getSize()[1] / _textures[path].getSize().y);
     sprite.setRotation(entity->getRotation());
+    sprite.setTexture(_textures[path]);
     return sprite;
 }
 

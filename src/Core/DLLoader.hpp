@@ -26,13 +26,12 @@ class DLLoader {
         void load(const std::string &libso);
 
         template<typename T>
-        std::unique_ptr<T> getInstance(void)
+        std::unique_ptr<T> getInstance(const std::string &function)
         {
             std::function<std::unique_ptr<T>()> sym;
 
-            sym = (std::unique_ptr<T>(*)())dlsym(_handle, "getInstance");
+            sym = (std::unique_ptr<T>(*)())dlsym(_handle, function.c_str());
             if (!sym) {
-                printf("%s\n", dlerror());
                 return nullptr;
             }
             return sym();

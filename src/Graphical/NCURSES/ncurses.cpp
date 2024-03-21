@@ -40,12 +40,17 @@ void NCURSESlib::displayWindow() {
 int NCURSESlib::getKeyEvent() {
     int touche = getch();
 
-    if (touche == '\033'){
+    if (touche == '\033')
         touche = getch();
-    }
     if (touche == 27)
         closeWindow();
-    return touche;
+    if (touche == 0)
+        return touche;
+    for (auto &key : _keyMap) {
+        if (touche == key.first)
+            return key.second;
+    }
+    return -1;
 };
 
 void NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities) {

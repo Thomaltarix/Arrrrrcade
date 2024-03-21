@@ -17,3 +17,8 @@ Core::~Core()
 {
     std::cout << "Core Deleted" << std::endl;
 }
+
+void Core::start(const std::string & graphicLib)
+{
+    (void) graphicLib;
+}

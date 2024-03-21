@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "Core.hpp"
+
 class Arcade {
 
     public:
@@ -15,6 +17,7 @@ class Arcade {
         int start(int argc, char **argv);
 
     private:
+        Core _core;
         bool isSuccessfulParsing(int argc);
         void displayUsage();
 };

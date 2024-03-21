@@ -17,4 +17,5 @@ class Core {
     public:
         Core();
         ~Core();
+        void start(const std::string & graphicLib);
 };

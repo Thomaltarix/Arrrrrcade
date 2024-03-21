@@ -19,6 +19,7 @@ int Arcade::start(int argc, char **argv)
     try {
         _core.start(argv[1]);
     } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
         return 84;
     }
     return 0;

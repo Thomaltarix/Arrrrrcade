@@ -5,12 +5,15 @@
 ## Snake Makefile
 ##
 
-SRC			= snake.cpp \
+SRC			=	snake.cpp \
+				../Sound.cpp \
+				../Text.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_snake.so
 
+INCLUDE		=	-I../ -I../../include/
 CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20
 
 all: $(NAME)

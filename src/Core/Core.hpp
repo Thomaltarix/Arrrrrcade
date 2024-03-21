@@ -18,9 +18,12 @@ class Core {
         DLLoader _loaderGame;
         std::unique_ptr<IGraphic> _graphicLib;
         std::unique_ptr<IGame> _gameLib;
+        bool _isRunning;
 
         void loadGraphic(const std::string & graphicLib);
         void loadGame(const std::string & gameLib);
+        void gameLoop();
+        void manageEvents();
 
     public:
         Core();

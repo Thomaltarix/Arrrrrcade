@@ -29,6 +29,7 @@ class Core {
         void gameLoop();
         void manageEvents();
         void createlistsLibs(const std::string & graphicLib);
+        void renderDraw();
 
         void commandExit();
         void commandBackMenu();

@@ -75,7 +75,7 @@ void Core::gameLoop()
     while(_graphicLib->isWindowOpen() && _isRunning) {
         manageEvents();
         // updateDraw();
-        // renderDraw();
+        renderDraw();
     }
 }
 
@@ -134,4 +134,10 @@ void Core::commandNextGraphic()
 void Core::commandRestartGame()
 {
 
+}
+
+
+void Core::renderDraw()
+{
+    _graphicLib->displayWindow();
 }

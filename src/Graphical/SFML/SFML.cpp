@@ -112,8 +112,10 @@ sf::Sprite SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
         _textures[path] = texture;
     }
     sprite.setPosition(entity->getPos()[0], entity->getPos()[1]);
-    sprite.setScale(entity->getSize()[0], entity->getSize()[1]);
+    sprite.setScale(entity->getSize()[0] / _textures[path].getSize().x,
+                    entity->getSize()[1] / _textures[path].getSize().y);
     sprite.setRotation(entity->getRotation());
+    sprite.setTexture(_textures[path]);
     return sprite;
 }
 

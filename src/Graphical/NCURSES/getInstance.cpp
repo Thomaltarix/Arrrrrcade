@@ -13,7 +13,7 @@ extern "C"
     __attribute__((constructor))
     static void initsharedlibrary()
     {
-        std::cout << "Loading foo ncurses ..." << std::endl;
+        std::cout << "Loading ncurses ..." << std::endl;
     }
 
 

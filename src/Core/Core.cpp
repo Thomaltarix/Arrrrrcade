@@ -25,10 +25,6 @@ Core::~Core()
 void Core::start(const std::string & graphicLib)
 {
     createlistsLibs(graphicLib);
-    for (std::size_t i = 0; i < _listGraphic.size(); i++)
-        std::cout << "|" << _listGraphic[i] << "|" << std::endl;
-    for (std::size_t i = 0; i < _listGame.size(); i++)
-        std::cout << "|" << _listGame[i] << "|" << std::endl;
     loadGraphic(_listGraphic[_idxGraphic]);
     loadGame("./lib/arcade_snake.so");
     gameLoop();
@@ -138,6 +134,7 @@ void Core::commandRestartGame()
 
 void Core::updateDraw()
 {
+    _graphicLib->clearWindow();
     _gameLib->simulate();
     _graphicLib->playSound(_gameLib->getSounds());
     _graphicLib->displayEntities(_gameLib->getEntities());

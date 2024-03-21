@@ -9,7 +9,7 @@
 
 SFMLlib::SFMLlib()
 {
-    _window.create(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Close);
+    _window.create(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Close | sf::Style::Fullscreen);
     _window.setFramerateLimit(60);
     if (!isWindowOpen())
         throw Error("SFML: Failed to create window");

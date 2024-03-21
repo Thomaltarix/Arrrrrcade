@@ -15,6 +15,6 @@ class Arcade {
         int start(int argc, char **argv);
 
     private:
-        bool isSuccessfulParsing(int argc, char **argv);
+        bool isSuccessfulParsing(int argc);
         void displayUsage();
 };

@@ -19,14 +19,12 @@ int Arcade::start(int argc, char **argv)
     return 0;
 }
 
-bool Arcade::isSuccessfulParsing(int argc, char **argv)
+bool Arcade::isSuccessfulParsing(int argc)
 {
-    (void) argv;
-    if (argc != 2) {
-        displayUsage();
-        return false;
-    }
-    return 0;
+    if (argc == 2)
+        return true;
+    displayUsage();
+    return false;
 }
 
 void Arcade::displayUsage()

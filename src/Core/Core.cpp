@@ -74,7 +74,7 @@ void Core::gameLoop()
     _gameLib->startGame();
     while(_graphicLib->isWindowOpen() && _isRunning) {
         manageEvents();
-        // updateDraw();
+        updateDraw();
         renderDraw();
     }
 }
@@ -113,12 +113,12 @@ void Core::commandExit()
 
 void Core::commandBackMenu()
 {
-
+    //implement when we will have a Menu
 }
 
 void Core::commandNextGame()
 {
-
+    //implement when we will have a Game
 }
 
 void Core::commandNextGraphic()
@@ -133,11 +133,12 @@ void Core::commandNextGraphic()
 
 void Core::commandRestartGame()
 {
-
+    //implement when we will have a Game
 }
 
 void Core::updateDraw()
 {
+    _gameLib->simulate();
     _graphicLib->playSound(_gameLib->getSounds());
     _graphicLib->displayEntities(_gameLib->getEntities());
     _graphicLib->displayText(_gameLib->getTexts());

@@ -14,11 +14,13 @@
 class Core {
 
     private:
-        DLLoader _loader;
+        DLLoader _loaderGraphic;
+        DLLoader _loaderGame;
         std::unique_ptr<IGraphic> _graphicLib;
         std::unique_ptr<IGame> _gameLib;
 
         void loadGraphic(const std::string & graphicLib);
+        void loadGame(const std::string & gameLib);
 
     public:
         Core();

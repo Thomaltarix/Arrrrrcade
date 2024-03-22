@@ -8,11 +8,11 @@
 #include "Arcade.hpp"
 #include <iostream>
 
-Arcade::Arcade()
+Arcade::Arcade::Arcade()
 {
 }
 
-int Arcade::start(int argc, char **argv)
+int Arcade::Arcade::start(int argc, char **argv)
 {
     if (!isSuccessfulParsing(argc))
         return 84;
@@ -25,7 +25,7 @@ int Arcade::start(int argc, char **argv)
     return 0;
 }
 
-bool Arcade::isSuccessfulParsing(int argc)
+bool Arcade::Arcade::isSuccessfulParsing(int argc)
 {
     if (argc == 2)
         return true;
@@ -33,7 +33,7 @@ bool Arcade::isSuccessfulParsing(int argc)
     return false;
 }
 
-void Arcade::displayUsage()
+void Arcade::Arcade::displayUsage()
 {
     std::cout << "USAGE: ./arcade lib\n\t"
     "lib is the .so graphiclib to launch arcade with" <<std::endl;

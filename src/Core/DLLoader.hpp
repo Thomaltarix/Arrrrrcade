@@ -11,29 +11,29 @@
 #include <dlfcn.h>
 #include <functional>
 
+namespace Arcade {
+    class DLLoader {
 
+        private:
+            void *_handle;
 
-class DLLoader {
+        public:
 
-    private:
-        void *_handle;
+            DLLoader();
+            ~DLLoader();
 
-    public:
+            void load(const std::string &libso);
 
-        DLLoader();
-        ~DLLoader();
+            template<typename T>
+            std::unique_ptr<T> getInstance(const std::string &function)
+            {
+                std::function<std::unique_ptr<T>()> sym;
 
-        void load(const std::string &libso);
-
-        template<typename T>
-        std::unique_ptr<T> getInstance(const std::string &function)
-        {
-            std::function<std::unique_ptr<T>()> sym;
-
-            sym = (std::unique_ptr<T>(*)())dlsym(_handle, function.c_str());
-            if (!sym) {
-                return nullptr;
+                sym = (std::unique_ptr<T>(*)())dlsym(_handle, function.c_str());
+                if (!sym) {
+                    return nullptr;
+                }
+                return sym();
             }
-            return sym();
-        }
-};
+    };
+}

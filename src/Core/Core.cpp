@@ -8,8 +8,9 @@
 #include "Core.hpp"
 #include <iostream>
 #include <filesystem>
+#include "keys.hpp"
 
-Core::Core()
+Arcade::Core::Core()
 {
     _isRunning = true;
     _idxGraphic = 0;
@@ -17,12 +18,12 @@ Core::Core()
     std::cout << "Core Created" << std::endl;
 }
 
-Core::~Core()
+Arcade::Core::~Core()
 {
     std::cout << "Core Deleted" << std::endl;
 }
 
-void Core::start(const std::string & graphicLib)
+void Arcade::Core::start(const std::string & graphicLib)
 {
     createlistsLibs(graphicLib);
     loadGraphic(_listGraphic[_idxGraphic]);
@@ -30,7 +31,7 @@ void Core::start(const std::string & graphicLib)
     gameLoop();
 }
 
-void Core::createlistsLibs(const std::string & graphicLib)
+void Arcade::Core::createlistsLibs(const std::string & graphicLib)
 {
     std::string path = "./lib/";
 
@@ -49,7 +50,7 @@ void Core::createlistsLibs(const std::string & graphicLib)
         throw Error(graphicLib + " does not exist.");
 }
 
-void Core::loadGraphic(const std::string & graphicLib)
+void Arcade::Core::loadGraphic(const std::string & graphicLib)
 {
     _loaderGraphic.load(graphicLib);
     _graphicLib = _loaderGraphic.getInstance<IGraphic>("loadGraphicInstance");
@@ -57,7 +58,7 @@ void Core::loadGraphic(const std::string & graphicLib)
         throw Error("failed to load Graphic Library (" + graphicLib + ")");
 }
 
-void Core::loadGame(const std::string & gameLib)
+void Arcade::Core::loadGame(const std::string & gameLib)
 {
     _loaderGame.load(gameLib);
     _gameLib = _loaderGame.getInstance<IGame>("loadGameInstance");
@@ -65,7 +66,7 @@ void Core::loadGame(const std::string & gameLib)
         throw Error("failed to load Graphic Library (" + gameLib + ")");
 }
 
-void Core::gameLoop()
+void Arcade::Core::gameLoop()
 {
     _gameLib->startGame();
     while(_graphicLib->isWindowOpen() && _isRunning) {
@@ -75,7 +76,7 @@ void Core::gameLoop()
     }
 }
 
-void Core::manageEvents()
+void Arcade::Core::manageEvents()
 {
     int key = _graphicLib->getKeyEvent();
 
@@ -102,22 +103,22 @@ void Core::manageEvents()
     _gameLib->catchKeyEvent(key);
 }
 
-void Core::commandExit()
+void Arcade::Core::commandExit()
 {
     _isRunning = false;
 }
 
-void Core::commandBackMenu()
+void Arcade::Core::commandBackMenu()
 {
     //implement when we will have a Menu
 }
 
-void Core::commandNextGame()
+void Arcade::Core::commandNextGame()
 {
     //implement when we will have a Game
 }
 
-void Core::commandNextGraphic()
+void Arcade::Core::commandNextGraphic()
 {
     _graphicLib = nullptr;
     if (_listGraphic.size() - 1 == _idxGraphic)
@@ -127,12 +128,12 @@ void Core::commandNextGraphic()
     loadGraphic(_listGraphic[_idxGraphic]);
 }
 
-void Core::commandRestartGame()
+void Arcade::Core::commandRestartGame()
 {
     //implement when we will have a Game
 }
 
-void Core::updateDraw()
+void Arcade::Core::updateDraw()
 {
     _graphicLib->clearWindow();
     _gameLib->simulate();
@@ -141,7 +142,7 @@ void Core::updateDraw()
     _graphicLib->displayText(_gameLib->getTexts());
 }
 
-void Core::renderDraw()
+void Arcade::Core::renderDraw()
 {
     _graphicLib->displayWindow();
 }

@@ -17,9 +17,9 @@ extern "C"
         std::cout << "Loading Menu library ..." << std::endl;
     }
 
-    std::unique_ptr<MENUlib> loadGameInstance()
+    std::unique_ptr<Arcade::Menu> loadGameInstance()
     {
-        return std::make_unique<MENUlib>();
+        return std::make_unique<Arcade::Menu>();
     }
 
     __attribute__((destructor))

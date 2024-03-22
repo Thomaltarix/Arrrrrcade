@@ -27,7 +27,7 @@ void Arcade::Core::start(const std::string & graphicLib)
 {
     createlistsLibs(graphicLib);
     loadGraphic(_listGraphic[_idxGraphic]);
-    loadGame("./lib/arcade_snake.so");
+    loadGame("./lib/arcade_menu.so");
     gameLoop();
 }
 

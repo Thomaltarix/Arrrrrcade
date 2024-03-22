@@ -13,7 +13,7 @@ OBJ			= $(SRC:.cpp=.o)
 NAME		= arcade_menu.so
 
 INCLUDE		=	-I../ -I../../include/
-CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20
+CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(INCLUDE)
 
 all: $(NAME)
 

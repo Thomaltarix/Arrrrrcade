@@ -22,7 +22,7 @@ Arcade::SDL2lib::SDL2lib()
         throw Error("SDL: Fail to init SDL");
     }
 
-    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &_Window, &_Renderer) < 0)
+    if (SDL_CreateWindowAndRenderer(725, 899, SDL_WINDOW_SHOWN, &_Window, &_Renderer) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());    
         SDL_Quit();

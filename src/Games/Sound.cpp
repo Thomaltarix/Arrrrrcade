@@ -7,40 +7,40 @@
 
 #include "Sound.hpp"
 
-Sound::Sound() {}
+Arcade::Sound::Sound() {}
 
-Sound::~Sound() {}
+Arcade::Sound::~Sound() {}
 
 // ------------------ SETTERS ------------------ //
 
-void Sound::setPathSound(const std::string &pathSound)
+void Arcade::Sound::setPathSound(const std::string &pathSound)
 {
     _pathSound = pathSound;
 }
 
-void Sound::setVolume(float volume)
+void Arcade::Sound::setVolume(float volume)
 {
     _volume = volume;
 }
 
-void Sound::setStatus(int status)
+void Arcade::Sound::setStatus(int status)
 {
     _status = status;
 }
 
 // ------------------ GETTERS ------------------ //
 
-std::string Sound::getPathSound()
+std::string Arcade::Sound::getPathSound()
 {
     return _pathSound;
 }
 
-float Sound::getVolume() const
+float Arcade::Sound::getVolume() const
 {
     return _volume;
 }
 
-int Sound::getStatus() const
+int Arcade::Sound::getStatus() const
 {
     return _status;
 }

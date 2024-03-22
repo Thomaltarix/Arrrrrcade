@@ -17,9 +17,9 @@ extern "C"
         std::cout << "Loading SFML library ..." << std::endl;
     }
 
-    std::unique_ptr<SFMLlib> loadGraphicInstance()
+    std::unique_ptr<Arcade::SFMLlib> loadGraphicInstance()
     {
-        return std::make_unique<SFMLlib>();
+        return std::make_unique<Arcade::SFMLlib>();
     }
 
     __attribute__((destructor))

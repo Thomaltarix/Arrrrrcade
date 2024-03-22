@@ -7,7 +7,7 @@
 
 #include "SFML.hpp"
 
-SFMLlib::SFMLlib()
+Arcade::SFMLlib::SFMLlib()
 {
     _window.create(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Close | sf::Style::Fullscreen);
     _window.setFramerateLimit(60);
@@ -17,33 +17,33 @@ SFMLlib::SFMLlib()
     _event = sf::Event();
 }
 
-SFMLlib::~SFMLlib()
+Arcade::SFMLlib::~SFMLlib()
 {
     closeWindow();
 }
 
 // ------------------ WINDOW ------------------ //
 
-bool SFMLlib::isWindowOpen() const
+bool Arcade::SFMLlib::isWindowOpen() const
 {
     return _window.isOpen();
 }
 
-void SFMLlib::closeWindow()
+void Arcade::SFMLlib::closeWindow()
 {
     _window.close();
     if (isWindowOpen())
         throw Error("SFML: Failed to close window");
 }
 
-void SFMLlib::clearWindow()
+void Arcade::SFMLlib::clearWindow()
 {
     _window.clear();
 }
 
 // ------------------ EVENT ------------------ //
 
-int SFMLlib::getKeyEvent()
+int Arcade::SFMLlib::getKeyEvent()
 {
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed)
@@ -61,24 +61,24 @@ int SFMLlib::getKeyEvent()
 
 // ------------------ DISPLAY ------------------ //
 
-void SFMLlib::displayWindow()
+void Arcade::SFMLlib::displayWindow()
 {
     _window.display();
 }
 
-void SFMLlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
+void Arcade::SFMLlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
     for (auto &entity : entities)
         _window.draw(getSprite(entity));
 }
 
-void SFMLlib::displayText(std::vector<std::shared_ptr<IText>> texts)
+void Arcade::SFMLlib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
     for (auto &text : texts)
         _window.draw(createText(text));
 }
 
-void SFMLlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
+void Arcade::SFMLlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 {
     for (auto &sound : sounds) {
         switch (sound->getStatus()) {
@@ -99,7 +99,7 @@ void SFMLlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 
 // ------------------ PRIVATE ------------------ //
 
-sf::Sprite SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
+sf::Sprite Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
 {
     sf::Sprite sprite;
     std::string path = entity->getPath();
@@ -119,7 +119,7 @@ sf::Sprite SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
     return sprite;
 }
 
-sf::Text SFMLlib::createText(std::shared_ptr<IText> text)
+sf::Text Arcade::SFMLlib::createText(std::shared_ptr<IText> text)
 {
     sf::Text sfText;
     sf::Color color;
@@ -143,7 +143,7 @@ sf::Text SFMLlib::createText(std::shared_ptr<IText> text)
     return sfText;
 }
 
-void SFMLlib::playSound(std::shared_ptr<ISound> sound, bool loop)
+void Arcade::SFMLlib::playSound(std::shared_ptr<ISound> sound, bool loop)
 {
     std::string path = sound->getPathSound();
 

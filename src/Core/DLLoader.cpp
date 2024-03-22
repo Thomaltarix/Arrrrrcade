@@ -8,18 +8,18 @@
 #include "DLLoader.hpp"
 #include <iostream>
 
-DLLoader::DLLoader()
+Arcade::DLLoader::DLLoader()
 {
     _handle = nullptr;
 };
 
-DLLoader::~DLLoader()
+Arcade::DLLoader::~DLLoader()
 {
     if (_handle != nullptr && dlclose(_handle) != 0)
         std::cerr << dlerror() << std::endl;
 };
 
-void DLLoader::load(const std::string &libso)
+void Arcade::DLLoader::load(const std::string &libso)
 {
     if (_handle != nullptr && dlclose(_handle) != 0)
             std::cerr << dlerror() << std::endl;

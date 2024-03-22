@@ -10,7 +10,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-SDL2lib::SDL2lib()
+Arcade::SDL2lib::SDL2lib()
 {
     _Window = nullptr;
     _Renderer = nullptr;
@@ -31,7 +31,7 @@ SDL2lib::SDL2lib()
     TTF_Init();
 }
 
-SDL2lib::~SDL2lib()
+Arcade::SDL2lib::~SDL2lib()
 {
     SDL_DestroyRenderer(_Renderer);
     SDL_DestroyWindow(_Window);
@@ -40,17 +40,17 @@ SDL2lib::~SDL2lib()
 
 //Window
 
-bool SDL2lib::isWindowOpen() const
+bool Arcade::SDL2lib::isWindowOpen() const
 {
     return _isOpen;
 }
 
-void SDL2lib::closeWindow()
+void Arcade::SDL2lib::closeWindow()
 {
     _isOpen = false;
 }
 
-void SDL2lib::clearWindow()
+void Arcade::SDL2lib::clearWindow()
 {
     SDL_SetRenderDrawColor(_Renderer, 0, 0, 0, 255);
     SDL_RenderClear(_Renderer);
@@ -58,7 +58,7 @@ void SDL2lib::clearWindow()
 
 //Event
 
-int SDL2lib::getKeyEvent()
+int Arcade::SDL2lib::getKeyEvent()
 {
     while (SDL_PollEvent(&_event)) {
         if (_event.type == SDL_QUIT)
@@ -76,12 +76,12 @@ int SDL2lib::getKeyEvent()
 
 //Display
 
-void SDL2lib::displayWindow()
+void Arcade::SDL2lib::displayWindow()
 {
     SDL_RenderPresent(_Renderer);
 }
 
-void SDL2lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
+void Arcade::SDL2lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
     for (auto &entity : entities) {
         std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture = getEntityTexture(entity.get()->getPath());
@@ -90,7 +90,7 @@ void SDL2lib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
     }
 }
 
-SDL_Rect SDL2lib::getRect(std::vector<std::size_t> pos, std::vector<std::size_t> size)
+SDL_Rect Arcade::SDL2lib::getRect(std::vector<std::size_t> pos, std::vector<std::size_t> size)
 {
     if (pos.size() != 2 || size.size() != 2)
         throw Error("SDL: Error with size or position vectors");
@@ -98,14 +98,14 @@ SDL_Rect SDL2lib::getRect(std::vector<std::size_t> pos, std::vector<std::size_t>
     return rect;
 }
 
-std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> SDL2lib::getEntityTexture(std::string path)
+std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> Arcade::SDL2lib::getEntityTexture(std::string path)
 {
     std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(IMG_Load((path + ".png").c_str()), SDL_FreeSurface);
     std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(_Renderer, surface.get()), SDL_DestroyTexture);
     return texture;
 }
 
-void SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
+void Arcade::SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
     for (auto &text : texts) {
         std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font = getFont(text.get()->getFontPath(), text.get()->getSize());
@@ -123,13 +123,13 @@ void SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
     }
 }
 
-std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> SDL2lib::getFont(std::string path, std::size_t size)
+std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> Arcade::SDL2lib::getFont(std::string path, std::size_t size)
 {
     std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font(TTF_OpenFont(path.c_str(), size), TTF_CloseFont);
     return font;
 }
 
-void SDL2lib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
+void Arcade::SDL2lib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 {
     (void) sounds;
     return;

@@ -7,6 +7,9 @@
 
 SRC			= 	getInstance.cpp \
 				menu.cpp \
+				../Sound.cpp \
+				../Text.cpp \
+				../Entity.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 

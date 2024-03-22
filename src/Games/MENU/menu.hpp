@@ -12,17 +12,19 @@
 namespace Arcade {
     class Menu : public virtual IGame {
         private:
+            std::vector<std::shared_ptr<Arcade::IEntity>> _listEntities;
+            void createEntityBackground();
         public:
             Menu();
             ~Menu();
 
             //Game
-            void startGame();
-            void stopGame();
+            int startGame();
+            int stopGame();
             int getScore();
-            void simulate();
+            int simulate();
 
-            // //Event
+            //Event
             void catchKeyEvent(int key);
 
             //Display

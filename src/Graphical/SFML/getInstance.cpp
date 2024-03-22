@@ -17,7 +17,7 @@ extern "C"
         std::cout << "Loading SFML library ..." << std::endl;
     }
 
-    std::unique_ptr<SFMLlib> getInstance()
+    std::unique_ptr<SFMLlib> loadGraphicInstance()
     {
         return std::make_unique<SFMLlib>();
     }

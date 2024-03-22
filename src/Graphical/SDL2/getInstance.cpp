@@ -17,7 +17,7 @@ extern "C"
         std::cout << "Loading SDL2 library ..." << std::endl;
     }
 
-    std::unique_ptr<SDL2lib> getInstance(void)
+    std::unique_ptr<SDL2lib> loadGraphicInstance()
     {
         return std::make_unique<SDL2lib>();
     }

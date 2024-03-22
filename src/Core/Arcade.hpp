@@ -9,15 +9,17 @@
 
 #include "Core.hpp"
 
-class Arcade {
+namespace Arcade {
+    class Arcade {
 
-    public:
-        Arcade();
-        ~Arcade() = default;
-        int start(int argc, char **argv);
+        public:
+            Arcade();
+            ~Arcade() = default;
+            int start(int argc, char **argv);
 
-    private:
-        Core _core;
-        bool isSuccessfulParsing(int argc);
-        void displayUsage();
-};
+        private:
+            Core _core;
+            bool isSuccessfulParsing(int argc);
+            void displayUsage();
+    };
+}

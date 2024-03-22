@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-    Arcade arcade;
+    Arcade::Arcade arcade;
 
     return arcade.start(argc, argv);
 }

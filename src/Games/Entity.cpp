@@ -9,7 +9,7 @@
 
 // Color
 
-Color::Color()
+Arcade::Color::Color()
 {
     _r = 255;
     _g = 255;
@@ -17,7 +17,7 @@ Color::Color()
     _a = 255;
 }
 
-void Color::setColor(short r, short g, short b, short a)
+void Arcade::Color::setColor(short r, short g, short b, short a)
 {
     _r = r;
     _g = g;
@@ -25,26 +25,26 @@ void Color::setColor(short r, short g, short b, short a)
     _a = a;
 }
 
-short Color::getR()
+short Arcade::Color::getR()
 {
     return _r;
 }
-short Color::getG()
+short Arcade::Color::getG()
 {
     return _g;
 }
-short Color::getB()
+short Arcade::Color::getB()
 {
     return _b;
 }
-short Color::getA()
+short Arcade::Color::getA()
 {
     return _a;
 }
 
 //Entity
 
-Entity::Entity()
+Arcade::Entity::Entity()
 {
     _pos.push_back(0);
     _pos.push_back(0);
@@ -56,54 +56,54 @@ Entity::Entity()
     _rotation = 0;
 }
 
-void Entity::setPos(std::size_t x, std::size_t y)
+void Arcade::Entity::setPos(std::size_t x, std::size_t y)
 {
     _pos[0] = x;
     _pos[1] = y;
 }
 
-void Entity::setSize(std::size_t x, std::size_t y)
+void Arcade::Entity::setSize(std::size_t x, std::size_t y)
 {
     _size[0] = x;
     _size[1] = y;
 }
 
-void Entity::setChar(char c)
+void Arcade::Entity::setChar(char c)
 {
     _c = c;
 }
 
-void Entity::setColor(std::unique_ptr<IColor> color)
+void Arcade::Entity::setColor(std::unique_ptr<IColor> color)
 {
     _color = std::move(color);
 }
 
-void Entity::setPath(const std::string &path)
+void Arcade::Entity::setPath(const std::string &path)
 {
     _path = path;
 }
 
-void Entity::setRotation(float rotation)
+void Arcade::Entity::setRotation(float rotation)
 {
     _rotation = rotation;
 }
 
-std::vector<std::size_t> Entity::getPos() const
+std::vector<std::size_t> Arcade::Entity::getPos() const
 {
     return _pos;
 }
 
-std::vector<std::size_t> Entity::getSize() const
+std::vector<std::size_t> Arcade::Entity::getSize() const
 {
     return _size;
 }
 
-int Entity::getChar() const
+int Arcade::Entity::getChar() const
 {
     return _c;
 }
 
-std::shared_ptr<IColor> Entity::getColor() const
+std::shared_ptr<Arcade::IColor> Arcade::Entity::getColor() const
 {
     std::shared_ptr<IColor> color = std::make_shared<Color>();
 
@@ -111,12 +111,12 @@ std::shared_ptr<IColor> Entity::getColor() const
     return color;
 }
 
-std::string Entity::getPath() const
+std::string Arcade::Entity::getPath() const
 {
     return _path;
 }
 
-float Entity::getRotation() const
+float Arcade::Entity::getRotation() const
 {
     return _rotation;
 }

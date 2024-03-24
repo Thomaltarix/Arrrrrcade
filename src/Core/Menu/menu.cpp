@@ -8,6 +8,7 @@
 #include "menu.hpp"
 #include "Entity.hpp"
 #include "Text.hpp"
+#include "keys.hpp"
 
 #include <iostream>
 
@@ -16,6 +17,7 @@ Arcade::Menu::Menu::Menu(std::vector<std::string> listGraphic, std::vector<std::
     _listGame = listGame;
     _listGraphic = listGraphic;
     _userName = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+    _userNameIndex = 0;
 }
 
 Arcade::Menu::Menu::~Menu()
@@ -50,6 +52,7 @@ int Arcade::Menu::Menu::getScore()
 
 int Arcade::Menu::Menu::simulate()
 {
+    _listText[0]->setText(_userName);
     return 0;
 }
 
@@ -57,7 +60,19 @@ int Arcade::Menu::Menu::simulate()
 
 void Arcade::Menu::Menu::catchKeyEvent(int key)
 {
-    (void) key;
+    if (key == Arcade::BACKSPACE) {
+        if (_userNameIndex != 0)
+            _userNameIndex -= 2;
+        _userName[_userNameIndex] = '_';
+        return;
+    }
+    if (key >= Arcade::A && key <= Arcade::Z) {
+        if (_userNameIndex != 30) {
+            _userName[_userNameIndex] = 65 + key;
+            _userNameIndex += 2;
+        }
+        return;
+    }
 }
 
 //Display

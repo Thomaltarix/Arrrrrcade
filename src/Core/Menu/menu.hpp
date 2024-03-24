@@ -17,7 +17,9 @@ namespace Arcade {
                 std::vector<std::shared_ptr<Arcade::IText>> _listText;
                 std::vector<std::string> _listGraphic;
                 std::vector<std::string> _listGame;
+
                 std::string _userName;
+                std::size_t _userNameIndex;
 
                 void createEntityBackground();
                 void createEntityPlay();

@@ -58,14 +58,16 @@ Arcade::Entity::Entity()
 
 void Arcade::Entity::setPos(std::size_t x, std::size_t y)
 {
-    _pos[0] = x;
-    _pos[1] = y;
+    _pos.clear();
+    _pos.push_back(x);
+    _pos.push_back(y);
 }
 
 void Arcade::Entity::setSize(std::size_t x, std::size_t y)
 {
-    _size[0] = x;
-    _size[1] = y;
+    _size.clear();
+    _size.push_back(x);
+    _size.push_back(y);
 }
 
 void Arcade::Entity::setChar(char c)

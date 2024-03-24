@@ -30,8 +30,9 @@ void Arcade::Text::setColor(std::unique_ptr<IColor> color)
 
 void Arcade::Text::setPos(std::size_t x, std::size_t y)
 {
-    _pos[0] = x;
-    _pos[1] = y;
+    _pos.clear();
+    _pos.push_back(x);
+    _pos.push_back(y);
 }
 
 void Arcade::Text::setSize(std::size_t x)

@@ -10,6 +10,7 @@
 #include "DLLoader.hpp"
 #include "IGraphic.hpp"
 #include "IGame.hpp"
+#include "menu.hpp"
 
 namespace Arcade {
     class Core {
@@ -24,6 +25,7 @@ namespace Arcade {
             std::vector<std::string> _listGame;
             std::size_t _idxGame;
             std::size_t _idxGraphic;
+            std::unique_ptr<Menu::Menu> _menu;
 
             void loadGraphic(const std::string & graphicLib);
             void loadGame(const std::string & gameLib);

@@ -28,6 +28,7 @@ namespace Arcade {
                 void createButton(std::size_t posx, std::size_t posy, std::size_t sizex, std::size_t sizey);
 
                 void createText(std::string text, std::size_t posx, std::size_t posy, std::size_t size);
+                void createLibsTexts();
 
             public:
                 Menu(std::vector<std::string> listGraphic, std::vector<std::string> listGame);

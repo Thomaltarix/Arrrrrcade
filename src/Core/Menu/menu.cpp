@@ -37,6 +37,7 @@ int Arcade::Menu::Menu::startGame()
 
     //Text creation
     createText(_userName, 5, 23, 24);
+    createLibsTexts();
     return 0;
 }
 
@@ -148,6 +149,29 @@ void Arcade::Menu::Menu::createButton(  std::size_t posx, std::size_t posy,
 std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
 {
     return _listText;
+}
+
+void Arcade::Menu::Menu::createLibsTexts()
+{
+    std::size_t pos = 6;
+    std::string tmp;
+
+    for (std::size_t i = 0; i < _listGraphic.size(); i++) {
+        tmp = _listGraphic[i];
+        tmp.erase(0, 13);
+        tmp.erase(tmp.length() - 3, 3);
+        createText(tmp, 6, pos, 18);
+        pos += 4;
+    }
+
+    pos = 6;
+    for (std::size_t i = 0; i < _listGame.size(); i++) {
+        tmp = _listGame[i];
+        tmp.erase(0, 13);
+        tmp.erase(tmp.length() - 3, 3);
+        createText(tmp, 16, pos, 18);
+        pos += 4;
+    }
 }
 
 void Arcade::Menu::Menu::createText(std::string text, std::size_t posx, std::size_t posy, std::size_t size)

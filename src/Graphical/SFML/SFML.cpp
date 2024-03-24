@@ -111,7 +111,7 @@ sf::Sprite Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
         }
         _textures[path] = texture;
     }
-    sprite.setPosition(entity->getPos()[0], entity->getPos()[1]);
+    sprite.setPosition(entity->getPos()[0] * 29, entity->getPos()[1] * 29);
     sprite.setScale(entity->getSize()[0] / _textures[path].getSize().x,
                     entity->getSize()[1] / _textures[path].getSize().y);
     sprite.setRotation(entity->getRotation());
@@ -139,7 +139,7 @@ sf::Text Arcade::SFMLlib::createText(std::shared_ptr<IText> text)
                     text->getColor()->getB(),
                     text->getColor()->getA());
     sfText.setFillColor(color);
-    sfText.setPosition(text->getPos()[0], text->getPos()[1]);
+    sfText.setPosition(text->getPos()[0] * 29, text->getPos()[1] * 29);
     return sfText;
 }
 

@@ -12,12 +12,16 @@
 
 #include <iostream>
 
-Arcade::Menu::Menu::Menu(std::vector<std::string> listGraphic, std::vector<std::string> listGame)
+Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
+                            std::vector<std::string> listGame,
+                            std::string selectedGraphic)
 {
+    _isPlayPressed = false;
     _listGame = listGame;
     _listGraphic = listGraphic;
     _userName = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
     _userNameIndex = 0;
+    _selectedGraphic = selectedGraphic;
 }
 
 Arcade::Menu::Menu::~Menu()
@@ -38,6 +42,10 @@ int Arcade::Menu::Menu::startGame()
     //Text creation
     createText(_userName, 5, 23, 24);
     createLibsTexts();
+
+    _cursor.push_back(3);
+    _cursor.push_back(1);
+
     return 0;
 }
 
@@ -54,6 +62,8 @@ int Arcade::Menu::Menu::getScore()
 int Arcade::Menu::Menu::simulate()
 {
     _listText[0]->setText(_userName);
+    if (_isPlayPressed && _selectedGame != "" && _selectedGraphic != "")
+        return 1;
     return 0;
 }
 
@@ -74,6 +84,166 @@ void Arcade::Menu::Menu::catchKeyEvent(int key)
         }
         return;
     }
+    handleEnterKey(key);
+    handleArrowKey(key);
+}
+
+void Arcade::Menu::Menu::handleEnterKey(int key)
+{
+    std::vector<std::size_t> tmp = _cursor;
+
+    if (key == Arcade::ENTER) {
+        changeButtonState(BUTTON_PRESSED);
+        if (_cursor[0] == 1 && _selectedGraphic != _listGraphic[_cursor[1] - 1]) {
+            for (std::size_t i = 0; i < _listGraphic.size(); i++) {
+                if (_selectedGraphic == _listGraphic[i]) {
+                    _cursor[1] = i + 1;
+                    _selectedGraphic = _listGraphic[tmp[1] - 1];
+                    changeButtonState(BUTTON_IDLE);
+                }
+            }
+            _cursor = tmp;
+        }
+        if (_cursor[0] == 2 && _selectedGame != _listGame[_cursor[1] - 1]) {
+            for (std::size_t i = 0; i < _listGame.size(); i++) {
+                if (_selectedGame == _listGame[i]) {
+                    _cursor[1] = i + 1;
+                    _selectedGame = _listGame[tmp[1] - 1];
+                    changeButtonState(BUTTON_IDLE);
+                }
+            }
+            _cursor = tmp;
+        }
+        if (_cursor[0] == 3) {
+            _isPlayPressed = true;
+        }
+    }
+}
+
+void Arcade::Menu::Menu::handleArrowKey(int key)
+{
+    switch (key)
+    {
+    case Arcade::UP:
+        keyUp();
+        break;
+    case Arcade::DOWN:
+        keyDown();
+        break;    
+    case Arcade::LEFT:
+        keyLeft();
+        break;
+    case Arcade::RIGHT:
+        keyRight();
+        break;
+    default:
+        break;
+    }
+}
+
+void Arcade::Menu::Menu::keyUp()
+{
+    if (_cursor[0] == 3) {
+        changeButtonState(BUTTON_IDLE);
+        _cursor[0] = 1;
+        _cursor[1] = _listGraphic.size();
+        changeButtonState(BUTTON_SELECTED);
+        return;
+    }
+    if (_cursor[0] == 2) {
+        if (_cursor[1] != 1) {
+            changeButtonState(BUTTON_IDLE);
+            _cursor[1] -= 1;
+            changeButtonState(BUTTON_SELECTED);
+        }
+        return;
+    }
+    if (_cursor[0] == 1) {
+        if (_cursor[1] != 1) {
+            changeButtonState(BUTTON_IDLE);
+            _cursor[1] -= 1;
+            changeButtonState(BUTTON_SELECTED);
+        }
+        return;
+    }
+}
+
+void Arcade::Menu::Menu::keyDown()
+{
+    if (_cursor[0] == 3)
+        return;
+    if (_cursor[0] == 2) {
+        changeButtonState(BUTTON_IDLE);
+        if (_cursor[1] != _listGame.size())
+            _cursor[1] += 1;
+        else {
+            _cursor[0] = 3;
+            _cursor[1] = 1;
+        }
+        changeButtonState(BUTTON_SELECTED);
+        return;
+    }
+    if (_cursor[0] == 1) {
+        changeButtonState(BUTTON_IDLE);
+        if (_cursor[1] != _listGraphic.size())
+            _cursor[1] += 1;
+        else {
+            _cursor[0] = 3;
+            _cursor[1] = 1;
+        }
+        changeButtonState(BUTTON_SELECTED);
+        return;
+    }
+}
+
+void Arcade::Menu::Menu::keyLeft()
+{
+    if (_cursor[0] == 3)
+        return;
+    if (_cursor[0] == 1)
+        return;
+    if (_cursor[0] == 2) {
+        if (_listGraphic.size() == 0)
+            return;
+        changeButtonState(BUTTON_IDLE);
+        _cursor[0] = 1;
+        if (_cursor[1] > _listGraphic.size())
+            _cursor[1] = _listGraphic.size();
+        changeButtonState(BUTTON_SELECTED);
+    }
+}
+
+void Arcade::Menu::Menu::keyRight()
+{
+    if (_cursor[0] == 3)
+        return;
+    if (_cursor[0] == 2)
+        return;
+    if (_cursor[0] == 1) {
+        if (_listGame.size() == 0)
+            return;
+        changeButtonState(BUTTON_IDLE);
+        _cursor[0] = 2;
+        if (_cursor[1] > _listGame.size())
+            _cursor[1] = _listGame.size();
+        changeButtonState(BUTTON_SELECTED);
+    }
+}
+
+void Arcade::Menu::Menu::changeButtonState(std::string path)
+{
+    if (path == BUTTON_IDLE) {
+        if (_cursor[0] == 1 && _listGraphic[_cursor[1] - 1] == _selectedGraphic)
+            path = BUTTON_PRESSED;
+        if (_cursor[0] == 2 && _listGame[_cursor[1] - 1] == _selectedGame)
+            path = BUTTON_PRESSED;        
+    }
+    if (_cursor[0] == 3)
+        _listEntities[1]->setPath(path);
+    if (_cursor[0] == 1)
+        _listEntities[2 + _cursor[1]]->setPath(path);
+    if (_cursor[0] == 2)
+        _listEntities[2 + _listGraphic.size() + _cursor[1]]->setPath(path);
 }
 
 //Display
@@ -103,12 +273,12 @@ void Arcade::Menu::Menu::createEntityBackground()
 
 void Arcade::Menu::Menu::createEntityPlay()
 {
-    createButton(10, 26, 164, 76);
+    createButton(10, 26, 164, 76, BUTTON_SELECTED);
 }
 
 void Arcade::Menu::Menu::createUserName()
 {
-    createButton(4, 22, 492, 76);
+    createButton(4, 22, 492, 76, BUTTON_IDLE);
 }
 
 void Arcade::Menu::Menu::createLibsButtons()
@@ -116,23 +286,26 @@ void Arcade::Menu::Menu::createLibsButtons()
     std::size_t pos = 5;
 
     for (std::size_t i = 0; i < _listGraphic.size(); i++) {
-        createButton(5, pos, 164, 76);
+        if (_listGraphic[i] == _selectedGraphic)
+            createButton(5, pos, 164, 76, BUTTON_PRESSED);
+        else
+            createButton(5, pos, 164, 76, BUTTON_IDLE);
         pos += 4;
     }
 
     pos = 5;
     for (std::size_t i = 0; i < _listGame.size(); i++) {
-        createButton(15, pos, 164, 76);
+        createButton(15, pos, 164, 76, BUTTON_IDLE);
         pos += 4;
     }
 }
 
 void Arcade::Menu::Menu::createButton(  std::size_t posx, std::size_t posy,
-                                        std::size_t sizex, std::size_t sizey)
+                                        std::size_t sizex, std::size_t sizey,
+                                        std::string path)
 {
     std::shared_ptr<IEntity> entity = std::make_shared<Entity>();
     std::unique_ptr<IColor> color = std::make_unique<Color>();
-    std::string path = "src/Core/Menu/assets/button-idle";
 
     color->setColor(0, 0, 0, 255);
 

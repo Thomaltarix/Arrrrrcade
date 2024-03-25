@@ -27,7 +27,7 @@ void Arcade::Core::start(const std::string & graphicLib)
 {
     createlistsLibs(graphicLib);
     loadGraphic(_listGraphic[_idxGraphic]);
-    _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame);
+    _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, graphicLib);
     _gameLib = std::move(_menu);
     gameLoop();
 }

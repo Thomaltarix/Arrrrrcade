@@ -109,6 +109,7 @@ void Arcade::Menu::Menu::handleEnterKey(int key)
             for (std::size_t i = 0; i < _listGraphic.size(); i++) {
                 if (_selectedGraphic == _listGraphic[i]) {
                     _cursor[1] = i + 1;
+                    _selectedGraphic = _listGraphic[tmp[1] - 1];
                     changeButtonState(BUTTON_IDLE);
                 }
             }
@@ -119,6 +120,7 @@ void Arcade::Menu::Menu::handleEnterKey(int key)
             for (std::size_t i = 0; i < _listGame.size(); i++) {
                 if (_selectedGame == _listGame[i]) {
                     _cursor[1] = i + 1;
+                    _selectedGraphic = _listGraphic[tmp[1] - 1];
                     changeButtonState(BUTTON_IDLE);
                 }
             }

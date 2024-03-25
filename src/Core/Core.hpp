@@ -41,6 +41,8 @@ namespace Arcade {
             void commandNextGraphic();
             void commandRestartGame();
 
+            void changeGameFromMenu(int code);
+
         public:
             Core();
             ~Core();

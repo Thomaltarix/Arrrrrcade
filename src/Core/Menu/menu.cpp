@@ -9,7 +9,7 @@
 #include "Entity.hpp"
 #include "Text.hpp"
 #include "keys.hpp"
-
+#include <algorithm>
 #include <iostream>
 
 Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
@@ -22,6 +22,7 @@ Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
     _userName = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
     _userNameIndex = 0;
     _selectedGraphic = selectedGraphic;
+    _selectedGame = "";
 }
 
 Arcade::Menu::Menu::~Menu()
@@ -38,7 +39,6 @@ int Arcade::Menu::Menu::startGame()
     createEntityPlay();
     createUserName();
     createLibsButtons();
-
     //Text creation
     createText(_userName, 5, 23, 24);
     createLibsTexts();
@@ -61,10 +61,21 @@ int Arcade::Menu::Menu::getScore()
 
 int Arcade::Menu::Menu::simulate()
 {
+    int returnCode = 0;
+
     _listText[0]->setText(_userName);
-    if (_isPlayPressed && _selectedGame != "" && _selectedGraphic != "")
-        return 1;
-    return 0;
+    if (_isPlayPressed && _selectedGame != "" && _selectedGraphic != "") {
+        for (int i = 0; i < (int)_listGraphic.size(); i++) {
+            if (_selectedGraphic == _listGraphic[i])
+                returnCode += (i+1) * 10;
+        }
+        for (int i = 0; i < (int)_listGame.size(); i++) {
+            if (_selectedGame == _listGame[i])
+                returnCode += (i+1);
+        }
+    }
+    _isPlayPressed = false;
+    return returnCode;
 }
 
 //Event
@@ -98,20 +109,20 @@ void Arcade::Menu::Menu::handleEnterKey(int key)
             for (std::size_t i = 0; i < _listGraphic.size(); i++) {
                 if (_selectedGraphic == _listGraphic[i]) {
                     _cursor[1] = i + 1;
-                    _selectedGraphic = _listGraphic[tmp[1] - 1];
                     changeButtonState(BUTTON_IDLE);
                 }
             }
+            _selectedGraphic = _listGraphic[tmp[1] - 1];
             _cursor = tmp;
         }
         if (_cursor[0] == 2 && _selectedGame != _listGame[_cursor[1] - 1]) {
             for (std::size_t i = 0; i < _listGame.size(); i++) {
                 if (_selectedGame == _listGame[i]) {
                     _cursor[1] = i + 1;
-                    _selectedGame = _listGame[tmp[1] - 1];
                     changeButtonState(BUTTON_IDLE);
                 }
             }
+            _selectedGame = _listGame[tmp[1] - 1];
             _cursor = tmp;
         }
         if (_cursor[0] == 3) {

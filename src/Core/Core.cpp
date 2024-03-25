@@ -136,8 +136,11 @@ void Arcade::Core::commandRestartGame()
 
 void Arcade::Core::updateDraw()
 {
+    int code;
     _graphicLib->clearWindow();
-    _gameLib->simulate();
+    code = _gameLib->simulate();
+    if (code != 0)
+        changeGameFromMenu(code);
     _graphicLib->playSound(_gameLib->getSounds());
     _graphicLib->displayEntities(_gameLib->getEntities());
     _graphicLib->displayText(_gameLib->getTexts());
@@ -146,4 +149,25 @@ void Arcade::Core::updateDraw()
 void Arcade::Core::renderDraw()
 {
     _graphicLib->displayWindow();
+}
+
+void Arcade::Core::changeGameFromMenu(int code)
+{
+    std::string graphic;
+    std::string game;
+
+    std::cout << "code : " << code << std::endl;
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get())) {
+        if ((code % 10) - 1 >= (int)_listGame.size())
+            throw Error("To much games : only 10 allowed");
+        if ((code / 10) - 1 >= (int)_listGraphic.size())
+            throw Error("To much graphiclib : only 10 allowed");
+        game = _listGame[(code % 10) - 1];
+        graphic = _listGraphic[(code / 10) - 1];
+        _graphicLib = nullptr;
+        _gameLib = nullptr;
+        loadGraphic(graphic);
+        loadGame(game);
+        _gameLib->startGame();
+    }
 }

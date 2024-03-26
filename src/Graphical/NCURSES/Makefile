@@ -5,14 +5,17 @@
 ## Ncurses Makefile
 ##
 
-SRC			= ncurses.cpp \
+SRC			=	getInstance.cpp \
+				ncurses.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_ncurses.so
 
-GRPHFLAGS	=	-lncurses
-CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS)
+INCLUDE		=	-I../ -I../../include/
+GRPHFLAGS	=	-lsfml-graphics
+CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) \
+				$(INCLUDE)
 
 all: $(NAME)
 

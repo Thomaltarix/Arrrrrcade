@@ -156,18 +156,24 @@ void Arcade::Core::changeGameFromMenu(int code)
     std::string graphic;
     std::string game;
 
-    std::cout << "code : " << code << std::endl;
     if (dynamic_cast<Menu::Menu*>(_gameLib.get())) {
         if ((code % 10) - 1 >= (int)_listGame.size())
             throw Error("To much games : only 10 allowed");
         if ((code / 10) - 1 >= (int)_listGraphic.size())
             throw Error("To much graphiclib : only 10 allowed");
-        game = _listGame[(code % 10) - 1];
-        graphic = _listGraphic[(code / 10) - 1];
+        _idxGame = (code % 10) - 1;
+        _idxGraphic = (code / 10) - 1;
+        game = _listGame[_idxGame];
+        graphic = _listGraphic[_idxGraphic];
         _graphicLib = nullptr;
         _gameLib = nullptr;
         loadGraphic(graphic);
         loadGame(game);
+        _gameLib->startGame();
+    } else if (code == -1) {
+        _gameLib->stopGame();
+        _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
+        _gameLib = std::move(_menu);
         _gameLib->startGame();
     }
 }

@@ -8,11 +8,11 @@
 #include "ncurses.hpp"
 #include <ncurses.h>
 
-NCURSESlib::~NCURSESlib() {
+Arcade::NCURSESlib::~NCURSESlib() {
     _isOpen = false;
 };
 
-NCURSESlib::NCURSESlib() {
+Arcade::NCURSESlib::NCURSESlib() {
     _isOpen = true;
     initscr();
     keypad(stdscr, TRUE);
@@ -20,24 +20,24 @@ NCURSESlib::NCURSESlib() {
     timeout(500);
 };
 
-bool NCURSESlib::isWindowOpen() const {
+bool Arcade::NCURSESlib::isWindowOpen() const {
     return _isOpen;
 };
 
-void NCURSESlib::closeWindow() {
+void Arcade::NCURSESlib::closeWindow() {
     _isOpen = false;
     endwin();
 };
 
-void NCURSESlib::clearWindow() {
+void Arcade::NCURSESlib::clearWindow() {
     clear();
 };
 
-void NCURSESlib::displayWindow() {
+void Arcade::NCURSESlib::displayWindow() {
     refresh();
 };
 
-int NCURSESlib::getKeyEvent() {
+int Arcade::NCURSESlib::getKeyEvent() {
     int touche = getch();
 
     if (touche == '\033')
@@ -53,7 +53,7 @@ int NCURSESlib::getKeyEvent() {
     return -1;
 };
 
-void NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities) {
+void Arcade::NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities) {
     int char_todisp;
 
     for (auto &entity : entities) {
@@ -62,13 +62,13 @@ void NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
     }
 };
 
-void NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts) {
+void Arcade::NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts) {
     for (auto &text : texts) {
         mvprintw(text.get()->getPos()[0], text.get()->getPos()[1], text.get()->getText().c_str());
     }
 };
 
-void NCURSESlib::playSound(std::vector<std::shared_ptr<ISound>> sounds) {
+void Arcade::NCURSESlib::playSound(std::vector<std::shared_ptr<ISound>> sounds) {
     (void) sounds;
 
     return;

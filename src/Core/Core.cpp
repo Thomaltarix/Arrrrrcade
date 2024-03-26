@@ -121,7 +121,16 @@ void Arcade::Core::commandBackMenu()
 
 void Arcade::Core::commandNextGame()
 {
-    //implement when we will have a Game
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
+        return;
+    _gameLib->stopGame();
+    _gameLib = nullptr;
+    if (_listGame.size() - 1 == _idxGame)
+        _idxGame = 0;
+    else
+        _idxGame += 1;
+    loadGame(_listGame[_idxGame]);
+    _gameLib->startGame();
 }
 
 void Arcade::Core::commandNextGraphic()

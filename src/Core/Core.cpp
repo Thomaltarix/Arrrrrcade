@@ -136,7 +136,10 @@ void Arcade::Core::commandNextGraphic()
 
 void Arcade::Core::commandRestartGame()
 {
-    //implement when we will have a Game
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
+        return;
+    _gameLib->stopGame();
+    _gameLib->startGame();
 }
 
 void Arcade::Core::updateDraw()

@@ -17,9 +17,9 @@ extern "C"
     }
 
 
-    std::unique_ptr<NCURSESlib> getInstance(void)
+    std::unique_ptr<Arcade::NCURSESlib> loadGraphicInstance(void)
     {
-        return std::make_unique<NCURSESlib>();
+        return std::make_unique<Arcade::NCURSESlib>();
     }
 
     __attribute__((destructor))

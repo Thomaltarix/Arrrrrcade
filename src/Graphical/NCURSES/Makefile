@@ -13,7 +13,7 @@ OBJ			= $(SRC:.cpp=.o)
 NAME		= arcade_ncurses.so
 
 INCLUDE		=	-I../ -I../../include/
-GRPHFLAGS	=	-lsfml-graphics
+GRPHFLAGS	=	-lncurses
 CXXFLAGS 	= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(GRPHFLAGS) \
 				$(INCLUDE)
 

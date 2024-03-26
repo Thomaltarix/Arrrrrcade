@@ -19,7 +19,8 @@ Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
     _isPlayPressed = false;
     _listGame = listGame;
     _listGraphic = listGraphic;
-    _userName = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+    _userNameDisplay = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+    _userName = "";
     _userNameIndex = 0;
     _selectedGraphic = selectedGraphic;
     _selectedGame = "";
@@ -40,7 +41,7 @@ int Arcade::Menu::Menu::startGame()
     createUserName();
     createLibsButtons();
     //Text creation
-    createText(_userName, 5, 23, 24);
+    createText(_userNameDisplay, 5, 23, 24);
     createLibsTexts();
 
     _cursor.push_back(3);
@@ -63,8 +64,8 @@ int Arcade::Menu::Menu::simulate()
 {
     int returnCode = 0;
 
-    _listText[0]->setText(_userName);
-    if (_isPlayPressed && _selectedGame != "" && _selectedGraphic != "") {
+    _listText[0]->setText(_userNameDisplay);
+    if (_isPlayPressed && _selectedGame != "" && _selectedGraphic != "" && _userName != "") {
         for (int i = 0; i < (int)_listGraphic.size(); i++) {
             if (_selectedGraphic == _listGraphic[i])
                 returnCode += (i+1) * 10;
@@ -85,12 +86,15 @@ void Arcade::Menu::Menu::catchKeyEvent(int key)
     if (key == Arcade::BACKSPACE) {
         if (_userNameIndex != 0)
             _userNameIndex -= 2;
-        _userName[_userNameIndex] = '_';
+        _userNameDisplay[_userNameIndex] = '_';
+        if (!_userName.empty())
+            _userName.pop_back();
         return;
     }
     if (key >= Arcade::A && key <= Arcade::Z) {
         if (_userNameIndex != 30) {
-            _userName[_userNameIndex] = 65 + key;
+            _userNameDisplay[_userNameIndex] = 65 + key;
+            _userName += _userNameDisplay[_userNameIndex];
             _userNameIndex += 2;
         }
         return;

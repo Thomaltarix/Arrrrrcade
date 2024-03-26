@@ -28,6 +28,7 @@ namespace Arcade {
 
                 std::vector<std::size_t> _cursor;
 
+                std::string _userNameDisplay;
                 std::string _userName;
                 std::size_t _userNameIndex;
 

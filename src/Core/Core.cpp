@@ -111,7 +111,12 @@ void Arcade::Core::commandExit()
 
 void Arcade::Core::commandBackMenu()
 {
-    //implement when we will have a Menu
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
+        return;
+    _gameLib->stopGame();
+    _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
+    _gameLib = std::move(_menu);
+    _gameLib->startGame();
 }
 
 void Arcade::Core::commandNextGame()

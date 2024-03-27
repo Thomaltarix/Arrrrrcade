@@ -274,7 +274,7 @@ void Arcade::Menu::Menu::createEntityBackground()
 {
     std::shared_ptr<IEntity> back = std::make_shared<Entity>();
     std::unique_ptr<IColor> color = std::make_unique<Color>();
-    std::string path = "src/Core/Menu/assets/background";
+    std::string path = "assets/menu/background";
 
     color->setColor(0, 0, 0, 255);
 
@@ -372,7 +372,7 @@ void Arcade::Menu::Menu::createText(std::string text, std::size_t posx, std::siz
     color->setColor(0, 0, 0, 255);
 
     myText->setColor(std::move(color));
-    myText->setFontPath("src/Core/Menu/assets/SimplyMono-Bold");
+    myText->setFontPath("assets/menu/SimplyMono-Bold");
     myText->setPos(posx, posy);
     myText->setRotation(0);
     myText->setSize(size);

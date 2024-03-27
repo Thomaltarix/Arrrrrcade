@@ -9,9 +9,9 @@
 
 #include "IGame.hpp"
 
-#define BUTTON_IDLE "src/Core/Menu/assets/button-idle"
-#define BUTTON_PRESSED "src/Core/Menu/assets/button-pressed"
-#define BUTTON_SELECTED "src/Core/Menu/assets/button-selected"
+#define BUTTON_IDLE "assets/menu/button-idle"
+#define BUTTON_PRESSED "assets/menu/button-pressed"
+#define BUTTON_SELECTED "assets/menu/button-selected"
 
 namespace Arcade {
     namespace Menu {

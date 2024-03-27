@@ -11,7 +11,7 @@ SRC			= 	DLLoader.cpp \
 				Core.cpp \
 				Arcade.cpp \
 				\
-				Menu/menu.cpp \
+				Menu/Menu.cpp \
 				Menu/Entity.cpp \
 				Menu/Text.cpp \
 				Menu/Sound.cpp \

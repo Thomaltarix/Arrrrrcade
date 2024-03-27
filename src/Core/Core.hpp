@@ -10,7 +10,7 @@
 #include "DLLoader.hpp"
 #include "IGraphic.hpp"
 #include "IGame.hpp"
-#include "menu.hpp"
+#include "Menu.hpp"
 
 namespace Arcade {
     class Core {

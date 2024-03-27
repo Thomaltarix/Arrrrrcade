@@ -5,7 +5,7 @@
 ** menu
 */
 
-#include "menu.hpp"
+#include "Menu.hpp"
 #include "Entity.hpp"
 #include "Text.hpp"
 #include "keys.hpp"

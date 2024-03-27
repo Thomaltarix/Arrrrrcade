@@ -10,6 +10,7 @@ MAIN 		= main.cpp \
 SRC			= 	DLLoader.cpp \
 				Core.cpp \
 				Arcade.cpp \
+				Saveinfo.cpp \
 				\
 				Menu/Menu.cpp \
 				Menu/Entity.cpp \

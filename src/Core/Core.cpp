@@ -124,7 +124,7 @@ void Arcade::Core::commandNextGame()
     if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
         return;
     _gameLib->stopGame();
-    _gameLib = nullptr;
+    _gameLib.reset();
     if (_listGame.size() - 1 == _idxGame)
         _idxGame = 0;
     else
@@ -135,7 +135,7 @@ void Arcade::Core::commandNextGame()
 
 void Arcade::Core::commandNextGraphic()
 {
-    _graphicLib = nullptr;
+    _graphicLib.reset();
     if (_listGraphic.size() - 1 == _idxGraphic)
         _idxGraphic = 0;
     else
@@ -182,8 +182,8 @@ void Arcade::Core::changeGameFromMenu(int code)
         _idxGraphic = (code / 10) - 1;
         game = _listGame[_idxGame];
         graphic = _listGraphic[_idxGraphic];
-        _graphicLib = nullptr;
-        _gameLib = nullptr;
+        _graphicLib.reset();
+        _gameLib.reset();
         loadGraphic(graphic);
         loadGame(game);
         _gameLib->startGame();

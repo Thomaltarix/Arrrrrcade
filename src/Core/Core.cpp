@@ -156,8 +156,10 @@ void Arcade::Core::updateDraw()
     int code;
     _graphicLib->clearWindow();
     code = _gameLib->simulate();
-    if (code != 0)
+    if (code != 0) {
         changeGameFromMenu(code);
+        stopGame(code);
+    }
     _graphicLib->playSound(_gameLib->getSounds());
     _graphicLib->displayEntities(_gameLib->getEntities());
     _graphicLib->displayText(_gameLib->getTexts());
@@ -187,7 +189,15 @@ void Arcade::Core::changeGameFromMenu(int code)
         loadGraphic(graphic);
         loadGame(game);
         _gameLib->startGame();
-    } else if (code == -1) {
+    }
+}
+
+void Arcade::Core::stopGame(int code)
+{
+    int score = 0;
+
+    if (code == -1) {
+        score = _gameLib->getScore();
         _gameLib->stopGame();
         _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
         _gameLib = std::move(_menu);

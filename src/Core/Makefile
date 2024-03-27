@@ -10,6 +10,11 @@ MAIN 		= main.cpp \
 SRC			= 	DLLoader.cpp \
 				Core.cpp \
 				Arcade.cpp \
+				\
+				Menu/Menu.cpp \
+				Menu/Entity.cpp \
+				Menu/Text.cpp \
+				Menu/Sound.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
@@ -17,7 +22,7 @@ MAIN_OBJ	= $(MAIN:.cpp=.o)
 
 NAME		= arcade
 
-INCLUDE		= -I../include
+INCLUDE		= -I../include -I./Menu/
 DLFLAG		= -fno-gnu-unique
 CXXFLAGS 	= -std=c++20 -Wall -Wextra -Werror -g $(DLFLAG) $(INCLUDE)
 

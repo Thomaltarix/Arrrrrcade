@@ -27,7 +27,8 @@ void Arcade::Core::start(const std::string & graphicLib)
 {
     createlistsLibs(graphicLib);
     loadGraphic(_listGraphic[_idxGraphic]);
-    loadGame("./lib/arcade_snake.so");
+    _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, graphicLib);
+    _gameLib = std::move(_menu);
     gameLoop();
 }
 
@@ -110,17 +111,31 @@ void Arcade::Core::commandExit()
 
 void Arcade::Core::commandBackMenu()
 {
-    //implement when we will have a Menu
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
+        return;
+    _gameLib->stopGame();
+    _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
+    _gameLib = std::move(_menu);
+    _gameLib->startGame();
 }
 
 void Arcade::Core::commandNextGame()
 {
-    //implement when we will have a Game
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
+        return;
+    _gameLib->stopGame();
+    _gameLib.reset();
+    if (_listGame.size() - 1 == _idxGame)
+        _idxGame = 0;
+    else
+        _idxGame += 1;
+    loadGame(_listGame[_idxGame]);
+    _gameLib->startGame();
 }
 
 void Arcade::Core::commandNextGraphic()
 {
-    _graphicLib = nullptr;
+    _graphicLib.reset();
     if (_listGraphic.size() - 1 == _idxGraphic)
         _idxGraphic = 0;
     else
@@ -130,13 +145,19 @@ void Arcade::Core::commandNextGraphic()
 
 void Arcade::Core::commandRestartGame()
 {
-    //implement when we will have a Game
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
+        return;
+    _gameLib->stopGame();
+    _gameLib->startGame();
 }
 
 void Arcade::Core::updateDraw()
 {
+    int code;
     _graphicLib->clearWindow();
-    _gameLib->simulate();
+    code = _gameLib->simulate();
+    if (code != 0)
+        changeGameFromMenu(code);
     _graphicLib->playSound(_gameLib->getSounds());
     _graphicLib->displayEntities(_gameLib->getEntities());
     _graphicLib->displayText(_gameLib->getTexts());
@@ -145,4 +166,31 @@ void Arcade::Core::updateDraw()
 void Arcade::Core::renderDraw()
 {
     _graphicLib->displayWindow();
+}
+
+void Arcade::Core::changeGameFromMenu(int code)
+{
+    std::string graphic;
+    std::string game;
+
+    if (dynamic_cast<Menu::Menu*>(_gameLib.get())) {
+        if ((code % 10) - 1 >= (int)_listGame.size())
+            throw Error("To much games : only 10 allowed");
+        if ((code / 10) - 1 >= (int)_listGraphic.size())
+            throw Error("To much graphiclib : only 10 allowed");
+        _idxGame = (code % 10) - 1;
+        _idxGraphic = (code / 10) - 1;
+        game = _listGame[_idxGame];
+        graphic = _listGraphic[_idxGraphic];
+        _graphicLib.reset();
+        _gameLib.reset();
+        loadGraphic(graphic);
+        loadGame(game);
+        _gameLib->startGame();
+    } else if (code == -1) {
+        _gameLib->stopGame();
+        _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
+        _gameLib = std::move(_menu);
+        _gameLib->startGame();
+    }
 }

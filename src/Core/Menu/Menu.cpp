@@ -8,7 +8,7 @@
 #include "Menu.hpp"
 #include "Entity.hpp"
 #include "Text.hpp"
-#include "keys.hpp"
+#include "Keys.hpp"
 #include <algorithm>
 #include <iostream>
 

@@ -46,10 +46,10 @@ namespace Arcade {
             std::vector<std::shared_ptr<IEntity>> _entities;
 
             std::unordered_map<int, std::function<void()>> _keyEvents = {
-                {Keys::Z, [this](){_player->move(SnakePlayer::UP);}},
-                {Keys::S, [this](){_player->move(SnakePlayer::DOWN);}},
-                {Keys::Q, [this](){_player->move(SnakePlayer::LEFT);}},
-                {Keys::D, [this](){_player->move(SnakePlayer::RIGHT);}},
+                {Keys::Z, [this](){_player->move(Arcade::FUP);}},
+                {Keys::S, [this](){_player->move(Arcade::FDOWN);}},
+                {Keys::Q, [this](){_player->move(Arcade::FLEFT);}},
+                {Keys::D, [this](){_player->move(Arcade::FRIGHT);}},
             };
 
             void initMap(int width, int height);

@@ -73,43 +73,43 @@ std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeTail(size_t x, size_
 
 void Arcade::SnakePlayer::setupBody(size_t x, size_t y, size_t size)
 {
-    int i = 1;
+    size_t i = 1;
 
     switch (getRotationFromFloat(_bodies.at(0).get()->getRotation())) {
-    case RIGHT:
+    case FRIGHT:
         for (; i < size - 1; i++)
-            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x - i, y, RIGHT));
-        _bodies.push_back(makeTail(x - i, y, RIGHT));
+            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x - i, y, FRIGHT));
+        _bodies.push_back(makeTail(x - i, y, FRIGHT));
         break;
-    case LEFT:
+    case FLEFT:
         for (; i < size - 1; i++)
-            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x + i, y, LEFT));
-        _bodies.push_back(makeTail(x + i, y, LEFT));
+            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x + i, y, FLEFT));
+        _bodies.push_back(makeTail(x + i, y, FLEFT));
         break;
-    case UP:
+    case FUP:
         for (; i < size - 1; i++)
-            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x, y + i, UP));
-        _bodies.push_back(makeTail(x, y + i, UP));
+            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x, y + i, FUP));
+        _bodies.push_back(makeTail(x, y + i, FUP));
         break;
-    case DOWN:
+    case FDOWN:
         for (; i < size - 1; i++)
-            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x, y - i, DOWN));
-        _bodies.push_back(makeTail(x, y - i, DOWN));
+            _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x, y - i, FDOWN));
+        _bodies.push_back(makeTail(x, y - i, FDOWN));
         break;
     default:
         break;
     }
 }
 
-Arcade::SnakePlayer::Rotation Arcade::SnakePlayer::getRotationFromFloat(float rotation)
+Arcade::Rotation Arcade::SnakePlayer::getRotationFromFloat(float rotation)
 {
     if (rotation == 0)
-        return UP;
+        return FUP;
     if (rotation == 90)
-        return RIGHT;
+        return FRIGHT;
     if (rotation == 180)
-        return DOWN;
+        return FDOWN;
     if (rotation == 270)
-        return LEFT;
-    return UP;
+        return FLEFT;
+    return FUP;
 }

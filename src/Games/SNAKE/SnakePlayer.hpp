@@ -18,13 +18,6 @@
 namespace Arcade {
     class SnakePlayer : public APlayer {
         public:
-            enum Rotation {
-                UP = 0,
-                RIGHT = 90,
-                DOWN = 180,
-                LEFT = 270
-            };
-
             SnakePlayer(size_t x, size_t y, size_t size, Rotation rotation);
             ~SnakePlayer() = default;
 

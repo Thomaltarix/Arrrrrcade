@@ -8,11 +8,12 @@
 #pragma once
 
 #include "AEntity.hpp"
+#include "Rotation.hpp"
 
 namespace Arcade {
     class SnakeBody : public AEntity {
         public:
-            SnakeBody(size_t x, size_t y, SnakePlayer::Rotation rotation);
+            SnakeBody(size_t x, size_t y, Rotation rotation);
             ~SnakeBody() = default;
     };
 

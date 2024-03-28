@@ -13,7 +13,7 @@ Arcade::SnakeGame::SnakeGame()
     _score = 0;
     this->initMap(19, 17);
 
-    _player = std::make_shared<SnakePlayer>(10, 9, 4, SnakePlayer::RIGHT);
+    _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
     for (auto body : _player->getBodies())
         _map.at(body->getPos()[1]).at(body->getPos()[0]) = body;
@@ -126,17 +126,17 @@ std::pair<int, int> Arcade::SnakeGame::getNextPost(std::shared_ptr<SnakePlayer> 
 {
     std::vector<size_t> nextPos = _player->getHead()->getPos();
 
-    switch ((Arcade::SnakePlayer::Rotation)_player.get()->getHead()->getRotation()) {
-    case Arcade::SnakePlayer::Rotation::UP:
+    switch ((Arcade::Rotation)_player.get()->getHead()->getRotation()) {
+    case Arcade::Rotation::FUP:
         nextPos[1]--;
         break;
-    case Arcade::SnakePlayer::Rotation::RIGHT:
+    case Arcade::Rotation::FRIGHT:
         nextPos[0]++;
         break;
-    case Arcade::SnakePlayer::Rotation::DOWN:
+    case Arcade::Rotation::FDOWN:
         nextPos[1]++;
         break;
-    case Arcade::SnakePlayer::Rotation::LEFT:
+    case Arcade::Rotation::FLEFT:
         nextPos[0]--;
         break;
     }

@@ -19,12 +19,12 @@ namespace Arcade {
     class SnakePlayer : public APlayer {
         public:
             SnakePlayer(size_t x, size_t y, size_t size, Rotation rotation);
-            ~SnakePlayer() = default;
+            ~SnakePlayer();
 
             void move(Rotation rotation);
             int die();
-            int grow(std::pair<int, int> pos);
-            int simulate(std::pair<int, int> nextPos);
+            int grow(std::pair<size_t, size_t> pos);
+            int simulate(std::pair<size_t, size_t> nextPos);
 
             // Setters
             void setSnakeSize(int size) { _snakeSize = size; };
@@ -39,7 +39,7 @@ namespace Arcade {
             std::vector<std::shared_ptr<SnakeBody>> _bodies;
 
             void setupBody(size_t x, size_t y, size_t size);
-            std::shared_ptr<SnakeBody> Arcade::SnakePlayer::makeTail(size_t x, size_t y, Rotation rotation);
-            std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeHead(size_t x, size_t y, Rotation rotation);
+            std::shared_ptr<SnakeBody> makeTail(size_t x, size_t y, Rotation rotation);
+            std::shared_ptr<Arcade::SnakeBody> makeHead(size_t x, size_t y, Rotation rotation);
     };
 }

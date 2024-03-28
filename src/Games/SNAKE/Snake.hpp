@@ -40,7 +40,7 @@ namespace Arcade {
             bool _started;
             int _score;
             Map _map;
-            std::shared_ptr<SnakePlayer> _player;
+            std::unique_ptr<SnakePlayer> _player;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;
@@ -53,13 +53,13 @@ namespace Arcade {
             };
 
             void initMap(int width, int height);
-            bool isInsideWall(std::pair<int, int> pos);
-            bool isInsideSnake(std::pair<int, int> pos);
-            bool isInsideApple(std::pair<int, int> pos);
-            std::pair<int, int> getNextPost(std::shared_ptr<SnakePlayer> player);
+            bool isInsideWall(std::pair<size_t, size_t> pos);
+            bool isInsideSnake(std::pair<size_t, size_t> pos);
+            bool isInsideApple(std::pair<size_t, size_t> pos);
+            std::pair<size_t, size_t> getNextPost();
 
             template <typename T>
-            std::shared_ptr<Arcade::IEntity> makeVerticalSides(int width , int height)
+            std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)
             {
                 auto line = std::vector<std::shared_ptr<IEntity>>();
 
@@ -69,7 +69,7 @@ namespace Arcade {
             };
 
             template <typename T1, typename T2>
-            std::shared_ptr<IEntity> makeHorizontalSides(int width , int height)
+            std::vector<std::shared_ptr<IEntity>> makeHorizontalSides(int width , int height)
             {
                 auto line = std::vector<std::shared_ptr<IEntity>>();
 

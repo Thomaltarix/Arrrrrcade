@@ -11,12 +11,15 @@ Arcade::SnakeGame::SnakeGame()
 {
     _started = false;
     _score = 0;
+    _texts = std::vector<std::shared_ptr<Arcade::IText>>();
     this->initMap(19, 17);
 
     _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
     for (auto body : _player->getBodies())
         _map.at(body->getPos()[1]).at(body->getPos()[0]) = body;
+
+    _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
 }
 
 Arcade::SnakeGame::~SnakeGame()
@@ -46,7 +49,7 @@ int Arcade::SnakeGame::simulate()
     if (!_started || !_player->isAlive())
         return -1;
 
-    std::pair<int, int> nextPos = getNextPost(_player);
+    std::pair<int, int> nextPos = getNextPost();
     if (isInsideWall(nextPos))
         return _player->die();
     if (isInsideSnake(nextPos))
@@ -77,8 +80,6 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::SnakeGame::getEntities()
 
 std::vector<std::shared_ptr<Arcade::IText>> Arcade::SnakeGame::getTexts()
 {
-    _texts.clear();
-    _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
     return _texts;
 }
 
@@ -89,40 +90,41 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::SnakeGame::getSounds()
 
 void Arcade::SnakeGame::initMap(int width, int height)
 {
+    std::vector<std::shared_ptr<IEntity>> tmp;
     for (int row = 0; row < height; row++) {
         std::vector<std::shared_ptr<IEntity>> line;
         if (row == 0 || row == height - 1)
-            line.push_back(makeVerticalSides<SnakeWall>(width, row));
+            tmp = makeVerticalSides<SnakeWall>(width, row);
         else
-            line.push_back(makeHorizontalSides<SnakeWall, SnakeVoid>(width, row));
+            tmp = makeHorizontalSides<SnakeWall, SnakeVoid>(width, row);
         _map.push_back(line);
     }
 }
 
-bool Arcade::SnakeGame::isInsideWall(std::pair<int, int> pos)
+bool Arcade::SnakeGame::isInsideWall(std::pair<size_t, size_t> pos)
 {
     if (_map.at(pos.second).at(pos.first)->getChar() == '#')
         return true;
     return false;
 }
 
-bool Arcade::SnakeGame::isInsideSnake(std::pair<int, int> pos)
+bool Arcade::SnakeGame::isInsideSnake(std::pair<size_t, size_t> pos)
 {
     for (auto body : _player->getBodies()) {
-        if (body->getPos().at(0) == pos.first && body->getPos().at(1) == pos.second)
+        if (body.get()->getPos()[0] == pos.first && body.get()->getPos()[1] == pos.second)
             return true;
     }
     return false;
 }
 
-bool Arcade::SnakeGame::isInsideApple(std::pair<int, int> pos)
+bool Arcade::SnakeGame::isInsideApple(std::pair<size_t, size_t> pos)
 {
     if (_map.at(pos.second).at(pos.first)->getChar() == '@')
         return true;
     return false;
 }
 
-std::pair<int, int> Arcade::SnakeGame::getNextPost(std::shared_ptr<SnakePlayer> player)
+std::pair<size_t, size_t> Arcade::SnakeGame::getNextPost()
 {
     std::vector<size_t> nextPos = _player->getHead()->getPos();
 

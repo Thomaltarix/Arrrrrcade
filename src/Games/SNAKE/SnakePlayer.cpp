@@ -17,6 +17,11 @@ Arcade::SnakePlayer::SnakePlayer(size_t x, size_t y, size_t size, Rotation rotat
     this->setupBody(x, y, size);
 }
 
+Arcade::SnakePlayer::~SnakePlayer()
+{
+    _bodies.clear();
+}
+
 void Arcade::SnakePlayer::move(Rotation rotation)
 {
     Rotation currentRotation = getRotationFromFloat(_bodies.at(0).get()->getRotation());
@@ -29,19 +34,20 @@ void Arcade::SnakePlayer::move(Rotation rotation)
 int Arcade::SnakePlayer::die()
 {
     this->setAlive(false);
-    _bodies.clear();
     return -1;
 }
 
-int Arcade::SnakePlayer::grow(std::pair<int, int> nextPos)
+int Arcade::SnakePlayer::grow(std::pair<size_t, size_t> nextPos)
 {
-    std::shared_ptr<Arcade::SnakeBody> body = std::make_shared<SnakeBody>(_bodies.at(0).get()->getPos()[0], _bodies.at(0).get()->getPos()[1], _bodies.at(0).get()->getRotation());
-    _bodies.emplace_back(_bodies.begin(), body);
-    _bodies.at(0).get()->setPos(nextPos.first, nextPos.second);
-    return 0;
+    std::shared_ptr<Arcade::SnakeBody> tail = std::make_shared<Arcade::SnakeBody>(
+    _bodies.at(_bodies.size() - 1).get()->getPos()[0],
+    _bodies.at(_bodies.size() - 1).get()->getPos()[1],
+    Arcade::SnakePlayer::getRotationFromFloat(_bodies.at(_bodies.size() - 1).get()->getRotation()));
+    _bodies.push_back(tail);
+    return simulate(nextPos);
 }
 
-int Arcade::SnakePlayer::simulate(std::pair<int, int> nextPos)
+int Arcade::SnakePlayer::simulate(std::pair<size_t, size_t> nextPos)
 {
     for (int i = _bodies.size() - 1; i > 0; i--) {
         _bodies.at(i).get()->setPos(_bodies.at(i - 1).get()->getPos()[0], _bodies.at(i - 1).get()->getPos()[1]);

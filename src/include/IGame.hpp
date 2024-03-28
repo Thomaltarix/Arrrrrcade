@@ -23,7 +23,7 @@ namespace Arcade {
             virtual int getScore() = 0;
             virtual int simulate() = 0;
 
-            // //Event
+            //Event
             virtual void catchKeyEvent(int key) = 0;
 
             //Display

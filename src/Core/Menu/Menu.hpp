@@ -59,21 +59,25 @@ namespace Arcade {
 
             public:
                 Menu(std::vector<std::string> listGraphic, std::vector<std::string> listGame, std::string selectedGraphic);
-                ~Menu();
+                ~Menu() = default;
 
                 //Game
-                int startGame();
-                int stopGame();
-                int getScore();
-                int simulate();
+                int startGame() override;
+                int stopGame() override;
+                int getScore() override;
+                int simulate() override;
 
                 //Event
-                void catchKeyEvent(int key);
+                void catchKeyEvent(int key) override;
+
+                //UserName
+                void setUserName(const std::string &name) override;
+                std::string getUserName() override;
 
                 //Display
-                std::vector<std::shared_ptr<IEntity>> getEntities();
-                std::vector<std::shared_ptr<IText>> getTexts();
-                std::vector<std::shared_ptr<ISound>> getSounds();
+                std::vector<std::shared_ptr<IEntity>> getEntities() override;
+                std::vector<std::shared_ptr<IText>> getTexts() override;
+                std::vector<std::shared_ptr<ISound>> getSounds() override;
         };
     }
 }

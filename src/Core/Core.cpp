@@ -158,9 +158,24 @@ void Arcade::Core::updateDraw()
     code = _gameLib->simulate();
     if (code != 0)
         changeGameFromMenu(code);
-    _graphicLib->playSound(_gameLib->getSounds());
-    _graphicLib->displayEntities(_gameLib->getEntities());
-    _graphicLib->displayText(_gameLib->getTexts());
+
+    try {
+        _graphicLib->playSound(_gameLib->getSounds());
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+    try {
+        _graphicLib->displayEntities(_gameLib->getEntities());
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+    try {
+        _graphicLib->displayText(_gameLib->getTexts());
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 }
 
 void Arcade::Core::renderDraw()

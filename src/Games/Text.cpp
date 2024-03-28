@@ -7,7 +7,12 @@
 
 #include "Text.hpp"
 
-Arcade::Text::Text() {}
+Arcade::Text::Text(const std::string &text, size_t x, size_t y)
+{
+    _pos.push_back(x);
+    _pos.push_back(y);
+    _text = text;
+}
 
 Arcade::Text::~Text() {}
 

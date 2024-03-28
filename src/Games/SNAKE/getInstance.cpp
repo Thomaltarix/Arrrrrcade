@@ -17,9 +17,9 @@ extern "C"
         std::cout << "Loading Snake library ..." << std::endl;
     }
 
-    std::unique_ptr<SnakeGame> getInstance()
+    Arcade::SnakeGame *getInstance()
     {
-        return std::make_unique<SnakeGame>();
+        return new Arcade::SnakeGame();
     }
 
     __attribute__((destructor))

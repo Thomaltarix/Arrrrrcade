@@ -8,7 +8,7 @@
 #include "Core.hpp"
 #include <iostream>
 #include <filesystem>
-#include "keys.hpp"
+#include "Keys.hpp"
 
 Arcade::Core::Core()
 {

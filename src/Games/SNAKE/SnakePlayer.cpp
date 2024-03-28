@@ -13,15 +13,15 @@ Arcade::SnakePlayer::SnakePlayer(size_t x, size_t y, size_t size, Rotation rotat
     this->setSnakeSize(size);
     this->setSpeed(1);
 
-    _bodies.push_back(makeHead(x, y, rotation));
+    _bodies.push_back(this->makeHead(x, y, rotation));
     this->setupBody(x, y, size);
 }
 
 void Arcade::SnakePlayer::move(Rotation rotation)
 {
-    Rotation currentRotation = (Rotation)((int)_bodies.at(0).get()->getRotation());
+    Rotation currentRotation = getRotationFromFloat(_bodies.at(0).get()->getRotation());
 
-    if (rotation == (Rotation)(currentRotation + 180) || rotation == (Rotation)(currentRotation - 180))
+    if (rotation == getRotationFromFloat(currentRotation + 180) || rotation == getRotationFromFloat(currentRotation - 180))
         return;
     _bodies.at(0).get()->setRotation(rotation);
 }
@@ -33,13 +33,13 @@ int Arcade::SnakePlayer::die()
     return -1;
 }
 
-void Arcade::SnakePlayer::grow()
+int Arcade::SnakePlayer::grow()
 {
-    size_t x = _bodies.at(_bodies.size() - 1).get()->getPos().x;
-    size_t y = _bodies.at(_bodies.size() - 1).get()->getPos().y;
-    Rotation rotation = _bodies.at(_bodies.size() - 1).get()->getRotation();
+}
 
-    _bodies.push_back(makeTail(x, y, rotation));
+int Arcade::SnakePlayer::simulate()
+{
+    return 0;
 }
 
 std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeHead(size_t x, size_t y, Rotation rotation)
@@ -66,23 +66,23 @@ void Arcade::SnakePlayer::setupBody(size_t x, size_t y, size_t size)
 {
     int i = 1;
 
-    switch (_bodies.at(0).get()->getRotation()) {
-    case (float)RIGHT:
+    switch (getRotationFromFloat(_bodies.at(0).get()->getRotation())) {
+    case RIGHT:
         for (; i < size - 1; i++)
             _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x - i, y, RIGHT));
         _bodies.push_back(makeTail(x - i, y, RIGHT));
         break;
-    case (float)LEFT:
+    case LEFT:
         for (; i < size - 1; i++)
             _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x + i, y, LEFT));
         _bodies.push_back(makeTail(x + i, y, LEFT));
         break;
-    case (float)UP:
+    case UP:
         for (; i < size - 1; i++)
             _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x, y + i, UP));
         _bodies.push_back(makeTail(x, y + i, UP));
         break;
-    case (float)DOWN:
+    case DOWN:
         for (; i < size - 1; i++)
             _bodies.push_back(std::make_shared<Arcade::SnakeBody>(x, y - i, DOWN));
         _bodies.push_back(makeTail(x, y - i, DOWN));
@@ -90,4 +90,17 @@ void Arcade::SnakePlayer::setupBody(size_t x, size_t y, size_t size)
     default:
         break;
     }
+}
+
+Arcade::SnakePlayer::Rotation Arcade::SnakePlayer::getRotationFromFloat(float rotation)
+{
+    if (rotation == 0)
+        return UP;
+    if (rotation == 90)
+        return RIGHT;
+    if (rotation == 180)
+        return DOWN;
+    if (rotation == 270)
+        return LEFT;
+    return UP;
 }

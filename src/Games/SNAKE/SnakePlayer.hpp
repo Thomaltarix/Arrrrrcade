@@ -39,6 +39,7 @@ namespace Arcade {
             int getSnakeSize() { return _snakeSize; };
             std::shared_ptr<SnakeBody> getHead() { return _bodies.at(0); };
             std::vector<std::shared_ptr<SnakeBody>> getBodies() { return _bodies; };
+            Rotation getRotationFromFloat(float rotation);
         private:
             int _snakeSize;
             std::vector<std::shared_ptr<SnakeBody>> _bodies;

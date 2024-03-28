@@ -5,16 +5,20 @@
 ## Centipede Makefile
 ##
 
-SRC			=	centipede.cpp \
+SRC			=	Centipede.cpp \
+				getInstance.cpp \
+				CentipedeEntity.cpp \
 				../Sound.cpp \
 				../Text.cpp \
+				../AEntity.cpp \
+
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_centipede.so
 
 INCLUDE		=	-I../ -I../../include/
-CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20
+CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(INCLUDE)
 
 all: $(NAME)
 

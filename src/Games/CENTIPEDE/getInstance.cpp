@@ -6,7 +6,7 @@
 */
 
 #include <iostream>
-#include "centipede.hpp"
+#include "Centipede.hpp"
 
 extern "C"
 {

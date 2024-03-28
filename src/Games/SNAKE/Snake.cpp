@@ -16,8 +16,8 @@ Arcade::SnakeGame::SnakeGame()
 
     _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
-    for (auto body : _player->getBodies())
-        _map.at(body->getPos()[1]).at(body->getPos()[0]) = body;
+    for (std::shared_ptr<Arcade::SnakeBody> body : _player->getBodies())
+        _map.at(body->getPos()[1]).at(body->getPos()[0]) = std::move(body);
 
     _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
 }

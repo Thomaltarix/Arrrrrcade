@@ -17,7 +17,7 @@ extern "C"
         std::cout << "Loading Snake library ..." << std::endl;
     }
 
-    Arcade::SnakeGame *getInstance()
+    Arcade::SnakeGame *loadGameInstance()
     {
         return new Arcade::SnakeGame();
     }

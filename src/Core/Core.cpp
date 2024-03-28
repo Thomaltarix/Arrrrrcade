@@ -6,9 +6,10 @@
 */
 
 #include "Core.hpp"
+#include "IGame.hpp"
 #include <iostream>
 #include <filesystem>
-#include "keys.hpp"
+#include "Keys.hpp"
 
 Arcade::Core::Core()
 {

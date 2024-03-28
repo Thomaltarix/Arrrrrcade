@@ -33,12 +33,21 @@ int Arcade::SnakePlayer::die()
     return -1;
 }
 
-int Arcade::SnakePlayer::grow()
+int Arcade::SnakePlayer::grow(std::pair<int, int> nextPos)
 {
+    std::shared_ptr<Arcade::SnakeBody> body = std::make_shared<SnakeBody>(_bodies.at(0).get()->getPos()[0], _bodies.at(0).get()->getPos()[1], _bodies.at(0).get()->getRotation());
+    _bodies.emplace_back(_bodies.begin(), body);
+    _bodies.at(0).get()->setPos(nextPos.first, nextPos.second);
+    return 0;
 }
 
-int Arcade::SnakePlayer::simulate()
+int Arcade::SnakePlayer::simulate(std::pair<int, int> nextPos)
 {
+    for (int i = _bodies.size() - 1; i > 0; i--) {
+        _bodies.at(i).get()->setPos(_bodies.at(i - 1).get()->getPos()[0], _bodies.at(i - 1).get()->getPos()[1]);
+        _bodies.at(i).get()->setRotation(_bodies.at(i - 1).get()->getRotation());
+    }
+    _bodies.at(0).get()->setPos(nextPos.first, nextPos.second);
     return 0;
 }
 

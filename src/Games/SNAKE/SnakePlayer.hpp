@@ -30,8 +30,8 @@ namespace Arcade {
 
             void move(Rotation rotation);
             int die();
-            int grow();
-            int simulate();
+            int grow(std::pair<int, int> pos);
+            int simulate(std::pair<int, int> nextPos);
 
             // Setters
             void setSnakeSize(int size) { _snakeSize = size; };

@@ -45,13 +45,15 @@ int Arcade::SnakeGame::simulate()
 {
     if (!_started || !_player->isAlive())
         return -1;
-    if (isInsideWall(getNextPost(_player)))
+
+    std::pair<int, int> nextPos = getNextPost(_player);
+    if (isInsideWall(nextPos))
         return _player->die();
-    if (isInsideSnake(getNextPost(_player)))
+    if (isInsideSnake(nextPos))
         return _player->die();
-    if (isInsideApple(getNextPost(_player)))
-        return _player->grow();
-    return _player->simulate();
+    if (isInsideApple(nextPos))
+        return _player->grow(nextPos);
+    return _player->simulate(nextPos);
 }
 
 void Arcade::SnakeGame::catchKeyEvent(int key)

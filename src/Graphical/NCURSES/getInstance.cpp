@@ -16,10 +16,9 @@ extern "C"
         std::cout << "Loading ncurses ..." << std::endl;
     }
 
-
-    std::unique_ptr<Arcade::NCURSESlib> loadGraphicInstance(void)
+    Arcade::NCURSESlib *loadGraphicInstance()
     {
-        return std::make_unique<Arcade::NCURSESlib>();
+        return new Arcade::NCURSESlib();
     }
 
     __attribute__((destructor))

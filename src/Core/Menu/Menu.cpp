@@ -26,11 +26,6 @@ Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
     _selectedGame = "";
 }
 
-Arcade::Menu::Menu::~Menu()
-{
-
-}
-
 //Game
 
 int Arcade::Menu::Menu::startGame()
@@ -385,4 +380,14 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::Menu::Menu::getSounds()
 {
     std::vector<std::shared_ptr<Arcade::ISound>> list;
     return list;
+}
+
+void Arcade::Menu::Menu::setUserName(const std::string &name)
+{
+    _userName = name;
+}
+
+std::string Arcade::Menu::Menu::getUserName()
+{
+    return _userName;
 }

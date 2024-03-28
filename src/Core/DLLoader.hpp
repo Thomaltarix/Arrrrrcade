@@ -25,11 +25,11 @@ namespace Arcade {
             void load(const std::string &libso);
 
             template<typename T>
-            std::unique_ptr<T> getInstance(const std::string &function)
+            T *getInstance(const std::string &function)
             {
-                std::function<std::unique_ptr<T>()> sym;
+                T *(*sym)(void);
 
-                sym = (std::unique_ptr<T>(*)())dlsym(_handle, function.c_str());
+                sym = (T *(*)())dlsym(_handle, function.c_str());
                 if (!sym) {
                     return nullptr;
                 }

@@ -9,6 +9,7 @@
 
 #include <string>
 #include "AEntity.hpp"
+#include "Rotation.hpp"
 
 namespace Arcade {
 
@@ -16,16 +17,16 @@ namespace Arcade {
         public:
             ~APlayer() = default;
 
-            virtual void move(int, int) = 0;
-            virtual int die() = 0;
+            virtual void move(Rotation rotation) = 0;
+            int die();
 
             //Setters
-            void setSpeed(float speed) { _speed = speed; };
-            void setAlive(bool alive) { _alive = alive; };
+            void setSpeed(float speed);
+            void setAlive(bool alive);
 
             //Getters
-            float getSpeed() { return _speed; };
-            bool isAlive() { return _alive; };
+            float getSpeed();
+            bool isAlive();
 
             class Error : public std::exception {
                 public:

@@ -9,15 +9,17 @@
 
 #include "AGame.hpp"
 #include "SnakePlayer.hpp"
-#include <unordered_map>
 #include "Keys.hpp"
+#include "Text.hpp"
+
+#include <unordered_map>
+#include <functional>
 
 typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
 
 namespace Arcade {
     class SnakeGame : public AGame {
         public:
-
             SnakeGame();
             ~SnakeGame();
 
@@ -31,9 +33,9 @@ namespace Arcade {
             void catchKeyEvent(int key);
 
             //Display
-            virtual std::vector<std::shared_ptr<IEntity>> getEntities() = 0;
-            virtual std::vector<std::shared_ptr<IText>> getTexts() = 0;
-            virtual std::vector<std::shared_ptr<ISound>> getSounds() = 0;
+            std::vector<std::shared_ptr<IEntity>> getEntities();
+            std::vector<std::shared_ptr<IText>> getTexts();
+            std::vector<std::shared_ptr<ISound>> getSounds();
         private:
             bool _started;
             int _score;
@@ -48,7 +50,7 @@ namespace Arcade {
                 {Keys::S, [this](){_player->move(SnakePlayer::DOWN);}},
                 {Keys::Q, [this](){_player->move(SnakePlayer::LEFT);}},
                 {Keys::D, [this](){_player->move(SnakePlayer::RIGHT);}},
-            }
+            };
 
             void initMap(int width, int height);
             bool isInsideWall(std::pair<int, int> pos);

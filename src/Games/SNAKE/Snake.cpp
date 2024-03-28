@@ -63,6 +63,29 @@ void Arcade::SnakeGame::catchKeyEvent(int key)
     }
 }
 
+std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::SnakeGame::getEntities()
+{
+    _entities.clear();
+    for (auto line : _map) {
+        for (auto entity : line) {
+            _entities.push_back(entity);
+        }
+    }
+    return _entities;
+}
+
+std::vector<std::shared_ptr<Arcade::IText>> Arcade::SnakeGame::getTexts()
+{
+    _texts.clear();
+    _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
+    return _texts;
+}
+
+std::vector<std::shared_ptr<Arcade::ISound>> Arcade::SnakeGame::getSounds()
+{
+    return _sounds;
+}
+
 void Arcade::SnakeGame::initMap(int width, int height)
 {
     for (int row = 0; row < height; row++) {

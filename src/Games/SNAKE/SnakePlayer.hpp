@@ -30,7 +30,8 @@ namespace Arcade {
 
             void move(Rotation rotation);
             int die();
-            void grow();
+            int grow();
+            int simulate();
 
             // Setters
             void setSnakeSize(int size) { _snakeSize = size; };
@@ -45,6 +46,7 @@ namespace Arcade {
             std::vector<std::shared_ptr<SnakeBody>> _bodies;
 
             void setupBody(size_t x, size_t y, size_t size);
-            std::shared_ptr<SnakeBody> Arcade::SnakePlayer::makeTail(size_t x, size_t y, Rotation rotation)
+            std::shared_ptr<SnakeBody> Arcade::SnakePlayer::makeTail(size_t x, size_t y, Rotation rotation);
+            std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeHead(size_t x, size_t y, Rotation rotation);
     };
 }

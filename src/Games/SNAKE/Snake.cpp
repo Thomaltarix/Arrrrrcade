@@ -16,7 +16,7 @@ Arcade::SnakeGame::SnakeGame()
     _player = std::make_shared<SnakePlayer>(10, 9, 4, SnakePlayer::RIGHT);
 
     for (auto body : _player->getBodies())
-        _map.at(body->getPos().y).at(body->getPos().x) = body;
+        _map.at(body->getPos()[1]).at(body->getPos()[0]) = body;
 }
 
 Arcade::SnakeGame::~SnakeGame()
@@ -50,9 +50,8 @@ int Arcade::SnakeGame::simulate()
     if (isInsideSnake(getNextPost(_player)))
         return _player->die();
     if (isInsideApple(getNextPost(_player)))
-        _player->move();
-    _player->move();
-    return 0;
+        return _player->grow();
+    return _player->simulate();
 }
 
 void Arcade::SnakeGame::catchKeyEvent(int key)

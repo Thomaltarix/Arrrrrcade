@@ -86,7 +86,15 @@ void Arcade::SDL2lib::displayEntities(std::vector<std::shared_ptr<IEntity>> enti
     for (auto &entity : entities) {
         std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture = getEntityTexture(entity.get()->getPath());
         SDL_Rect dstrect = getRect(entity.get()->getPos(), entity.get()->getSize());
-        SDL_RenderCopy(_Renderer, texture.get(), NULL, &dstrect);
+        SDL_Point center = {(int)(entity->getSize()[0] / 2), (int)(entity->getSize()[1] / 2)};
+        SDL_RendererFlip flip = SDL_FLIP_NONE;
+        SDL_RenderCopyEx(_Renderer,
+                   texture.get(),
+                   NULL,
+                   &dstrect,
+                   entity->getRotation(),
+                   &center,
+                   flip);
     }
 }
 

@@ -6,11 +6,13 @@
 ##
 
 SRC			=	Snake.cpp \
-				SnakePlayer.cpp \
 				getInstance.cpp \
+				SnakePlayer.cpp \
+				SnakeEntity.cpp \
 				../Sound.cpp \
 				../Text.cpp \
 				../AEntity.cpp \
+				../APlayer.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 

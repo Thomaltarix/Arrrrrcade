@@ -27,10 +27,8 @@ namespace Arcade {
             template<typename T>
             T *getInstance(const std::string &function)
             {
-                // std::function<std::unique_ptr<T>()> sym;
                 T *(*sym)(void);
 
-                // sym = (std::unique_ptr<T>(*)())dlsym(_handle, function.c_str());
                 sym = (T *(*)())dlsym(_handle, function.c_str());
                 if (!sym) {
                     return nullptr;

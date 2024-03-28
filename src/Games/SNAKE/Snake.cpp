@@ -11,11 +11,11 @@ Arcade::SnakeGame::SnakeGame()
 {
     _started = false;
     _score = 0;
-    initMap(19, 17);
+    this->initMap(19, 17);
 
     _player = std::make_shared<SnakePlayer>(10, 9, 4, SnakePlayer::RIGHT);
 
-    for (auto body : player->getBodies())
+    for (auto body : _player->getBodies())
         _map.at(body->getPos().y).at(body->getPos().x) = body;
 }
 
@@ -50,7 +50,7 @@ int Arcade::SnakeGame::simulate()
     if (isInsideSnake(getNextPost(_player)))
         return _player->die();
     if (isInsideApple(getNextPost(_player)))
-        _player->move(int );
+        _player->move();
     _player->move();
     return 0;
 }
@@ -88,7 +88,7 @@ bool Arcade::SnakeGame::isInsideSnake(std::pair<int, int> pos)
         if (body->getPos().at(0) == pos.first && body->getPos().at(1) == pos.second)
             return true;
     }
-    return false
+    return false;
 }
 
 bool Arcade::SnakeGame::isInsideApple(std::pair<int, int> pos)
@@ -100,21 +100,21 @@ bool Arcade::SnakeGame::isInsideApple(std::pair<int, int> pos)
 
 std::pair<int, int> Arcade::SnakeGame::getNextPost(std::shared_ptr<SnakePlayer> player)
 {
-    std::pair<int, int> nextPos = player->getHead()->getPos();
+    std::vector<size_t> nextPos = _player->getHead()->getPos();
 
-    switch (player->getHead()->getRotation()) {
-    case SnakePlayer::UP:
-        nextPos.second--;
+    switch ((Arcade::SnakePlayer::Rotation)_player.get()->getHead()->getRotation()) {
+    case Arcade::SnakePlayer::Rotation::UP:
+        nextPos[1]--;
         break;
-    case SnakePlayer::RIGHT:
-        nextPos.first++;
+    case Arcade::SnakePlayer::Rotation::RIGHT:
+        nextPos[0]++;
         break;
-    case SnakePlayer::DOWN:
-        nextPos.second++;
+    case Arcade::SnakePlayer::Rotation::DOWN:
+        nextPos[1]++;
         break;
-    case SnakePlayer::LEFT:
-        nextPos.first--;
+    case Arcade::SnakePlayer::Rotation::LEFT:
+        nextPos[0]--;
         break;
     }
-    return nextPos;
+    return std::make_pair(nextPos[0], nextPos[1]);
 }

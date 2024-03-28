@@ -107,7 +107,7 @@ sf::Sprite Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
     if (_textures.find(path) == _textures.end()) {
         sf::Texture texture;
         if (!texture.loadFromFile(path + ".png")) {
-            throw Error("SFML: Failed to load texture");
+            return sprite;
         }
         _textures[path] = texture;
     }

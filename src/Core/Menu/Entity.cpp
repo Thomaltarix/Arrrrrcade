@@ -9,7 +9,7 @@
 
 // Color
 
-Arcade::Color::Color()
+Arcade::Menu::Color::Color()
 {
     _r = 255;
     _g = 255;
@@ -17,7 +17,7 @@ Arcade::Color::Color()
     _a = 255;
 }
 
-void Arcade::Color::setColor(short r, short g, short b, short a)
+void Arcade::Menu::Color::setColor(short r, short g, short b, short a)
 {
     _r = r;
     _g = g;
@@ -25,26 +25,26 @@ void Arcade::Color::setColor(short r, short g, short b, short a)
     _a = a;
 }
 
-short Arcade::Color::getR()
+short Arcade::Menu::Color::getR()
 {
     return _r;
 }
-short Arcade::Color::getG()
+short Arcade::Menu::Color::getG()
 {
     return _g;
 }
-short Arcade::Color::getB()
+short Arcade::Menu::Color::getB()
 {
     return _b;
 }
-short Arcade::Color::getA()
+short Arcade::Menu::Color::getA()
 {
     return _a;
 }
 
 //Entity
 
-Arcade::Entity::Entity()
+Arcade::Menu::Entity::Entity()
 {
     _pos.push_back(0);
     _pos.push_back(0);
@@ -56,56 +56,56 @@ Arcade::Entity::Entity()
     _rotation = 0;
 }
 
-void Arcade::Entity::setPos(std::size_t x, std::size_t y)
+void Arcade::Menu::Entity::setPos(std::size_t x, std::size_t y)
 {
     _pos.clear();
     _pos.push_back(x);
     _pos.push_back(y);
 }
 
-void Arcade::Entity::setSize(std::size_t x, std::size_t y)
+void Arcade::Menu::Entity::setSize(std::size_t x, std::size_t y)
 {
     _size.clear();
     _size.push_back(x);
     _size.push_back(y);
 }
 
-void Arcade::Entity::setChar(char c)
+void Arcade::Menu::Entity::setChar(char c)
 {
     _c = c;
 }
 
-void Arcade::Entity::setColor(std::unique_ptr<IColor> color)
+void Arcade::Menu::Entity::setColor(std::unique_ptr<IColor> color)
 {
     _color = std::move(color);
 }
 
-void Arcade::Entity::setPath(const std::string &path)
+void Arcade::Menu::Entity::setPath(const std::string &path)
 {
     _path = path;
 }
 
-void Arcade::Entity::setRotation(float rotation)
+void Arcade::Menu::Entity::setRotation(float rotation)
 {
     _rotation = rotation;
 }
 
-std::vector<std::size_t> Arcade::Entity::getPos() const
+std::vector<std::size_t> Arcade::Menu::Entity::getPos() const
 {
     return _pos;
 }
 
-std::vector<std::size_t> Arcade::Entity::getSize() const
+std::vector<std::size_t> Arcade::Menu::Entity::getSize() const
 {
     return _size;
 }
 
-int Arcade::Entity::getChar() const
+int Arcade::Menu::Entity::getChar() const
 {
     return _c;
 }
 
-std::shared_ptr<Arcade::IColor> Arcade::Entity::getColor() const
+std::shared_ptr<Arcade::IColor> Arcade::Menu::Entity::getColor() const
 {
     std::shared_ptr<IColor> color = std::make_shared<Color>();
 
@@ -113,12 +113,12 @@ std::shared_ptr<Arcade::IColor> Arcade::Entity::getColor() const
     return color;
 }
 
-std::string Arcade::Entity::getPath() const
+std::string Arcade::Menu::Entity::getPath() const
 {
     return _path;
 }
 
-float Arcade::Entity::getRotation() const
+float Arcade::Menu::Entity::getRotation() const
 {
     return _rotation;
 }

@@ -22,7 +22,7 @@ Arcade::SDL2lib::SDL2lib()
         throw Error("SDL: Fail to init SDL");
     }
 
-    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &_Window, &_Renderer) < 0)
+    if (SDL_CreateWindowAndRenderer(725, 899, SDL_WINDOW_SHOWN, &_Window, &_Renderer) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());    
         SDL_Quit();
@@ -94,7 +94,7 @@ SDL_Rect Arcade::SDL2lib::getRect(std::vector<std::size_t> pos, std::vector<std:
 {
     if (pos.size() != 2 || size.size() != 2)
         throw Error("SDL: Error with size or position vectors");
-    SDL_Rect rect = {(int)pos[0], (int)pos[1], (int)size[0], (int)size[1]};
+    SDL_Rect rect = {(int)pos[0] * 29, (int)pos[1] * 29, (int)size[0], (int)size[1]};
     return rect;
 }
 
@@ -108,17 +108,17 @@ std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> Arcade::SDL2lib::get
 void Arcade::SDL2lib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
     for (auto &text : texts) {
-        std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font = getFont(text.get()->getFontPath(), text.get()->getSize());
-        SDL_Color color = { (Uint8)text.get()->getColor().get()->getR(),
-                            (Uint8)text.get()->getColor().get()->getG(),
-                            (Uint8)text.get()->getColor().get()->getB(),
-                            (Uint8)text.get()->getColor().get()->getA()};
-        std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(TTF_RenderText_Solid(font.get(), text.get()->getText().c_str(), color), SDL_FreeSurface);
+        std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> font = getFont(text->getFontPath() + ".ttf", text->getSize());
+        SDL_Color color = { (Uint8)text->getColor()->getR(),
+                            (Uint8)text->getColor()->getG(),
+                            (Uint8)text->getColor()->getB(),
+                            (Uint8)text->getColor()->getA()};
+        std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(TTF_RenderText_Solid(font.get(), text->getText().c_str(), color), SDL_FreeSurface);
         std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> texture(SDL_CreateTextureFromSurface(_Renderer, surface.get()), SDL_DestroyTexture);
         std::vector<size_t> size;
-        size.push_back(text.get()->getText().length() * text.get()->getSize());
-        size.push_back(text.get()->getSize());
-        SDL_Rect dstrect = getRect(text.get()->getPos(), size);
+        size.push_back(text->getText().length() * (text->getSize() - 10));
+        size.push_back(text->getSize());
+        SDL_Rect dstrect = getRect(text->getPos(), size);
         SDL_RenderCopy(_Renderer, texture.get(), NULL, &dstrect);
     }
 }

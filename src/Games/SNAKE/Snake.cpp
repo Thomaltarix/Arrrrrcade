@@ -12,7 +12,7 @@ Arcade::SnakeGame::SnakeGame()
     _started = false;
     _score = 0;
     _texts = std::vector<std::shared_ptr<Arcade::IText>>();
-    this->initMap(19, 17);
+    this->initMap(21, 19);
 
     _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
@@ -96,13 +96,12 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::SnakeGame::getSounds()
 
 void Arcade::SnakeGame::initMap(int width, int height)
 {
-    std::vector<std::shared_ptr<IEntity>> tmp;
     for (int row = 0; row < height; row++) {
         std::vector<std::shared_ptr<IEntity>> line;
         if (row == 0 || row == height - 1)
-            tmp = makeVerticalSides<SnakeWall>(width, row);
+            line = makeVerticalSides<SnakeWall>(width, row);
         else
-            tmp = makeHorizontalSides<SnakeWall, SnakeVoid>(width, row);
+            line = makeHorizontalSides<SnakeWall, SnakeVoid>(width, row);
         _map.push_back(line);
     }
 }

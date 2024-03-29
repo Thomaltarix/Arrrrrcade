@@ -41,6 +41,7 @@ namespace Arcade {
             int _score;
             Map _map;
             clock_t _lastTick;
+            std::shared_ptr<SnakeBackground> _background;
             std::unique_ptr<SnakePlayer> _player;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;

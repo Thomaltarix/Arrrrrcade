@@ -14,6 +14,7 @@ Arcade::SnakeGame::SnakeGame()
     _texts = std::vector<std::shared_ptr<Arcade::IText>>();
     this->initMap(21, 19);
 
+    _background = std::make_shared<SnakeBackground>();
     _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
     _lastTick = clock();
@@ -80,6 +81,7 @@ void Arcade::SnakeGame::catchKeyEvent(int key)
 std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::SnakeGame::getEntities()
 {
     _entities.clear();
+    _entities.push_back(_background);
     for (auto line : _map) {
         for (auto entity : line) {
             _entities.push_back(entity);

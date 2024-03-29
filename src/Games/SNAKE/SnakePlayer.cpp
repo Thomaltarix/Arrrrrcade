@@ -57,6 +57,40 @@ int Arcade::SnakePlayer::simulate(std::pair<size_t, size_t> nextPos)
     return 0;
 }
 
+Arcade::Rotation Arcade::SnakePlayer::getRotationFromFloat(float rotation)
+{
+    if (rotation == 0)
+        return FUP;
+    if (rotation == 90)
+        return FRIGHT;
+    if (rotation == 180)
+        return FDOWN;
+    if (rotation == 270)
+        return FLEFT;
+    return FUP;
+}
+
+std::pair<size_t, size_t> Arcade::SnakePlayer::getNextPost()
+{
+    std::vector<size_t> nextPos = this->getHead()->getPos();
+
+    switch ((Arcade::Rotation)this->getHead()->getRotation()) {
+    case Arcade::Rotation::FUP:
+        nextPos[1]--;
+        break;
+    case Arcade::Rotation::FRIGHT:
+        nextPos[0]++;
+        break;
+    case Arcade::Rotation::FDOWN:
+        nextPos[1]++;
+        break;
+    case Arcade::Rotation::FLEFT:
+        nextPos[0]--;
+        break;
+    }
+    return std::make_pair(nextPos[0], nextPos[1]);
+}
+
 std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeHead(size_t x, size_t y, Rotation rotation)
 {
     std::shared_ptr<Arcade::SnakeBody> head = std::make_shared<Arcade::SnakeBody>(x, y, rotation);
@@ -105,17 +139,4 @@ void Arcade::SnakePlayer::setupBody(size_t x, size_t y, size_t size)
     default:
         break;
     }
-}
-
-Arcade::Rotation Arcade::SnakePlayer::getRotationFromFloat(float rotation)
-{
-    if (rotation == 0)
-        return FUP;
-    if (rotation == 90)
-        return FRIGHT;
-    if (rotation == 180)
-        return FDOWN;
-    if (rotation == 270)
-        return FLEFT;
-    return FUP;
 }

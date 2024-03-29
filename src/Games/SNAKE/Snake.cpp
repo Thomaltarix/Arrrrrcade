@@ -67,6 +67,7 @@ int Arcade::SnakeGame::simulate()
         _player->setSpeed(_player->getSpeed() + 0.2);
         _score++;
         return _player->grow(nextPos);
+    }
     return _player->simulate(nextPos);
 }
 
@@ -117,8 +118,9 @@ void Arcade::SnakeGame::initMap(int width, int height)
 
 bool Arcade::SnakeGame::isInsideWall(std::pair<size_t, size_t> pos)
 {
-    if (_map.at(pos.second).at(pos.first)->getChar() == '#')
+    if (_map.at(pos.second - 10).at(pos.first - 2)->getChar() == '#') {
         return true;
+    }
     return false;
 }
 
@@ -133,8 +135,11 @@ bool Arcade::SnakeGame::isInsideSnake(std::pair<size_t, size_t> pos)
 
 bool Arcade::SnakeGame::isInsideApple(std::pair<size_t, size_t> pos)
 {
-    if (_map.at(pos.second).at(pos.first)->getChar() == '@')
+    if (_map.at(pos.second - 10).at(pos.first - 2)->getChar() == '@') {
+        spawnApple();
+        _map.at(pos.second - 10).at(pos.first - 2) = std::make_shared<SnakeVoid>(pos.first, pos.second);
         return true;
+    }
     return false;
 }
 
@@ -145,16 +150,6 @@ void Arcade::SnakeGame::spawnApple()
     while (isInsideSnake(std::make_pair(x, y)) || isInsideWall(std::make_pair(x, y))) {
         x = rand() % _map.at(0).size() + 2;
         y = rand() % _map.size() + 10;
-        break;
-    case Arcade::Rotation::FRIGHT:
-        nextPos[0]++;
-        break;
-    case Arcade::Rotation::FDOWN:
-        nextPos[1]++;
-        break;
-    case Arcade::Rotation::FLEFT:
-        nextPos[0]--;
-        break;
     }
     _map.at(y - 10).at(x - 2) = std::make_shared<SnakeApple>(x, y);
 }

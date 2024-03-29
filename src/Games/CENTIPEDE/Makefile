@@ -9,6 +9,7 @@ SRC			=	Centipede.cpp \
 				getInstance.cpp \
 				CentipedeEntity.cpp \
 				CentipedePlayer.cpp \
+				CentipedeShoot.cpp \
 				../Sound.cpp \
 				../Text.cpp \
 				../AEntity.cpp \

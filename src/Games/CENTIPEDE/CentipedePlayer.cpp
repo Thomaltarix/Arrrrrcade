@@ -12,6 +12,7 @@ Arcade::CentipedePlayer::CentipedePlayer(size_t x, size_t y)
 {
     this->setAlive(true);
     _body = this->makeShip(x, y);
+    _shoot = std::make_shared<CentipedeShoot>();
 }
 
 // Arcade::SnakePlayer::~SnakePlayer()
@@ -19,31 +20,30 @@ Arcade::CentipedePlayer::CentipedePlayer(size_t x, size_t y)
 //     _bodies.clear();
 // }
 
-void Arcade::CentipedePlayer::deplace(std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> map, int key)
+bool Arcade::CentipedePlayer::deplace(Map map, int key)
 {
-    (void) map;
-
     switch (key)
     {
     case UP:
-        if ((getBody()->getPos()[1] - 1) - 7 > map.size() - 6)
+        if ((getBody()->getPos()[1] - 1) - 7 > map.size() - 5)
             getBody()->setPos(getBody()->getPos()[0], getBody()->getPos()[1] - 1);
-        break;
+        return true;
     case DOWN:
-        if ((getBody()->getPos()[1] + 1) - 7 < map.size() - 1)
+        if ((getBody()->getPos()[1] + 1) - 7 < map.size())
             getBody()->setPos(getBody()->getPos()[0], getBody()->getPos()[1] + 1);
-        break;
+        return true;
     case LEFT:
         if ((getBody()->getPos()[0] - 1) - 2 > 0)
             getBody()->setPos(getBody()->getPos()[0] - 1, getBody()->getPos()[1]);
-        break;
+        return true;
     case RIGHT:
-        if ((getBody()->getPos()[0] + 1) - 2 < map.at(0).size() - 1)
+        if ((getBody()->getPos()[0] + 1) - 2 < map.at(0).size() - 2)
             getBody()->setPos(getBody()->getPos()[0] + 1, getBody()->getPos()[1]);
-        break;
+        return true;
     default:
         break;
     }
+    return false;
 }
 
 // void Arcade::CentipedePlayer::move(Rotation rotation)
@@ -71,15 +71,17 @@ void Arcade::CentipedePlayer::deplace(std::vector<std::vector<std::shared_ptr<Ar
 //     return simulate(nextPos);
 // }
 
-// int Arcade::CentipedePlayer::simulate(std::pair<size_t, size_t> nextPos)
-// {
-//     for (int i = _bodies.size() - 1; i > 0; i--) {
-//         _bodies.at(i).get()->setPos(_bodies.at(i - 1).get()->getPos()[0], _bodies.at(i - 1).get()->getPos()[1]);
-//         _bodies.at(i).get()->setRotation(_bodies.at(i - 1).get()->getRotation());
-//     }
-//     _bodies.at(0).get()->setPos(nextPos.first, nextPos.second);
-//     return 0;
-// }
+int Arcade::CentipedePlayer::simulate()
+{
+    // for (int i = _bodies.size() - 1; i > 0; i--) {
+    //     _bodies.at(i).get()->setPos(_bodies.at(i - 1).get()->getPos()[0], _bodies.at(i - 1).get()->getPos()[1]);
+    //     _bodies.at(i).get()->setRotation(_bodies.at(i - 1).get()->getRotation());
+    // }
+    // _bodies.at(0).get()->setPos(nextPos.first, nextPos.second);
+    // return 0;
+    getShoot()->simulate();
+    return 0;
+}
 
 std::shared_ptr<Arcade::CentipedeShip> Arcade::CentipedePlayer::makeShip(size_t x, size_t y)
 {

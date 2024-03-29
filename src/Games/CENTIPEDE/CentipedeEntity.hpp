@@ -58,4 +58,10 @@ namespace Arcade {
             CentipedeBox(size_t x, size_t y);
             ~CentipedeBox() = default;
     };
+
+    class CentipedeShootEntity : public AEntity {
+        public:
+            CentipedeShootEntity(size_t x, size_t y);
+            ~CentipedeShootEntity() = default;
+    };
 }

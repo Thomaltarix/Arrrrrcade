@@ -44,6 +44,7 @@ namespace Arcade {
             std::string _userName;
             bool _started;
             int _score;
+            int _key;
 
             std::unique_ptr<CentipedePlayer> _player;
             std::vector<std::shared_ptr<ISound>> _sounds;
@@ -60,7 +61,7 @@ namespace Arcade {
             Map _map;
             std::shared_ptr<Arcade::CentipedeBackground> _background;
             void initMap(int width, int height);
-            std::pair<size_t, size_t> getNextPost();
+            // std::pair<size_t, size_t> getNextPost();
 
             template <typename T>
             std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)

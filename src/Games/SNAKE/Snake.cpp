@@ -18,7 +18,7 @@ Arcade::SnakeGame::SnakeGame()
     _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
     _lastTick = clock();
-        _map.at(body->getPos()[1]).at(body->getPos()[0]) = std::move(body);
+    spawnApple();
 
     _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
 }
@@ -135,13 +135,13 @@ bool Arcade::SnakeGame::isInsideApple(std::pair<size_t, size_t> pos)
     return false;
 }
 
-std::pair<size_t, size_t> Arcade::SnakeGame::getNextPost()
+void Arcade::SnakeGame::spawnApple()
 {
-    std::vector<size_t> nextPos = _player->getHead()->getPos();
-
-    switch ((Arcade::Rotation)_player.get()->getHead()->getRotation()) {
-    case Arcade::Rotation::FUP:
-        nextPos[1]--;
+    size_t x = rand() % _map.at(0).size() + 2;
+    size_t y = rand() % _map.size() + 10;
+    while (isInsideSnake(std::make_pair(x, y)) || isInsideWall(std::make_pair(x, y))) {
+        x = rand() % _map.at(0).size() + 2;
+        y = rand() % _map.size() + 10;
         break;
     case Arcade::Rotation::FRIGHT:
         nextPos[0]++;
@@ -153,5 +153,5 @@ std::pair<size_t, size_t> Arcade::SnakeGame::getNextPost()
         nextPos[0]--;
         break;
     }
-    return std::make_pair(nextPos[0], nextPos[1]);
+    _map.at(y - 10).at(x - 2) = std::make_shared<SnakeApple>(x, y);
 }

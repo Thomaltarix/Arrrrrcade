@@ -58,7 +58,7 @@ namespace Arcade {
             bool isInsideWall(std::pair<size_t, size_t> pos);
             bool isInsideSnake(std::pair<size_t, size_t> pos);
             bool isInsideApple(std::pair<size_t, size_t> pos);
-            std::pair<size_t, size_t> getNextPost();
+            void spawnApple();
 
             template <typename T>
             std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)

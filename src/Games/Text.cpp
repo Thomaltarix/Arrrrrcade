@@ -6,12 +6,18 @@
 */
 
 #include "Text.hpp"
+#include "Rotation.hpp"
 
 Arcade::Text::Text(const std::string &text, size_t x, size_t y)
 {
     _pos.push_back(x);
     _pos.push_back(y);
     _text = text;
+    _fontPath = "assets/Snake/SimplyMono-Bold";
+    _size = 20;
+    std::unique_ptr<IColor> color = std::make_unique<Color>();
+    color->setColor(255, 255, 255, 255);
+    _rotation = Arcade::FUP;
 }
 
 Arcade::Text::~Text() {}

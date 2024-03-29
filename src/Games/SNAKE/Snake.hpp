@@ -26,7 +26,7 @@ namespace Arcade {
             //Game
             int startGame();
             int stopGame();
-            int getScore() { return _score; }
+            int getScore();
             int simulate();
 
             //Event

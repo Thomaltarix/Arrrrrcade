@@ -41,9 +41,9 @@ namespace Arcade {
             ~CentipedeVoid() = default;
     };
 
-    // class SnakeApple : public AEntity {
-    //     public:
-    //         SnakeApple(size_t x, size_t y);
-    //         ~SnakeApple() = default;
-    // };
+    class CentipedeBox : public AEntity {
+        public:
+            CentipedeBox(size_t x, size_t y);
+            ~CentipedeBox() = default;
+    };
 }

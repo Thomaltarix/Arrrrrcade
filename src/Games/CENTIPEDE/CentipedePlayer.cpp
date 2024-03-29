@@ -26,7 +26,7 @@ void Arcade::CentipedePlayer::deplace(std::vector<std::vector<std::shared_ptr<Ar
     switch (key)
     {
     case UP:
-        if ((getBody()->getPos()[1] - 1) - 7 > 0)
+        if ((getBody()->getPos()[1] - 1) - 7 > map.size() - 6)
             getBody()->setPos(getBody()->getPos()[0], getBody()->getPos()[1] - 1);
         break;
     case DOWN:

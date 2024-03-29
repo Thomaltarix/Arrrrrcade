@@ -15,7 +15,6 @@ Arcade::Centipede::Centipede()
     this->initMap(21, 22);
     _background = std::make_shared<CentipedeBackground>(0, 0);
     _player = std::make_unique<CentipedePlayer>(10, 18);
-    // _entities.push_back(_player->getBody());
     _map[10][18] = std::move(_player->getBody());
 }
 

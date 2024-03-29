@@ -64,13 +64,13 @@ Arcade::CentipedeVoid::CentipedeVoid(std::size_t x, std::size_t y)
     this->setPos(x + 2, y + 7);
 }
 
-// Arcade::SnakeApple::SnakeApple(size_t x, size_t y)
-// {
-//     this->setChar('@');
-//     this->setColor(std::make_unique<Arcade::Color>());
-//     this->getColor()->setColor(255, 0, 0, 255);
-//     this->setPath("assets/apple");
-//     this->setRotation((float)Arcade::FUP);
-//     this->setSize(1, 1);
-//     this->setPos(x, y);
-// }
+Arcade::CentipedeBox::CentipedeBox(size_t x, size_t y)
+{
+    this->setChar('X');
+    this->setColor(std::make_unique<Arcade::Color>());
+    this->getColor()->setColor(255, 0, 0, 255);
+    this->setPath("assets/Centipede/box");
+    this->setRotation((float)Arcade::FUP);
+    this->setSize(29, 29);
+    this->setPos(x + 2, y + 7);
+}

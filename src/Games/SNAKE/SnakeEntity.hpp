@@ -31,7 +31,7 @@ namespace Arcade {
 
     class SnakeBackground : public AEntity {
         public:
-            SnakeBackground(size_t x, size_t y);
+            SnakeBackground();
             ~SnakeBackground() = default;
     };
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "AGame.hpp"
+#include "CentipedePlayer.hpp"
 
 typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
 
@@ -40,6 +41,7 @@ namespace Arcade {
             bool _started;
             int _score;
 
+            std::unique_ptr<CentipedePlayer> _player;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;

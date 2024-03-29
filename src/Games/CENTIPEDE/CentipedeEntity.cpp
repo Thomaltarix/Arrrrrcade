@@ -20,6 +20,17 @@ Arcade::CentipedeBackground::CentipedeBackground(std::size_t x, std::size_t y)
     this->setPos(x, y);
 }
 
+Arcade::CentipedeShip::CentipedeShip(size_t x, size_t y)
+{
+    this->setChar('W');
+    this->setColor(std::make_unique<Arcade::Color>());
+    this->getColor()->setColor(0, 255, 0, 255);
+    this->setPath("assets/Centipede/ship");
+    this->setRotation((float)Arcade::FUP);
+    this->setSize(29, 29);
+    this->setPos(x, y);
+}
+
 // Arcade::SnakeBody::SnakeBody(size_t x, size_t y, Arcade::Rotation rotation)
 // {
 //     this->setChar('O');

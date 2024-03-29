@@ -8,9 +8,11 @@
 SRC			=	Centipede.cpp \
 				getInstance.cpp \
 				CentipedeEntity.cpp \
+				CentipedePlayer.cpp \
 				../Sound.cpp \
 				../Text.cpp \
 				../AEntity.cpp \
+				../APlayer.cpp \
 
 
 OBJ			= $(SRC:.cpp=.o)

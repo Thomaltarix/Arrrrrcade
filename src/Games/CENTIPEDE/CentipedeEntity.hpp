@@ -17,6 +17,12 @@ namespace Arcade {
             ~CentipedeBackground() = default;
     };
 
+    class CentipedeShip : public AEntity {
+        public:
+            CentipedeShip(size_t x, size_t y);
+            ~CentipedeShip() = default;
+    };
+
     // class SnakeBody : public AEntity {
     //     public:
     //         SnakeBody(size_t x, size_t y, Rotation rotation);

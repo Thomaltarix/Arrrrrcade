@@ -6,13 +6,12 @@
 */
 
 #include "CentipedePlayer.hpp"
+#include "Keys.hpp"
 
 Arcade::CentipedePlayer::CentipedePlayer(size_t x, size_t y)
 {
     this->setAlive(true);
-
     _body = this->makeShip(x, y);
-    // this->setupBody(x, y, size);
 }
 
 // Arcade::SnakePlayer::~SnakePlayer()
@@ -20,14 +19,41 @@ Arcade::CentipedePlayer::CentipedePlayer(size_t x, size_t y)
 //     _bodies.clear();
 // }
 
-void Arcade::CentipedePlayer::move(Rotation rotation)
+void Arcade::CentipedePlayer::deplace(std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> map, int key)
 {
-    Rotation currentRotation = getRotationFromFloat(_body->getRotation());
+    (void) map;
 
-    if (rotation == getRotationFromFloat(currentRotation + 180) || rotation == getRotationFromFloat(currentRotation - 180))
-        return;
-    _body->setRotation(rotation);
+    switch (key)
+    {
+    case UP:
+        if ((getBody()->getPos()[1] - 1) - 7 > 0)
+            getBody()->setPos(getBody()->getPos()[0], getBody()->getPos()[1] - 1);
+        break;
+    case DOWN:
+        if ((getBody()->getPos()[1] + 1) - 7 < map.size() - 1)
+            getBody()->setPos(getBody()->getPos()[0], getBody()->getPos()[1] + 1);
+        break;
+    case LEFT:
+        if ((getBody()->getPos()[0] - 1) - 2 > 0)
+            getBody()->setPos(getBody()->getPos()[0] - 1, getBody()->getPos()[1]);
+        break;
+    case RIGHT:
+        if ((getBody()->getPos()[0] + 1) - 2 < map.at(0).size() - 1)
+            getBody()->setPos(getBody()->getPos()[0] + 1, getBody()->getPos()[1]);
+        break;
+    default:
+        break;
+    }
 }
+
+// void Arcade::CentipedePlayer::move(Rotation rotation)
+// {
+//     Rotation currentRotation = getRotationFromFloat(_body->getRotation());
+
+//     if (rotation == getRotationFromFloat(currentRotation + 180) || rotation == getRotationFromFloat(currentRotation - 180))
+//         return;
+//     _body->setRotation(rotation);
+// }
 
 // int Arcade::SnakePlayer::die()
 // {

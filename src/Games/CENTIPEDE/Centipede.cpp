@@ -15,7 +15,7 @@ Arcade::Centipede::Centipede()
     this->initMap(21, 22);
     _background = std::make_shared<CentipedeBackground>(0, 0);
     _player = std::make_unique<CentipedePlayer>(10, 18);
-    _entities.push_back(_player->getBody());
+    // _entities.push_back(_player->getBody());
     _map[10][18] = std::move(_player->getBody());
 }
 
@@ -52,10 +52,7 @@ int Arcade::Centipede::simulate()
 //Event
 void Arcade::Centipede::catchKeyEvent(int key)
 {
-    for (auto &event : _keyEvents) {
-        if (event.first == key)
-            event.second();
-    }
+    _player->deplace(_map, key);
 }
 
 
@@ -104,25 +101,4 @@ void Arcade::Centipede::initMap(int width, int height)
             line = makeHorizontalSides<CentipedeWall, CentipedeVoid>(width, row);
         _map.push_back(line);
     }
-}
-
-std::pair<size_t, size_t> Arcade::Centipede::getNextPost()
-{
-    std::vector<size_t> nextPos = _player->getBody()->getPos();
-
-    switch ((Arcade::Rotation)_player->getBody()->getRotation()) {
-    case Arcade::Rotation::FUP:
-        nextPos[1]--;
-        break;
-    case Arcade::Rotation::FRIGHT:
-        nextPos[0]++;
-        break;
-    case Arcade::Rotation::FDOWN:
-        nextPos[1]++;
-        break;
-    case Arcade::Rotation::FLEFT:
-        nextPos[0]--;
-        break;
-    }
-    return std::make_pair(nextPos[0], nextPos[1]);
 }

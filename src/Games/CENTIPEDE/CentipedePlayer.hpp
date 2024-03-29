@@ -21,7 +21,8 @@ namespace Arcade {
             CentipedePlayer(size_t x, size_t y);
             // ~SnakePlayer();
 
-            void move(Rotation rotation);
+            void move(Rotation rotation) { (void) rotation; };
+            void deplace(std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> map, int key);
             // int die();
             // int grow(std::pair<size_t, size_t> pos);
             // int simulate(std::pair<size_t, size_t> nextPos);

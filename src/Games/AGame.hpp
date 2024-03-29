@@ -10,6 +10,8 @@
 #include "IGame.hpp"
 #include <memory>
 
+typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
+
 namespace Arcade {
 class AGame : public IGame {
         public:
@@ -24,11 +26,14 @@ class AGame : public IGame {
             //Event
             virtual void catchKeyEvent(int key) = 0;
 
+            //UserName
+            void setUserName(const std::string &name) { _userName = name; };
+            std::string getUserName() { return _userName; };
+
             //Display
             virtual std::vector<std::shared_ptr<IEntity>> getEntities() = 0;
             virtual std::vector<std::shared_ptr<IText>> getTexts() = 0;
             virtual std::vector<std::shared_ptr<ISound>> getSounds() = 0;
-
             class Error : public std::exception {
                 public:
 
@@ -45,5 +50,7 @@ class AGame : public IGame {
                 private:
                     std::string _msg;
             };
+            private:
+                std::string _userName;
     };
 }

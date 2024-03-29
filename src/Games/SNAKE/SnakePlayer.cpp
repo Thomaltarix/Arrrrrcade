@@ -11,7 +11,7 @@ Arcade::SnakePlayer::SnakePlayer(size_t x, size_t y, size_t size, Rotation rotat
 {
     this->setAlive(true);
     this->setSnakeSize(size);
-    this->setSpeed(1);
+    this->setSpeed(5);
 
     _bodies.push_back(this->makeHead(x, y, rotation));
     this->setupBody(x, y, size);

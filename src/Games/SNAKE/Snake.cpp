@@ -62,7 +62,8 @@ int Arcade::SnakeGame::simulate()
         return _player->die();
     if (isInsideSnake(nextPos))
         return _player->die();
-    if (isInsideApple(nextPos))
+    if (isInsideApple(nextPos)) {
+        _player->setSpeed(_player->getSpeed() + 0.2);
         _score++;
         return _player->grow(nextPos);
     return _player->simulate(nextPos);

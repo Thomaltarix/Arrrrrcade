@@ -16,7 +16,7 @@ Arcade::SnakeGame::SnakeGame()
 
     _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
 
-    for (std::shared_ptr<Arcade::SnakeBody> body : _player->getBodies())
+    _lastTick = clock();
         _map.at(body->getPos()[1]).at(body->getPos()[0]) = std::move(body);
 
     _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
@@ -53,8 +53,11 @@ int Arcade::SnakeGame::simulate()
 {
     if (!_started || !_player->isAlive())
         return -1;
-
-    std::pair<int, int> nextPos = getNextPost();
+    clock_t currentTick = clock();
+    if ((float)(currentTick - _lastTick) / CLOCKS_PER_SEC < (1 / _player.get()->getSpeed()))
+        return 0;
+    _lastTick = clock();
+    std::pair<int, int> nextPos = _player.get()->getNextPost();
     if (isInsideWall(nextPos))
         return _player->die();
     if (isInsideSnake(nextPos))

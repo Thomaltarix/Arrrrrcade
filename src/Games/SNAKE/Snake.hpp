@@ -14,7 +14,7 @@
 
 #include <unordered_map>
 #include <functional>
-
+#include <time.h>
 typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
 
 namespace Arcade {
@@ -40,6 +40,7 @@ namespace Arcade {
             bool _started;
             int _score;
             Map _map;
+            clock_t _lastTick;
             std::unique_ptr<SnakePlayer> _player;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;

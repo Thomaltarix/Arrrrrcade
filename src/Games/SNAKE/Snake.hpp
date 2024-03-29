@@ -41,12 +41,15 @@ namespace Arcade {
             int _score;
             Map _map;
             clock_t _lastTick;
+
+            // Entities
             std::shared_ptr<SnakeBackground> _background;
             std::unique_ptr<SnakePlayer> _player;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;
 
+            // Key Events
             std::unordered_map<int, std::function<void()>> _keyEvents = {
                 {Keys::Z, [this](){_player->move(Arcade::FUP);}},
                 {Keys::S, [this](){_player->move(Arcade::FDOWN);}},
@@ -54,6 +57,7 @@ namespace Arcade {
                 {Keys::D, [this](){_player->move(Arcade::FRIGHT);}},
             };
 
+            // Private functions
             void initMap(int width, int height);
             bool isInsideWall(std::pair<size_t, size_t> pos);
             bool isInsideSnake(std::pair<size_t, size_t> pos);

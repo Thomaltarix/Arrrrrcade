@@ -10,12 +10,13 @@
 
 Arcade::Centipede::Centipede()
 {
+    _key = -1;
     _started = false;
     _score = 0;
     this->initMap(21, 22);
     _background = std::make_shared<CentipedeBackground>(0, 0);
-    _player = std::make_unique<CentipedePlayer>(10, 18);
-    _map[10][18] = std::move(_player->getBody());
+    _player = std::make_unique<CentipedePlayer>(10, 19);
+    _map[10][19] = _player->getBody();
 }
 
 Arcade::Centipede::~Centipede()
@@ -44,6 +45,22 @@ int Arcade::Centipede::getScore()
 
 int Arcade::Centipede::simulate()
 {
+    _player->deplace(_map, _key);
+    if (_key == SPACE && !_player->getShoot()->isShoot()) {
+        _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 8] = _player->getShoot()->getShoot();
+        _player->getShoot()->getShoot()->setPos(_player->getBody()->getPos()[0], _player->getBody()->getPos()[1] - 1);
+        _player->getShoot()->setIsShoot(true);
+    }
+    if (_player->getShoot()->simulate()) {
+        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] = _player->getShoot()->getShoot();
+        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 6] =
+        std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 6);
+    }
+    if (!_player->getShoot()->isShoot() && _player->getShoot()->wasShoot()) {
+        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] =
+        std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 7);
+    }
+    _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
     return 0;
 }
 
@@ -51,7 +68,7 @@ int Arcade::Centipede::simulate()
 //Event
 void Arcade::Centipede::catchKeyEvent(int key)
 {
-    _player->deplace(_map, key);
+    _key = key;
 }
 
 
@@ -92,12 +109,14 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::Centipede::getSounds()
 
 void Arcade::Centipede::initMap(int width, int height)
 {
-    for (int row = 0; row < height; row++) {
+    for (int i = 0; i < width; i ++) {
         std::vector<std::shared_ptr<IEntity>> line;
-        if (row == 0 || row == height - 1)
-            line = makeVerticalSides<CentipedeWall>(width, row);
-        else
-            line = makeHorizontalSides<CentipedeWall, CentipedeVoid>(width, row);
-        _map.push_back(line);
+        for (int j = 0; j < height; j++) {
+            if (i == 0 || i == width - 1 || j == 0 || j == height - 1)
+                line.push_back(std::make_shared<CentipedeWall>(i,j));
+            else
+                line.push_back(std::make_shared<CentipedeVoid>(i,j));
+        }
+        _map.push_back(line);   
     }
 }

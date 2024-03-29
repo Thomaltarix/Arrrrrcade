@@ -28,7 +28,7 @@ Arcade::CentipedeShip::CentipedeShip(size_t x, size_t y)
     this->setPath("assets/Centipede/ship");
     this->setRotation((float)Arcade::FUP);
     this->setSize(29, 29);
-    this->setPos(x, y);
+    this->setPos(x + 2, y + 7);
 }
 
 // Arcade::SnakeBody::SnakeBody(size_t x, size_t y, Arcade::Rotation rotation)
@@ -47,10 +47,10 @@ Arcade::CentipedeWall::CentipedeWall(std::size_t x, std::size_t y)
     this->setChar('#');
     this->setColor(std::make_unique<Arcade::Color>());
     this->getColor()->setColor(0, 0, 255, 255);
-    this->setPath("");
+    this->setPath("assets/wall");
     this->setRotation((float)Arcade::FUP);
     this->setSize(29, 29);
-    this->setPos(x, y);
+    this->setPos(x + 2, y + 7);
 }
 
 Arcade::CentipedeVoid::CentipedeVoid(std::size_t x, std::size_t y)
@@ -61,7 +61,7 @@ Arcade::CentipedeVoid::CentipedeVoid(std::size_t x, std::size_t y)
     this->setPath("");
     this->setRotation((float)Arcade::FUP);
     this->setSize(29, 29);
-    this->setPos(x, y);
+    this->setPos(x + 2, y + 7);
 }
 
 // Arcade::SnakeApple::SnakeApple(size_t x, size_t y)

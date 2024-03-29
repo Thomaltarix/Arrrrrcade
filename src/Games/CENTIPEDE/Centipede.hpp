@@ -9,6 +9,10 @@
 
 #include "AGame.hpp"
 #include "CentipedePlayer.hpp"
+#include "Keys.hpp"
+
+#include <unordered_map>
+#include <functional>
 
 typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
 
@@ -45,9 +49,18 @@ namespace Arcade {
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;
+        
+            std::unordered_map<int, std::function<void()>> _keyEvents = {
+                {Keys::Z, [this](){_player->move(Arcade::FUP);}},
+                {Keys::S, [this](){_player->move(Arcade::FDOWN);}},
+                {Keys::Q, [this](){_player->move(Arcade::FLEFT);}},
+                {Keys::D, [this](){_player->move(Arcade::FRIGHT);}},
+            };
 
             Map _map;
+            std::shared_ptr<Arcade::CentipedeBackground> _background;
             void initMap(int width, int height);
+            std::pair<size_t, size_t> getNextPost();
 
             template <typename T>
             std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)

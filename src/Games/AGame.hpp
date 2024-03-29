@@ -24,6 +24,10 @@ class AGame : public IGame {
             //Event
             virtual void catchKeyEvent(int key) = 0;
 
+            //UserName
+            virtual void setUserName(const std::string &name) = 0;
+            virtual std::string getUserName() = 0;
+
             //Display
             virtual std::vector<std::shared_ptr<IEntity>> getEntities() = 0;
             virtual std::vector<std::shared_ptr<IText>> getTexts() = 0;

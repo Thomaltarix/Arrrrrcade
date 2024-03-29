@@ -45,7 +45,7 @@ void Arcade::CentipedePlayer::move(Rotation rotation)
 //     return simulate(nextPos);
 // }
 
-// int Arcade::SnakePlayer::simulate(std::pair<size_t, size_t> nextPos)
+// int Arcade::CentipedePlayer::simulate(std::pair<size_t, size_t> nextPos)
 // {
 //     for (int i = _bodies.size() - 1; i > 0; i--) {
 //         _bodies.at(i).get()->setPos(_bodies.at(i - 1).get()->getPos()[0], _bodies.at(i - 1).get()->getPos()[1]);

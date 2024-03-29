@@ -44,6 +44,11 @@ int Arcade::SnakeGame::stopGame()
     return 0;
 }
 
+int Arcade::SnakeGame::getScore()
+{
+    return _score;
+}
+
 int Arcade::SnakeGame::simulate()
 {
     if (!_started || !_player->isAlive())
@@ -55,6 +60,7 @@ int Arcade::SnakeGame::simulate()
     if (isInsideSnake(nextPos))
         return _player->die();
     if (isInsideApple(nextPos))
+        _score++;
         return _player->grow(nextPos);
     return _player->simulate(nextPos);
 }

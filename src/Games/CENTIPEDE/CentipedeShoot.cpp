@@ -20,7 +20,7 @@ bool Arcade::CentipedeShoot::simulate()
 {
     if (_isShoot) {
         clock_t currentTick = clock();
-        if ((float)(currentTick - _lastTick) / CLOCKS_PER_SEC < 0.05)
+        if ((float)(currentTick - _lastTick) / CLOCKS_PER_SEC < 0.02)
             return false;
         
         _lastTick = clock();

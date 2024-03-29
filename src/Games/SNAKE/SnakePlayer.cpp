@@ -24,11 +24,14 @@ Arcade::SnakePlayer::~SnakePlayer()
 
 void Arcade::SnakePlayer::move(Rotation rotation)
 {
-    Rotation currentRotation = getRotationFromFloat(_bodies.at(0).get()->getRotation());
+    Arcade::Rotation currentRotation = getRotationFromFloat(_bodies.at(0).get()->getRotation());
+    _bodies.at(0).get()->setRotation((float)rotation);
+    std::pair<size_t, size_t> nextPos = this->getNextPost();
 
-    if (rotation == getRotationFromFloat(currentRotation + 180) || rotation == getRotationFromFloat(currentRotation - 180))
+    if (_bodies.at(1).get()->getPos()[0] == nextPos.first && _bodies.at(1).get()->getPos()[1] == nextPos.second) {
+        _bodies.at(0).get()->setRotation((float)currentRotation);
         return;
-    _bodies.at(0).get()->setRotation(rotation);
+    }
 }
 
 int Arcade::SnakePlayer::die()

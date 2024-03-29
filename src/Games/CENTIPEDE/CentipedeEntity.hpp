@@ -23,11 +23,23 @@ namespace Arcade {
             ~CentipedeShip() = default;
     };
 
-    // class SnakeBody : public AEntity {
-    //     public:
-    //         SnakeBody(size_t x, size_t y, Rotation rotation);
-    //         ~SnakeBody() = default;
-    // };
+    class CentipedeEnemyHead : public AEntity {
+        public:
+            CentipedeEnemyHead(size_t x, size_t y, Rotation rotation);
+            ~CentipedeEnemyHead() = default;
+    };
+
+    class CentipedeEnemyTail : public AEntity {
+        public:
+            CentipedeEnemyTail(size_t x, size_t y, Rotation rotation);
+            ~CentipedeEnemyTail() = default;
+    };
+
+    class CentipedeEnemyBody : public AEntity {
+        public:
+            CentipedeEnemyBody(size_t x, size_t y, Rotation rotation);
+            ~CentipedeEnemyBody() = default;
+    };
 
     class CentipedeWall : public AEntity {
         public:

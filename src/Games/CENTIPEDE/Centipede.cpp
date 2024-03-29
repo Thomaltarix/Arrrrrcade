@@ -13,10 +13,7 @@ Arcade::Centipede::Centipede()
     _key = -1;
     _started = false;
     _score = 0;
-    this->initMap(21, 22);
     _background = std::make_shared<CentipedeBackground>(0, 0);
-    _player = std::make_unique<CentipedePlayer>(10, 19);
-    _map[10][19] = _player->getBody();
 }
 
 Arcade::Centipede::~Centipede()
@@ -29,6 +26,13 @@ Arcade::Centipede::~Centipede()
 int Arcade::Centipede::startGame()
 {
     _started = true;
+    _key = -1;
+    _score = 0;
+    _player.reset();
+    _map.clear();
+    this->initMap(21, 22);
+    _player = std::make_unique<CentipedePlayer>(10, 19);
+    _map[10][19] = _player->getBody();
     return 0;
 }
 

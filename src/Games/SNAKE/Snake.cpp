@@ -20,7 +20,7 @@ Arcade::SnakeGame::SnakeGame()
     _lastTick = clock();
     spawnApple();
 
-    _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
+    // _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
 }
 
 Arcade::SnakeGame::~SnakeGame()

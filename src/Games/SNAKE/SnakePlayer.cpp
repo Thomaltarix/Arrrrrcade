@@ -63,7 +63,7 @@ std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeHead(size_t x, size_
     head.get()->setChar('S');
     head.get()->setColor(std::make_unique<Arcade::Color>());
     head.get()->getColor()->setColor(128, 255, 0, 255);
-    head.get()->setPath("assets/head");
+    head.get()->setPath("assets/Snake/head");
     return head;
 }
 
@@ -73,7 +73,7 @@ std::shared_ptr<Arcade::SnakeBody> Arcade::SnakePlayer::makeTail(size_t x, size_
     tail.get()->setChar('U');
     tail.get()->setColor(std::make_unique<Arcade::Color>());
     tail.get()->getColor()->setColor(159, 83, 236, 255);
-    tail.get()->setPath("assets/tail");
+    tail.get()->setPath("assets/Snake/tail");
     return tail;
 }
 

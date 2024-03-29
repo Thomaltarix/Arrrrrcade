@@ -87,6 +87,9 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::SnakeGame::getEntities()
             _entities.push_back(entity);
         }
     }
+    for (auto body : _player->getBodies()) {
+        _entities.push_back(body);
+    }
     return _entities;
 }
 

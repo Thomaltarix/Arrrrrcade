@@ -42,26 +42,6 @@ int Arcade::CentipedeEnemy::die()
     return -1;
 }
 
-// int Arcade::CentipedeEnemy::grow(std::pair<size_t, size_t> nextPos)
-// {
-//     std::shared_ptr<Arcade::CentipedeEnemyBody> tail = makeTail(
-//         _bodies.at(_bodies.size() - 1).get()->getPos()[0],
-//         _bodies.at(_bodies.size() - 1).get()->getPos()[1],
-//         getRotationFromFloat(_bodies.at(_bodies.size() - 1).get()->getRotation()));
-//     _bodies.at(_bodies.size() - 1) = std::make_shared<Arcade::CentipedeEnemyBody>(
-//         _bodies.at(_bodies.size() - 1).get()->getPos()[0] - 2,
-//         _bodies.at(_bodies.size() - 1).get()->getPos()[1] - 10,
-//         getRotationFromFloat(_bodies.at(_bodies.size() - 1).get()->getRotation()));
-//     _bodies.push_back(tail);
-
-//     for (int i = _bodies.size() - 1; i > 0; i--) {
-//         _bodies.at(i).get()->setPos(_bodies.at(i - 1).get()->getPos()[0], _bodies.at(i - 1).get()->getPos()[1]);
-//         _bodies.at(i).get()->setRotation(_bodies.at(i - 1).get()->getRotation());
-//     }
-//     _bodies.at(0).get()->setPos(nextPos.first, nextPos.second);
-//     return 0;
-// }
-
 int Arcade::CentipedeEnemy::simulate(Map map)
 {
     clock_t currentTick = clock();

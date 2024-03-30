@@ -46,6 +46,7 @@ namespace Arcade {
             bool _started;
             int _score;
             int _key;
+            clock_t _generationClock;
 
             std::unique_ptr<CentipedePlayer> _player;
             std::vector<std::shared_ptr<CentipedeEnemy>> _enemies;
@@ -69,27 +70,5 @@ namespace Arcade {
             bool isInsideBox(std::vector<size_t> pos);
             void transformBox(std::vector<size_t> pos);
             void cutEnemy(std::vector<size_t> pos, size_t enemy);
-
-            template <typename T>
-            std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)
-            {
-                auto line = std::vector<std::shared_ptr<IEntity>>();
-
-                for (int i = 0; i < width; i++)
-                    line.push_back(std::make_shared<T>(i, height));
-                return line;
-            };
-
-            template <typename T1, typename T2>
-            std::vector<std::shared_ptr<IEntity>> makeHorizontalSides(int width , int height)
-            {
-                auto line = std::vector<std::shared_ptr<IEntity>>();
-
-                line.push_back(std::make_shared<T1>(0, height));
-                for (int i = 1; i < width - 1; i++)
-                    line.push_back(std::make_shared<T2>(i, height));
-                line.push_back(std::make_shared<T1>(width - 1, height));
-                return line;
-            };
     };
 }

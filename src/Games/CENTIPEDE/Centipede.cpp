@@ -26,6 +26,7 @@ Arcade::Centipede::~Centipede()
 int Arcade::Centipede::startGame()
 {
     _started = true;
+    _generationClock = clock();
     _key = -1;
     _score = 0;
     _player.reset();
@@ -58,6 +59,13 @@ int Arcade::Centipede::simulate()
     for (auto enemy : _enemies)
         enemy->simulate(_map);
     _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
+
+    clock_t currentTick = clock();
+    if ((float)(currentTick - _generationClock) / CLOCKS_PER_SEC < 10)
+        return 0;
+    _generationClock = clock();
+    _enemies.push_back(std::make_shared<CentipedeEnemy>(9, 1, 9, Arcade::FRIGHT));
+
     return 0;
 }
 
@@ -119,7 +127,7 @@ void Arcade::Centipede::initMap(int width, int height)
             else
                 line.push_back(std::make_shared<CentipedeVoid>(i,j));
         }
-        _map.push_back(line);   
+        _map.push_back(line);
     }
 }
 
@@ -154,6 +162,7 @@ bool Arcade::Centipede::isInsideEnemy(std::vector<size_t> pos)
     for (size_t enemy = 0; enemy < _enemies.size(); enemy++) {
         for (auto body : _enemies[enemy]->getBodies()) {
             if (body.get()->getPos()[0] == pos[0] && body.get()->getPos()[1] == pos[1]) {
+                _score += 1;
                 cutEnemy(pos, enemy);
                 return true;
             }

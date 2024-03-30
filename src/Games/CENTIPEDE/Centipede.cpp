@@ -35,7 +35,7 @@ int Arcade::Centipede::startGame()
     _map[10][19] = _player->getBody();
 
 
-    _enemy = std::make_unique<CentipedeEnemy>(4, 1, 4, Arcade::FRIGHT);
+    _enemy = std::make_unique<CentipedeEnemy>(7, 1, 7, Arcade::FRIGHT);
 
     return 0;
 }
@@ -54,20 +54,7 @@ int Arcade::Centipede::getScore()
 int Arcade::Centipede::simulate()
 {
     _player->deplace(_map, _key);
-    if (_key == SPACE && !_player->getShoot()->isShoot()) {
-        _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 8] = _player->getShoot()->getShoot();
-        _player->getShoot()->getShoot()->setPos(_player->getBody()->getPos()[0], _player->getBody()->getPos()[1] - 1);
-        _player->getShoot()->setIsShoot(true);
-    }
-    if (_player->getShoot()->simulate()) {
-        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] = _player->getShoot()->getShoot();
-        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 6] =
-        std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 6);
-    }
-    if (!_player->getShoot()->isShoot() && _player->getShoot()->wasShoot()) {
-        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] =
-        std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 7);
-    }
+    simulateShoot();
     _enemy->simulate(_map);
     _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
     return 0;
@@ -131,4 +118,37 @@ void Arcade::Centipede::initMap(int width, int height)
         }
         _map.push_back(line);   
     }
+}
+
+void Arcade::Centipede::simulateShoot()
+{
+    if (_key == SPACE && !_player->getShoot()->isShoot()) {
+        _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 8] = _player->getShoot()->getShoot();
+        _player->getShoot()->getShoot()->setPos(_player->getBody()->getPos()[0], _player->getBody()->getPos()[1] - 1);
+        _player->getShoot()->setIsShoot(true);
+    }
+    if (_player->getShoot()->simulate()) {
+        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] = _player->getShoot()->getShoot();
+        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 6] =
+        std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 6);
+        if (isInsideEnemy(_player->getShoot()->getShoot()->getPos())) {
+            _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] =
+            std::make_shared<CentipedeBox>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 7);
+            _player->getShoot()->setIsShoot(false);
+            _player->getShoot()->setWasShoot(false);
+        }
+    }
+    if (!_player->getShoot()->isShoot() && _player->getShoot()->wasShoot()) {
+        _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] =
+        std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 7);
+    }
+}
+
+bool Arcade::Centipede::isInsideEnemy(std::vector<size_t> pos)
+{
+    for (auto body : _enemy->getBodies()) {
+        if (body.get()->getPos()[0] == pos[0] && body.get()->getPos()[1] == pos[1])
+            return true;
+    }
+    return false;
 }

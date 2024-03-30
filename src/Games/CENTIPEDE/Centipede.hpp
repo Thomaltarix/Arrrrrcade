@@ -63,7 +63,9 @@ namespace Arcade {
             Map _map;
             std::shared_ptr<Arcade::CentipedeBackground> _background;
             void initMap(int width, int height);
-            // std::pair<size_t, size_t> getNextPost();
+
+            void simulateShoot();
+            bool isInsideEnemy(std::vector<size_t> pos);
 
             template <typename T>
             std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)

@@ -98,12 +98,10 @@ Arcade::Rotation Arcade::CentipedeEnemy::getRotationFromFloat(float rotation)
     return FUP;
 }
 
-#include <iostream>
 std::pair<size_t, size_t> Arcade::CentipedeEnemy::getNextPost()
 {
     std::vector<size_t> nextPos = this->getHead()->getPos();
 
-    std::cout << nextPos[0] << " " << nextPos[1] << std::endl;
     switch ((Arcade::Rotation)this->getHead()->getRotation()) {
     case Arcade::Rotation::FUP:
         nextPos[1]--;

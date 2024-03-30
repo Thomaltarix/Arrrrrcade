@@ -106,7 +106,7 @@ sf::RectangleShape Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
     if (_textures.find(path) == _textures.end()) {
         sf::Texture texture;
         if (!texture.loadFromFile(path + ".png")) {
-            return sprite;
+            return shape;
         }
         _textures[path] = texture;
     }
@@ -126,7 +126,7 @@ sf::Text Arcade::SFMLlib::createText(std::shared_ptr<IText> text)
     if (_fonts.find(path) == _fonts.end()) {
         sf::Font font;
         if (!font.loadFromFile(path + ".ttf"))
-            throw Error("SFML: Failed to load font");
+            return sfText;
         _fonts[path] = font;
     }
     sfText.setFont(_fonts[path]);
@@ -148,7 +148,7 @@ void Arcade::SFMLlib::playSound(std::shared_ptr<ISound> sound, bool loop)
     if (_soundBuffers.find(path) == _soundBuffers.end()) {
         sf::SoundBuffer buffer;
         if (!buffer.loadFromFile(path + ".mp3"))
-            throw Error("SFML: Failed to load sound");
+            return;
         _soundBuffers[path] = buffer;
     }
     _sounds[path].setBuffer(_soundBuffers[path]);

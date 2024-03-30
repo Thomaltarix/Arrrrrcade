@@ -7,6 +7,7 @@
 
 #include "Centipede.hpp"
 #include "CentipedeEntity.hpp"
+#include "Text.hpp"
 
 Arcade::Centipede::Centipede()
 {
@@ -14,11 +15,14 @@ Arcade::Centipede::Centipede()
     _started = false;
     _score = 0;
     _background = std::make_shared<CentipedeBackground>(0, 0);
+    _texts = std::vector<std::shared_ptr<Arcade::IText>>();
 }
 
 Arcade::Centipede::~Centipede()
 {
-
+    _texts.clear();
+    _enemies.clear();
+    _entities.clear();
 }
 
 
@@ -109,6 +113,10 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::Centipede::getEntities()
 
 std::vector<std::shared_ptr<Arcade::IText>> Arcade::Centipede::getTexts()
 {
+    _texts.clear();
+    std::string score = "Score: " + std::to_string(_score);
+    std::shared_ptr<Arcade::IText> text = std::make_shared<Arcade::Text>(score, 9, 5, "assets/Centipede/SimplyMono-Bold");
+    _texts.push_back(text);
     return _texts;
 }
 

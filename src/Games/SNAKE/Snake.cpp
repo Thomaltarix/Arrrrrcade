@@ -52,6 +52,8 @@ int Arcade::SnakeGame::simulate()
 {
     if (!_started || !_player->isAlive())
         return -1;
+    if (_player.get()->getBodies().size() == _map.size() * _map.at(0).size())
+        return 1;
     clock_t currentTick = clock();
     if ((float)(currentTick - _lastTick) / CLOCKS_PER_SEC < (1 / _player.get()->getSpeed()))
         return 0;

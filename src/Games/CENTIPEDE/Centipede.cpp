@@ -154,28 +154,32 @@ bool Arcade::Centipede::isInsideEnemy(std::vector<size_t> pos)
     for (size_t enemy = 0; enemy < _enemies.size(); enemy++) {
         for (auto body : _enemies[enemy]->getBodies()) {
             if (body.get()->getPos()[0] == pos[0] && body.get()->getPos()[1] == pos[1]) {
-                int size = _enemies[enemy]->getSnakeSize();
-                if (size == 2) {
-                    _enemies.erase(_enemies.begin() + enemy);
-                    return true;
-                }
-                _enemies.push_back(std::make_shared<CentipedeEnemy>
-                (_enemies[enemy]->getHead()->getPos()[0] - 2, _enemies[enemy]->getHead()->getPos()[1] - 7, size / 2,
-                (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()))));
-
-                if (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()) == FLEFT)
-                    _enemies.push_back(std::make_shared<CentipedeEnemy>
-                    (pos[0] - 2, pos[1] - 7, size / 2, FRIGHT));
-                else
-                    _enemies.push_back(std::make_shared<CentipedeEnemy>
-                    (pos[0] - 2, pos[1] - 7, size / 2, FLEFT));
-
-                _enemies.erase(_enemies.begin() + enemy);
+                cutEnemy(pos, enemy);
                 return true;
             }
         }
     }
     return false;
+}
+
+void Arcade::Centipede::cutEnemy(std::vector<size_t> pos, size_t enemy) {
+    int size = _enemies[enemy]->getSnakeSize();
+    if (size == 2) {
+        _enemies.erase(_enemies.begin() + enemy);
+        return;
+    }
+    _enemies.push_back(std::make_shared<CentipedeEnemy>
+    (_enemies[enemy]->getHead()->getPos()[0] - 2, _enemies[enemy]->getHead()->getPos()[1] - 7, size / 2,
+    (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()))));
+
+    if (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()) == FLEFT)
+        _enemies.push_back(std::make_shared<CentipedeEnemy>
+        (pos[0] - 2, pos[1] - 7, size / 2, FRIGHT));
+    else
+        _enemies.push_back(std::make_shared<CentipedeEnemy>
+        (pos[0] - 2, pos[1] - 7, size / 2, FLEFT));
+
+    _enemies.erase(_enemies.begin() + enemy);
 }
 
 bool Arcade::Centipede::isInsideBox(std::vector<size_t> pos)

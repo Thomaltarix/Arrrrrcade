@@ -34,8 +34,8 @@ int Arcade::Centipede::startGame()
     _player = std::make_unique<CentipedePlayer>(10, 19);
     _map[10][19] = _player->getBody();
 
-
-    _enemy = std::make_unique<CentipedeEnemy>(7, 1, 7, Arcade::FRIGHT);
+    _enemies.clear();
+    _enemies.push_back(std::make_shared<CentipedeEnemy>(9, 1, 9, Arcade::FRIGHT));
 
     return 0;
 }
@@ -55,7 +55,8 @@ int Arcade::Centipede::simulate()
 {
     _player->deplace(_map, _key);
     simulateShoot();
-    _enemy->simulate(_map);
+    for (auto enemy : _enemies)
+        enemy->simulate(_map);
     _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
     return 0;
 }
@@ -90,8 +91,10 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::Centipede::getEntities()
             _entities.push_back(entity);
         }
     }
-    for (auto body : _enemy->getBodies()) {
-        _entities.push_back(body);
+    for (auto enemy : _enemies) {
+        for (auto body : enemy->getBodies()) {
+            _entities.push_back(body);
+        }
     }
     return _entities;
 }
@@ -148,9 +151,29 @@ void Arcade::Centipede::simulateShoot()
 
 bool Arcade::Centipede::isInsideEnemy(std::vector<size_t> pos)
 {
-    for (auto body : _enemy->getBodies()) {
-        if (body.get()->getPos()[0] == pos[0] && body.get()->getPos()[1] == pos[1])
-            return true;
+    for (size_t enemy = 0; enemy < _enemies.size(); enemy++) {
+        for (auto body : _enemies[enemy]->getBodies()) {
+            if (body.get()->getPos()[0] == pos[0] && body.get()->getPos()[1] == pos[1]) {
+                int size = _enemies[enemy]->getSnakeSize();
+                if (size == 2) {
+                    _enemies.erase(_enemies.begin() + enemy);
+                    return true;
+                }
+                _enemies.push_back(std::make_shared<CentipedeEnemy>
+                (_enemies[enemy]->getHead()->getPos()[0] - 2, _enemies[enemy]->getHead()->getPos()[1] - 7, size / 2,
+                (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()))));
+
+                if (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()) == FLEFT)
+                    _enemies.push_back(std::make_shared<CentipedeEnemy>
+                    (pos[0] - 2, pos[1] - 7, size / 2, FRIGHT));
+                else
+                    _enemies.push_back(std::make_shared<CentipedeEnemy>
+                    (pos[0] - 2, pos[1] - 7, size / 2, FLEFT));
+
+                _enemies.erase(_enemies.begin() + enemy);
+                return true;
+            }
+        }
     }
     return false;
 }

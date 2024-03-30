@@ -10,7 +10,6 @@
 Arcade::SFMLlib::SFMLlib()
 {
     _window.create(sf::VideoMode(725, 899), "Arcade", sf::Style::Close);
-    _window.setFramerateLimit(60);
     if (!isWindowOpen())
         throw Error("SFML: Failed to create window");
 

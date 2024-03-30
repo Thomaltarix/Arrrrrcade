@@ -19,8 +19,6 @@ Arcade::SnakeGame::SnakeGame()
 
     _lastTick = clock();
     spawnApple();
-
-    // _texts.push_back(std::make_shared<Arcade::Text>("Score: " + std::to_string(_score), 0, 0));
 }
 
 Arcade::SnakeGame::~SnakeGame()
@@ -99,6 +97,10 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::SnakeGame::getEntities()
 
 std::vector<std::shared_ptr<Arcade::IText>> Arcade::SnakeGame::getTexts()
 {
+    _texts.clear();
+    // std::string score = "Score" + std::to_string(_score);
+    // std::shared_ptr<Arcade::IText> text = std::make_shared<Arcade::Text>(score, 0, 0);
+    // _texts.push_back(text);
     return _texts;
 }
 
@@ -106,6 +108,7 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::SnakeGame::getSounds()
 {
     return _sounds;
 }
+
 
 void Arcade::SnakeGame::initMap(int width, int height)
 {

@@ -61,6 +61,8 @@ namespace Arcade {
             bool isInsideSnake(std::pair<size_t, size_t> pos);
             bool isInsideApple(std::pair<size_t, size_t> pos);
             void spawnApple();
+            void fixTailRotation();
+            void updateRotation(std::shared_ptr<SnakeBody> body, size_t i);
 
             template <typename T>
             std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)

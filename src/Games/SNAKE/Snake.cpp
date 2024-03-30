@@ -203,5 +203,24 @@ void Arcade::SnakeGame::updateRotation(std::shared_ptr<SnakeBody> body, size_t i
     // Simple body
     else
         body.get()->setPath("assets/Snake/body");
+    fixTailRotation();
 }
+
+void Arcade::SnakeGame::fixTailRotation()
+{
+    std::vector<std::shared_ptr<SnakeBody>> bodies = _player->getBodies();
+    size_t last = bodies.size() - 1;
+    size_t lastx = bodies.at(last).get()->getPos()[0];
+    size_t lasty = bodies.at(last).get()->getPos()[1];
+    size_t prevx = bodies.at(last - 1).get()->getPos()[0];
+    size_t prevy = bodies.at(last - 1).get()->getPos()[1];
+
+    if (lastx == prevx && lasty == prevy + 1)
+        bodies.at(last).get()->setRotation((float)Arcade::FUP);
+    else if (lastx == prevx && lasty == prevy - 1)
+        bodies.at(last).get()->setRotation((float)Arcade::FDOWN);
+    else if (lastx == prevx + 1 && lasty == prevy)
+        bodies.at(last).get()->setRotation((float)Arcade::FLEFT);
+    else if (lastx == prevx - 1 && lasty == prevy)
+        bodies.at(last).get()->setRotation((float)Arcade::FRIGHT);
 }

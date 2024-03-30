@@ -17,9 +17,10 @@ extern "C"
         std::cout << "Loading SDL2 library ..." << std::endl;
     }
 
-    std::unique_ptr<Arcade::SDL2lib> loadGraphicInstance()
+
+    Arcade::SDL2lib *loadGraphicInstance()
     {
-        return std::make_unique<Arcade::SDL2lib>();
+        return new Arcade::SDL2lib();
     }
 
     __attribute__((destructor))

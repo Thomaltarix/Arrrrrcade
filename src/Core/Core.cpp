@@ -8,7 +8,7 @@
 #include "Core.hpp"
 #include <iostream>
 #include <filesystem>
-#include "keys.hpp"
+#include "Keys.hpp"
 
 Arcade::Core::Core()
 {
@@ -35,14 +35,22 @@ void Arcade::Core::start(const std::string & graphicLib)
 void Arcade::Core::createlistsLibs(const std::string & graphicLib)
 {
     std::string path = "./lib/";
+    IGame *tmpgame;
+    IGraphic *tmpgraphic;
 
     for (const auto& file : std::filesystem::directory_iterator(path)) {
         _loaderGame.load(file.path());
         _loaderGraphic.load(file.path());
-        if (_loaderGame.getInstance<IGame>("loadGameInstance"))
+        tmpgame = _loaderGame.getInstance<IGame>("loadGameInstance");
+        tmpgraphic = _loaderGraphic.getInstance<IGraphic>("loadGraphicInstance");
+        if (tmpgame)
             _listGame.push_back(file.path());
-        else if (_loaderGraphic.getInstance<IGraphic>("loadGraphicInstance"))
+        else if (tmpgraphic)
             _listGraphic.push_back(file.path());
+        if (tmpgame)
+            delete tmpgame;
+        if (tmpgraphic)
+            delete tmpgraphic;
     }
     auto it = std::find(_listGraphic.begin(), _listGraphic.end(), graphicLib);
     if (it != _listGraphic.end())
@@ -54,7 +62,7 @@ void Arcade::Core::createlistsLibs(const std::string & graphicLib)
 void Arcade::Core::loadGraphic(const std::string & graphicLib)
 {
     _loaderGraphic.load(graphicLib);
-    _graphicLib = _loaderGraphic.getInstance<IGraphic>("loadGraphicInstance");
+    _graphicLib = std::unique_ptr<IGraphic>{_loaderGraphic.getInstance<IGraphic>("loadGraphicInstance")};
     if (!_graphicLib)
         throw Error("failed to load Graphic Library (" + graphicLib + ")");
 }
@@ -62,7 +70,7 @@ void Arcade::Core::loadGraphic(const std::string & graphicLib)
 void Arcade::Core::loadGame(const std::string & gameLib)
 {
     _loaderGame.load(gameLib);
-    _gameLib = _loaderGame.getInstance<IGame>("loadGameInstance");
+    _gameLib = std::unique_ptr<IGame>{_loaderGame.getInstance<IGame>("loadGameInstance")};
     if (!_gameLib)
         throw Error("failed to load Graphic Library (" + gameLib + ")");
 }
@@ -158,9 +166,24 @@ void Arcade::Core::updateDraw()
     code = _gameLib->simulate();
     if (code != 0)
         changeGameFromMenu(code);
-    _graphicLib->playSound(_gameLib->getSounds());
-    _graphicLib->displayEntities(_gameLib->getEntities());
-    _graphicLib->displayText(_gameLib->getTexts());
+
+    try {
+        _graphicLib->playSound(_gameLib->getSounds());
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+    try {
+        _graphicLib->displayEntities(_gameLib->getEntities());
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+
+    try {
+        _graphicLib->displayText(_gameLib->getTexts());
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 }
 
 void Arcade::Core::renderDraw()

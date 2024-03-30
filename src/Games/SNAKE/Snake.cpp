@@ -179,25 +179,25 @@ void Arcade::SnakeGame::updateRotation(std::shared_ptr<SnakeBody> body, size_t i
     // Top to left and left to top
     if (((y1 + 1 == y2 && x1 == x2) && (y3 == y2 && x3 + 1 == x2))
     || ((y1 == y2 && x1 + 1 == x2) && (y3 + 1 == y2 && x3 == x2))) {
-        body.get()->setPath("assets/Snake/turn-body");
+        body.get()->setPath("assets/Snake/angle");
         body.get()->setRotation((float)Arcade::FDOWN);
     }
     // Bottom to right and right to bottom
     else if (((y1 - 1 == y2 && x1 == x2) && (y3 == y2 && x3 - 1 == x2))
     || ((y1 == y2 && x1 - 1 == x2) && (y3 - 1 == y2 && x3 == x2))) {
-        body.get()->setPath("assets/Snake/turn-body");
+        body.get()->setPath("assets/Snake/angle");
         body.get()->setRotation((float)Arcade::FUP);
     }
     // Bottom to left and left to bottom
     else if (((y1 - 1 == y2 && x1 == x2) && (y3 == y2 && x3 + 1 == x2))
     || ((y1 == y2 && x1 + 1 == x2) && (y3 - 1 == y2 && x3 == x2))) {
-        body.get()->setPath("assets/Snake/turn-body");
+        body.get()->setPath("assets/Snake/angle");
         body.get()->setRotation((float)Arcade::FRIGHT);
     }
     // Top to right and right to top
     else if (((y1 + 1 == y2 && x1 == x2) && (y3 == y2 && x3 - 1 == x2))
     || ((y1 == y2 && x1 - 1 == x2) && (y3 + 1 == y2 && x3 == x2))) {
-        body.get()->setPath("assets/Snake/turn-body");
+        body.get()->setPath("assets/Snake/angle");
         body.get()->setRotation((float)Arcade::FLEFT);
     }
     // Simple body

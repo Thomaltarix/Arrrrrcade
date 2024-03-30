@@ -98,9 +98,9 @@ void Arcade::SFMLlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
 
 // ------------------ PRIVATE ------------------ //
 
-sf::Sprite Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
+sf::RectangleShape Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
 {
-    sf::Sprite sprite;
+    sf::RectangleShape shape(sf::Vector2f(entity->getSize()[0], entity->getSize()[1]));
     std::string path = entity->getPath();
 
     if (_textures.find(path) == _textures.end()) {
@@ -110,12 +110,11 @@ sf::Sprite Arcade::SFMLlib::getSprite(std::shared_ptr<IEntity> entity)
         }
         _textures[path] = texture;
     }
-    sprite.setPosition(entity->getPos()[0] * 29, entity->getPos()[1] * 29);
-    sprite.setScale(entity->getSize()[0] / _textures[path].getSize().x,
-                    entity->getSize()[1] / _textures[path].getSize().y);
-    sprite.setRotation(entity->getRotation());
-    sprite.setTexture(_textures[path]);
-    return sprite;
+    shape.setOrigin(entity->getSize()[0] / 2, entity->getSize()[1] / 2);
+    shape.setTexture(&_textures[path]);
+    shape.setRotation(entity->getRotation());
+    shape.setPosition((entity->getPos()[0] * 29) + entity->getSize()[0] / 2, (entity->getPos()[1] * 29) + entity->getSize()[1] / 2);
+    return shape;
 }
 
 sf::Text Arcade::SFMLlib::createText(std::shared_ptr<IText> text)

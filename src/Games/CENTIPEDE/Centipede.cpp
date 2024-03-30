@@ -33,6 +33,10 @@ int Arcade::Centipede::startGame()
     this->initMap(21, 22);
     _player = std::make_unique<CentipedePlayer>(10, 19);
     _map[10][19] = _player->getBody();
+
+
+    _enemy = std::make_unique<CentipedeEnemy>(4, 1, 4, Arcade::FRIGHT);
+
     return 0;
 }
 
@@ -64,6 +68,7 @@ int Arcade::Centipede::simulate()
         _map[_player->getShoot()->getShoot()->getPos()[0] - 2][_player->getShoot()->getShoot()->getPos()[1] - 7] =
         std::make_shared<CentipedeVoid>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 7);
     }
+    _enemy->simulate(_map);
     _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
     return 0;
 }
@@ -97,6 +102,9 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::Centipede::getEntities()
         for (auto entity : line) {
             _entities.push_back(entity);
         }
+    }
+    for (auto body : _enemy->getBodies()) {
+        _entities.push_back(body);
     }
     return _entities;
 }

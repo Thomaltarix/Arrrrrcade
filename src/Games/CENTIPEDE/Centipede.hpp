@@ -10,6 +10,7 @@
 #include "AGame.hpp"
 #include "CentipedePlayer.hpp"
 #include "Keys.hpp"
+#include "CentipedeEnemy.hpp"
 
 #include <unordered_map>
 #include <functional>
@@ -47,6 +48,7 @@ namespace Arcade {
             int _key;
 
             std::unique_ptr<CentipedePlayer> _player;
+            std::unique_ptr<CentipedeEnemy> _enemy;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;

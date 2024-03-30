@@ -136,6 +136,8 @@ void Arcade::Centipede::simulateShoot()
             std::make_shared<CentipedeBox>(_player->getShoot()->getShoot()->getPos()[0] - 2, _player->getShoot()->getShoot()->getPos()[1] - 7);
             _player->getShoot()->setIsShoot(false);
             _player->getShoot()->setWasShoot(false);
+        } else if (isInsideBox(_player->getShoot()->getShoot()->getPos())) {
+            transformBox(_player->getShoot()->getShoot()->getPos());
         }
     }
     if (!_player->getShoot()->isShoot() && _player->getShoot()->wasShoot()) {
@@ -151,4 +153,26 @@ bool Arcade::Centipede::isInsideEnemy(std::vector<size_t> pos)
             return true;
     }
     return false;
+}
+
+bool Arcade::Centipede::isInsideBox(std::vector<size_t> pos)
+{
+    if (_map[pos[0] - 2][pos[1] - 8]->getChar() == 'X') {
+        return true;
+    }
+    return false;
+}
+
+void Arcade::Centipede::transformBox(std::vector<size_t> pos)
+{
+    char a;
+    std::string path = "assets/Centipede/box-";
+
+    if (_map[pos[0] - 2][pos[1] - 8]->getPath() == "assets/Centipede/box-1")
+        _map[pos[0] - 2][pos[1] - 8] = std::make_shared<CentipedeVoid>(pos[0] - 2, pos[1] - 8);
+    else {
+        a = _map[pos[0] - 2][pos[1] - 8]->getPath().back() - 1;
+        _map[pos[0] - 2][pos[1] - 8]->setPath(path + a);
+    }
+    _player->getShoot()->setIsShoot(false);
 }

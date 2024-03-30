@@ -66,6 +66,8 @@ namespace Arcade {
 
             void simulateShoot();
             bool isInsideEnemy(std::vector<size_t> pos);
+            bool isInsideBox(std::vector<size_t> pos);
+            void transformBox(std::vector<size_t> pos);
 
             template <typename T>
             std::vector<std::shared_ptr<Arcade::IEntity>> makeVerticalSides(int width , int height)

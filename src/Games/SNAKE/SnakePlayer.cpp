@@ -9,12 +9,12 @@
 
 Arcade::SnakePlayer::SnakePlayer(size_t x, size_t y, size_t size, Rotation rotation)
 {
-    this->setAlive(true);
-    this->setSnakeSize(size);
-    this->setSpeed(5);
+    this->_alive = true;
+    this->_snakeSize = size;
+    this->_speed = 5;
 
-    _bodies.push_back(this->makeHead(x, y, rotation));
-    this->setupBody(x, y, size);
+    _bodies.push_back(makeHead(x, y, rotation));
+    setupBody(x, y, size);
 }
 
 Arcade::SnakePlayer::~SnakePlayer()

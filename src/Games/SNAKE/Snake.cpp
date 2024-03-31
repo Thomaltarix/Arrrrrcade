@@ -32,7 +32,6 @@ Arcade::SnakeGame::~SnakeGame()
 
 int Arcade::SnakeGame::startGame()
 {
-    // Starts the spawn of the apples and be able to move
     _started = true;
     return 0;
 }
@@ -50,7 +49,7 @@ int Arcade::SnakeGame::getScore()
 
 int Arcade::SnakeGame::simulate()
 {
-    if (!_started || !_player->isAlive())
+    if (!_started || !_player.get()->isAlive())
         return -1;
     if (_player.get()->getBodies().size() == _map.size() * _map.at(0).size())
         return 1;
@@ -110,7 +109,6 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::SnakeGame::getSounds()
 {
     return _sounds;
 }
-
 
 void Arcade::SnakeGame::initMap(int width, int height)
 {

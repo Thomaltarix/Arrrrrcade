@@ -22,7 +22,6 @@ namespace Arcade {
 
             void move(Rotation rotation);
             int die();
-            // int grow(std::pair<size_t, size_t> pos);
             int simulate(Map map);
 
             // Setters
@@ -34,6 +33,7 @@ namespace Arcade {
             std::vector<std::shared_ptr<CentipedeEnemyBody>> getBodies() { return _bodies; };
             Rotation getRotationFromFloat(float rotation);
             std::pair<size_t, size_t> getNextPost();
+
         private:
             clock_t _lastTick;
             Rotation _lastRotate;

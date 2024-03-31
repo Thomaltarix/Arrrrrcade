@@ -6,7 +6,6 @@
 */
 
 #include "CentipedeEntity.hpp"
-// #include "CentipedePlayer.hpp"
 #include "Centipede.hpp"
 
 Arcade::CentipedeBackground::CentipedeBackground(std::size_t x, std::size_t y)

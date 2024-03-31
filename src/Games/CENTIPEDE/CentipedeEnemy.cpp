@@ -7,11 +7,11 @@
 
 #include "CentipedeEnemy.hpp"
 
-Arcade::CentipedeEnemy::CentipedeEnemy(size_t x, size_t y, size_t size, Rotation rotation)
+Arcade::CentipedeEnemy::CentipedeEnemy(size_t x, size_t y, size_t size, Rotation rotation, float speed)
 {
     this->setAlive(true);
     this->setSnakeSize(size);
-    this->setSpeed(5);
+    this->setSpeed(speed);
 
     _bodies.push_back(this->makeHead(x, y, rotation));
     this->setupBody(x, y, size);

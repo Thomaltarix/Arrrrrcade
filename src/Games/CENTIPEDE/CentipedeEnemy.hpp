@@ -17,7 +17,7 @@ typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
 namespace Arcade {
     class CentipedeEnemy : public APlayer {
         public:
-            CentipedeEnemy(size_t x, size_t y, size_t size, Rotation rotation);
+            CentipedeEnemy(size_t x, size_t y, size_t size, Rotation rotation, float speed);
             ~CentipedeEnemy();
 
             void move(Rotation rotation);

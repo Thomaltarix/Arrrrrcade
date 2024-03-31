@@ -12,6 +12,7 @@
 #define SIZE_CENTIPEDE 9
 #define GEN_CENTIPEDE 13
 #define WAVES_TO_WIN 20
+#define CENTIPEDE_SPEED 4
 
 #define MAP_WIDTH 21
 #define MAP_HEIGHT 22
@@ -49,10 +50,10 @@ int Arcade::Centipede::startGame()
     _player = std::make_unique<CentipedePlayer>(10, 19);
     _map[10][19] = _player->getBody();
 
-    _enemies.clear();
-    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FDOWN));
     _nbCentipede = 1;
     _nbWaves = 1;
+    _enemies.clear();
+    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FRIGHT, CENTIPEDE_SPEED + _nbWaves));
 
     return 0;
 }
@@ -110,7 +111,7 @@ int Arcade::Centipede::simulate()
     if ((float)(currentTick - _generationClock) / CLOCKS_PER_SEC < (GEN_CENTIPEDE - _nbWaves) || _nbCentipede == WAVES_TO_WIN)
         return 0;
     _generationClock = clock();
-    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FRIGHT));
+    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FRIGHT, CENTIPEDE_SPEED + _nbWaves));
     _nbCentipede += 1;
 
     return 0;
@@ -230,14 +231,14 @@ void Arcade::Centipede::cutEnemy(std::vector<size_t> pos, size_t enemy) {
     }
     _enemies.push_back(std::make_shared<CentipedeEnemy>
     (_enemies[enemy]->getHead()->getPos()[0] - 2, _enemies[enemy]->getHead()->getPos()[1] - 7, size / 2,
-    (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()))));
+    (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation())), CENTIPEDE_SPEED + _nbWaves));
 
     if (_enemies[enemy]->getRotationFromFloat(_enemies[enemy]->getHead()->getRotation()) == FLEFT)
         _enemies.push_back(std::make_shared<CentipedeEnemy>
-        (pos[0] - 2, pos[1] - 7, size / 2, FRIGHT));
+        (pos[0] - 2, pos[1] - 7, size / 2, FRIGHT, CENTIPEDE_SPEED + _nbWaves));
     else
         _enemies.push_back(std::make_shared<CentipedeEnemy>
-        (pos[0] - 2, pos[1] - 7, size / 2, FLEFT));
+        (pos[0] - 2, pos[1] - 7, size / 2, FLEFT, CENTIPEDE_SPEED + _nbWaves));
 
     _enemies.erase(_enemies.begin() + enemy);
 }

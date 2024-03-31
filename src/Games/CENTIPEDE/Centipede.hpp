@@ -42,6 +42,7 @@ namespace Arcade {
             std::vector<std::shared_ptr<ISound>> getSounds();
 
         private:
+            //Centipede variables
             std::string _userName;
             bool _started;
             int _score;
@@ -50,11 +51,13 @@ namespace Arcade {
             int _nbCentipede;
             int _nbWaves;
 
+            //All Centipede Entities
             std::unique_ptr<CentipedePlayer> _player;
             std::vector<std::shared_ptr<CentipedeEnemy>> _enemies;
             std::vector<std::shared_ptr<ISound>> _sounds;
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;
+            std::shared_ptr<Arcade::CentipedeBackground> _background;
         
             std::unordered_map<int, std::function<void()>> _keyEvents = {
                 {Keys::Z, [this](){_player->move(Arcade::FUP);}},
@@ -63,8 +66,8 @@ namespace Arcade {
                 {Keys::D, [this](){_player->move(Arcade::FRIGHT);}},
             };
 
+            //Map management
             Map _map;
-            std::shared_ptr<Arcade::CentipedeBackground> _background;
             void initMap(int width, int height);
 
             //Simulations
@@ -75,9 +78,6 @@ namespace Arcade {
             void shoot();
             void moveShoot();
             void deleteShoot();
-
-            
-
             bool isInsideEnemy(std::vector<size_t> pos);
             bool isInsideBox(std::vector<size_t> pos);
             void transformBox(std::vector<size_t> pos);

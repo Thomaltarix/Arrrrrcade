@@ -72,6 +72,10 @@ namespace Arcade {
             void simulateEnemies();
             void checkEndWaves();
             void simulateGenEnemies();
+            void shoot();
+            void moveShoot();
+            void deleteShoot();
+
             
 
             bool isInsideEnemy(std::vector<size_t> pos);

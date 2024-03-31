@@ -67,7 +67,13 @@ namespace Arcade {
             std::shared_ptr<Arcade::CentipedeBackground> _background;
             void initMap(int width, int height);
 
+            //Simulations
             void simulateShoot();
+            void simulateEnemies();
+            void checkEndWaves();
+            void simulateGenEnemies();
+            
+
             bool isInsideEnemy(std::vector<size_t> pos);
             bool isInsideBox(std::vector<size_t> pos);
             void transformBox(std::vector<size_t> pos);

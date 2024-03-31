@@ -11,6 +11,7 @@ SRC			=	Centipede.cpp \
 				CentipedePlayer.cpp \
 				CentipedeEnemy.cpp \
 				CentipedeShoot.cpp \
+				Simulation.cpp \
 				../Sound.cpp \
 				../Text.cpp \
 				../AEntity.cpp \

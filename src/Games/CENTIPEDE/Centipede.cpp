@@ -8,45 +8,42 @@
 #include "Centipede.hpp"
 #include "CentipedeEntity.hpp"
 #include "Text.hpp"
-
-#define SIZE_CENTIPEDE 9
-#define GEN_CENTIPEDE 13
-#define WAVES_TO_WIN 20
-#define CENTIPEDE_SPEED 4
-
-#define MAP_WIDTH 21
-#define MAP_HEIGHT 22
+#include "Rules.hpp"
 
 Arcade::Centipede::Centipede()
 {
-    _key = -1;
     _started = false;
-    _background = std::make_shared<CentipedeBackground>(0, 0);
-    _texts = std::vector<std::shared_ptr<Arcade::IText>>();
-
+    _key = -1;
     _score = 0;
     _nbCentipede = 0;
     _nbWaves = 0;
+
+    _background = std::make_shared<CentipedeBackground>(0, 0);
+    _texts = std::vector<std::shared_ptr<Arcade::IText>>();
 }
 
 Arcade::Centipede::~Centipede()
 {
-    _texts.clear();
     _enemies.clear();
+    _sounds.clear();
+    _texts.clear();
     _entities.clear();
+    _map.clear();
 }
-
 
 //Game
 int Arcade::Centipede::startGame()
 {
     _started = true;
+
     _generationClock = clock();
     _key = -1;
     _score = 0;
-    _player.reset();
+
     _map.clear();
     this->initMap(MAP_WIDTH, MAP_HEIGHT);
+
+    _player.reset();
     _player = std::make_unique<CentipedePlayer>(10, 19);
     _map[10][19] = _player->getBody();
 
@@ -68,55 +65,6 @@ int Arcade::Centipede::getScore()
 {
     return _score;
 }
-
-int Arcade::Centipede::simulate()
-{
-    _player->deplace(_map, _key);
-    if (_player->isInsideCentipede(_enemies))
-        return -1;
-
-    simulateShoot();
-
-    for (size_t enemy = 0; enemy < _enemies.size(); enemy++) {
-        _enemies[enemy]->simulate(_map);
-        for (size_t body = 0; body < _enemies[enemy]->getBodies().size(); body++) {
-            if (_enemies[enemy]->getBodies()[body]->getPos()[1] - 7 == MAP_HEIGHT - 1) {
-                _score -= 20;
-                _enemies.erase(_enemies.begin() + enemy);
-            }
-        }
-    }
-
-
-    for (auto enemy : _enemies) {
-        enemy->simulate(_map);
-        for (auto body : enemy->getBodies()) {
-            if (body->getPos()[1] - 7 == MAP_HEIGHT - 1)
-                _score -= 20;
-            
-        }
-    }
-
-    _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
-
-    if (_nbCentipede == WAVES_TO_WIN && _enemies.empty()) {
-        _score += 100 * _nbWaves;
-        _nbWaves += 1;
-        _nbCentipede = 0;
-        _map.clear();
-        this->initMap(MAP_WIDTH, MAP_HEIGHT);
-    }
-
-    clock_t currentTick = clock();
-    if ((float)(currentTick - _generationClock) / CLOCKS_PER_SEC < (GEN_CENTIPEDE - _nbWaves) || _nbCentipede == WAVES_TO_WIN)
-        return 0;
-    _generationClock = clock();
-    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FRIGHT, CENTIPEDE_SPEED + _nbWaves));
-    _nbCentipede += 1;
-
-    return 0;
-}
-
 
 //Event
 void Arcade::Centipede::catchKeyEvent(int key)

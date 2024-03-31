@@ -50,7 +50,7 @@ class AGame : public IGame {
                 private:
                     std::string _msg;
             };
-            private:
+            protected:
                 std::string _userName;
     };
 }

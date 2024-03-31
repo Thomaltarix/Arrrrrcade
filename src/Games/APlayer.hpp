@@ -44,7 +44,7 @@ namespace Arcade {
                 private:
                     std::string _msg;
             };
-        private:
+        protected:
             float _speed;
             bool _alive;
     };

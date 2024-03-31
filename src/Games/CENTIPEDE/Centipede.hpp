@@ -47,6 +47,8 @@ namespace Arcade {
             int _score;
             int _key;
             clock_t _generationClock;
+            int _nbCentipede;
+            int _nbWaves;
 
             std::unique_ptr<CentipedePlayer> _player;
             std::vector<std::shared_ptr<CentipedeEnemy>> _enemies;

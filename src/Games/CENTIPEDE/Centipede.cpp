@@ -50,7 +50,7 @@ int Arcade::Centipede::startGame()
     _map[10][19] = _player->getBody();
 
     _enemies.clear();
-    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FRIGHT));
+    _enemies.push_back(std::make_shared<CentipedeEnemy>(SIZE_CENTIPEDE, 1, SIZE_CENTIPEDE, Arcade::FDOWN));
     _nbCentipede = 1;
     _nbWaves = 1;
 
@@ -71,9 +71,31 @@ int Arcade::Centipede::getScore()
 int Arcade::Centipede::simulate()
 {
     _player->deplace(_map, _key);
+    if (_player->isInsideCentipede(_enemies))
+        return -1;
+
     simulateShoot();
-    for (auto enemy : _enemies)
+
+    for (size_t enemy = 0; enemy < _enemies.size(); enemy++) {
+        _enemies[enemy]->simulate(_map);
+        for (size_t body = 0; body < _enemies[enemy]->getBodies().size(); body++) {
+            if (_enemies[enemy]->getBodies()[body]->getPos()[1] - 7 == MAP_HEIGHT - 1) {
+                _score -= 20;
+                _enemies.erase(_enemies.begin() + enemy);
+            }
+        }
+    }
+
+
+    for (auto enemy : _enemies) {
         enemy->simulate(_map);
+        for (auto body : enemy->getBodies()) {
+            if (body->getPos()[1] - 7 == MAP_HEIGHT - 1)
+                _score -= 20;
+            
+        }
+    }
+
     _map[_player->getBody()->getPos()[0] - 2][_player->getBody()->getPos()[1] - 7] = _player->getBody();
 
     if (_nbCentipede == WAVES_TO_WIN && _enemies.empty()) {

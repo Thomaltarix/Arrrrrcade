@@ -6,7 +6,6 @@
 */
 
 #include "Core.hpp"
-#include "IGame.hpp"
 #include <iostream>
 #include <filesystem>
 #include "Keys.hpp"

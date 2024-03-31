@@ -34,12 +34,6 @@ void Arcade::SnakePlayer::move(Rotation rotation)
     }
 }
 
-int Arcade::SnakePlayer::die()
-{
-    this->setAlive(false);
-    return -1;
-}
-
 int Arcade::SnakePlayer::grow(std::pair<size_t, size_t> nextPos)
 {
     std::shared_ptr<Arcade::SnakeBody> tail = makeTail(

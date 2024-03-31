@@ -22,7 +22,6 @@ namespace Arcade {
             ~SnakePlayer();
 
             void move(Rotation rotation);
-            int die();
             int grow(std::pair<size_t, size_t> pos);
             int simulate(std::pair<size_t, size_t> nextPos);
 

@@ -59,10 +59,10 @@ int Arcade::SnakeGame::simulate()
         return 0;
     _lastTick = clock();
     std::pair<int, int> nextPos = _player.get()->getNextPost();
-    if (isInsideWall(nextPos))
-        return _player->die();
-    if (isInsideSnake(nextPos))
-        return _player->die();
+    if (isInsideWall(nextPos) || isInsideSnake(nextPos)) {
+        _player->die();
+        return -1;
+    }
     if (isInsideApple(nextPos)) {
         _player->setSpeed(_player->getSpeed() + 0.2);
         _score++;

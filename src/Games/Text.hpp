@@ -8,12 +8,12 @@
 #pragma once
 
 #include "../include/IText.hpp"
-#include "Entity.hpp"
+#include "AEntity.hpp"
 
 namespace Arcade {
     class Text : public IText {
         public:
-            Text();
+            Text(const std::string &text, size_t x, size_t y);
             ~Text();
 
             //setters

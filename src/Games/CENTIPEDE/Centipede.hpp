@@ -58,6 +58,10 @@ namespace Arcade {
             std::vector<std::shared_ptr<IText>> _texts;
             std::vector<std::shared_ptr<IEntity>> _entities;
             std::shared_ptr<Arcade::CentipedeBackground> _background;
+
+            void updateRotation(std::shared_ptr<CentipedeEnemyBody> body, size_t i,
+            std::vector<std::shared_ptr<CentipedeEnemyBody>> bodies);
+            void fixTailRotation(std::vector<std::shared_ptr<CentipedeEnemyBody>> bodies);
         
             std::unordered_map<int, std::function<void()>> _keyEvents = {
                 {Keys::Z, [this](){_player->move(Arcade::FUP);}},

@@ -96,8 +96,11 @@ std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::Centipede::getEntities()
         }
     }
     for (auto enemy : _enemies) {
+        size_t i = 0;
         for (auto body : enemy->getBodies()) {
+            updateRotation(body, i, enemy->getBodies());
             _entities.push_back(body);
+            i++;
         }
     }
     return _entities;
@@ -129,4 +132,70 @@ void Arcade::Centipede::initMap(int width, int height)
         }
         _map.push_back(line);
     }
+}
+
+void Arcade::Centipede::updateRotation(std::shared_ptr<CentipedeEnemyBody> body, size_t i,
+                                        std::vector<std::shared_ptr<CentipedeEnemyBody>> bodies)
+{
+    if (i == 0)
+        return;
+    if (i == bodies.size() - 1)
+        return;
+
+    std::vector<size_t> previousPos = bodies.at(i - 1).get()->getPos();
+    std::vector<size_t> currentPos = bodies.at(i).get()->getPos();
+    std::vector<size_t> nextPos = bodies.at(i + 1).get()->getPos();
+    size_t x1 = previousPos[0];
+    size_t y1 = previousPos[1];
+    size_t x2 = currentPos[0];
+    size_t y2 = currentPos[1];
+    size_t x3 = nextPos[0];
+    size_t y3 = nextPos[1];
+
+    // Top to left and left to top
+    if (((y1 + 1 == y2 && x1 == x2) && (y3 == y2 && x3 + 1 == x2))
+    || ((y1 == y2 && x1 + 1 == x2) && (y3 + 1 == y2 && x3 == x2))) {
+        body.get()->setPath("assets/Centipede/angle");
+        body.get()->setRotation((float)Arcade::FUP);
+    }
+    // Bottom to right and right to bottom
+    else if (((y1 - 1 == y2 && x1 == x2) && (y3 == y2 && x3 - 1 == x2))
+    || ((y1 == y2 && x1 - 1 == x2) && (y3 - 1 == y2 && x3 == x2))) {
+        body.get()->setPath("assets/Centipede/angle");
+        body.get()->setRotation((float)Arcade::FDOWN);
+    }
+    // Bottom to left and left to bottom
+    else if (((y1 - 1 == y2 && x1 == x2) && (y3 == y2 && x3 + 1 == x2))
+    || ((y1 == y2 && x1 + 1 == x2) && (y3 - 1 == y2 && x3 == x2))) {
+        body.get()->setPath("assets/Centipede/angle");
+        body.get()->setRotation((float)Arcade::FLEFT);
+    }
+    // Top to right and right to top
+    else if (((y1 + 1 == y2 && x1 == x2) && (y3 == y2 && x3 - 1 == x2))
+    || ((y1 == y2 && x1 - 1 == x2) && (y3 + 1 == y2 && x3 == x2))) {
+        body.get()->setPath("assets/Centipede/angle");
+        body.get()->setRotation((float)Arcade::FRIGHT);
+    }
+    // Simple body
+    else
+        body.get()->setPath("assets/Centipede/body");
+    fixTailRotation(bodies);
+}
+
+void Arcade::Centipede::fixTailRotation(std::vector<std::shared_ptr<CentipedeEnemyBody>> bodies)
+{
+    size_t last = bodies.size() - 1;
+    size_t lastx = bodies.at(last).get()->getPos()[0];
+    size_t lasty = bodies.at(last).get()->getPos()[1];
+    size_t prevx = bodies.at(last - 1).get()->getPos()[0];
+    size_t prevy = bodies.at(last - 1).get()->getPos()[1];
+
+    if (lastx == prevx && lasty == prevy + 1)
+        bodies.at(last).get()->setRotation((float)Arcade::FUP);
+    else if (lastx == prevx && lasty == prevy - 1)
+        bodies.at(last).get()->setRotation((float)Arcade::FDOWN);
+    else if (lastx == prevx + 1 && lasty == prevy)
+        bodies.at(last).get()->setRotation((float)Arcade::FLEFT);
+    else if (lastx == prevx - 1 && lasty == prevy)
+        bodies.at(last).get()->setRotation((float)Arcade::FRIGHT);
 }

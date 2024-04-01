@@ -7,10 +7,9 @@
 
 #include "APlayer.hpp"
 
-int Arcade::APlayer::die()
+void Arcade::APlayer::die()
 {
     this->setAlive(false);
-    return -1;
 }
 
 void Arcade::APlayer::setSpeed(float speed)

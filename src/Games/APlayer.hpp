@@ -18,7 +18,7 @@ namespace Arcade {
             ~APlayer() = default;
 
             virtual void move(Rotation rotation) = 0;
-            int die();
+            void die();
 
             //Setters
             void setSpeed(float speed);
@@ -44,7 +44,7 @@ namespace Arcade {
                 private:
                     std::string _msg;
             };
-        private:
+        protected:
             float _speed;
             bool _alive;
     };

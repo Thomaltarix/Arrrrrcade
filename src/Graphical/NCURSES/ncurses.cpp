@@ -8,36 +8,44 @@
 #include "ncurses.hpp"
 #include <ncurses.h>
 
-Arcade::NCURSESlib::~NCURSESlib() {
-    _isOpen = false;
-};
-
-Arcade::NCURSESlib::NCURSESlib() {
-    _isOpen = true;
-    initscr();
-    keypad(stdscr, TRUE);
-    resizeterm(LINES, COLS);
-    timeout(500);
-};
-
-bool Arcade::NCURSESlib::isWindowOpen() const {
-    return _isOpen;
-};
-
-void Arcade::NCURSESlib::closeWindow() {
+Arcade::NCURSESlib::~NCURSESlib()
+{
     _isOpen = false;
     endwin();
 };
 
-void Arcade::NCURSESlib::clearWindow() {
+Arcade::NCURSESlib::NCURSESlib()
+{
+    _isOpen = true;
+    initscr();
+    keypad(stdscr, TRUE);
+    resizeterm(31, 25);
+    noecho();
+    nodelay(stdscr, TRUE);
+};
+
+bool Arcade::NCURSESlib::isWindowOpen() const
+{
+    return _isOpen;
+};
+
+void Arcade::NCURSESlib::closeWindow()
+{
+    _isOpen = false;
+};
+
+void Arcade::NCURSESlib::clearWindow()
+{
     clear();
 };
 
-void Arcade::NCURSESlib::displayWindow() {
+void Arcade::NCURSESlib::displayWindow()
+{
     refresh();
 };
 
-int Arcade::NCURSESlib::getKeyEvent() {
+int Arcade::NCURSESlib::getKeyEvent()
+{
     int touche = getch();
 
     if (touche == '\033')
@@ -53,7 +61,8 @@ int Arcade::NCURSESlib::getKeyEvent() {
     return -1;
 };
 
-void Arcade::NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities) {
+void Arcade::NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
+{
     int char_todisp;
 
     for (auto &entity : entities) {
@@ -62,13 +71,15 @@ void Arcade::NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> e
     }
 };
 
-void Arcade::NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts) {
+void Arcade::NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts)
+{
     for (auto &text : texts) {
         mvprintw(text.get()->getPos()[0], text.get()->getPos()[1], text.get()->getText().c_str());
     }
 };
 
-void Arcade::NCURSESlib::playSound(std::vector<std::shared_ptr<ISound>> sounds) {
+void Arcade::NCURSESlib::playSound(std::vector<std::shared_ptr<ISound>> sounds)
+{
     (void) sounds;
 
     return;

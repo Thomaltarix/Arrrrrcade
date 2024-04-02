@@ -49,7 +49,7 @@ namespace Arcade {
                     // {sf::Keyboard::LControl, 29},
                     {' ', 30},
                     {10, 31},
-                    {330, 32},
+                    {KEY_BACKSPACE, 32},
                     {KEY_UP, 33},
                     {KEY_DOWN, 34},
                     {KEY_LEFT, 35},

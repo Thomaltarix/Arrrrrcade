@@ -41,7 +41,11 @@ namespace Arcade {
             void commandNextGraphic();
             void commandRestartGame();
 
-            void changeGameFromMenu(int code);
+            bool changeGameFromMenu(int code);
+            void stopGame();
+
+            void saveScore();
+            bool isCorrectFormat(const std::string & path);
 
         public:
             Core();

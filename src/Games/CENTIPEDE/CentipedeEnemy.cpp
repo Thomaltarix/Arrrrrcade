@@ -36,12 +36,6 @@ void Arcade::CentipedeEnemy::move(Rotation rotation)
     }
 }
 
-int Arcade::CentipedeEnemy::die()
-{
-    this->setAlive(false);
-    return -1;
-}
-
 int Arcade::CentipedeEnemy::simulate(Map map)
 {
     clock_t currentTick = clock();

@@ -20,7 +20,6 @@ namespace Arcade {
             ~CentipedeEnemy();
 
             void move(Rotation rotation);
-            int die();
             int simulate(Map map);
 
             // Setters

@@ -12,13 +12,7 @@ Arcade::SnakeGame::SnakeGame()
     _started = false;
     _score = 0;
     _texts = std::vector<std::shared_ptr<Arcade::IText>>();
-    this->initMap(21, 19);
-
     _background = std::make_shared<SnakeBackground>();
-    _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
-
-    _lastTick = clock();
-    spawnApple();
 }
 
 Arcade::SnakeGame::~SnakeGame()
@@ -33,6 +27,12 @@ Arcade::SnakeGame::~SnakeGame()
 int Arcade::SnakeGame::startGame()
 {
     _started = true;
+    _score = 0;
+    _map.clear();
+    this->initMap(21, 19);
+    _player = std::make_unique<SnakePlayer>(10, 9, 4, Arcade::FRIGHT);
+    _lastTick = clock();
+    spawnApple();
     return 0;
 }
 

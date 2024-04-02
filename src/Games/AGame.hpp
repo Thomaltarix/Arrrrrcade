@@ -34,6 +34,7 @@ class AGame : public IGame {
             virtual std::vector<std::shared_ptr<IEntity>> getEntities() = 0;
             virtual std::vector<std::shared_ptr<IText>> getTexts() = 0;
             virtual std::vector<std::shared_ptr<ISound>> getSounds() = 0;
+
             class Error : public std::exception {
                 public:
 

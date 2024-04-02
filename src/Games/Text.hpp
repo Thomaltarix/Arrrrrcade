@@ -13,7 +13,7 @@
 namespace Arcade {
     class Text : public IText {
         public:
-            Text(const std::string &text, size_t x, size_t y);
+            Text(const std::string &text, size_t x, size_t y, const std::string &font);
             ~Text();
 
             //setters

@@ -22,6 +22,7 @@ Arcade::NCURSESlib::NCURSESlib()
     resizeterm(31, 25);
     noecho();
     nodelay(stdscr, TRUE);
+    start_color();
 };
 
 bool Arcade::NCURSESlib::isWindowOpen() const
@@ -63,12 +64,9 @@ int Arcade::NCURSESlib::getKeyEvent()
 
 void Arcade::NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> entities)
 {
-    int char_todisp;
-
     for (auto &entity : entities) {
-        char_todisp = entity.get()->getChar();
         move(entity.get()->getPos()[1], entity.get()->getPos()[0]);
-        printw(reinterpret_cast<char*>(&char_todisp));
+        addch(entity.get()->getChar());
     }
 };
 

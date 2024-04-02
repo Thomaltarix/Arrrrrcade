@@ -9,6 +9,7 @@
 #include <iostream>
 #include <filesystem>
 #include "Keys.hpp"
+#include "Saveinfo.hpp"
 
 Arcade::Core::Core()
 {
@@ -121,6 +122,7 @@ void Arcade::Core::commandBackMenu()
 {
     if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
         return;
+    saveScore();
     _gameLib->stopGame();
     _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
     _gameLib = std::move(_menu);
@@ -131,6 +133,8 @@ void Arcade::Core::commandNextGame()
 {
     if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
         return;
+    saveScore();
+    std::string userName = _gameLib->getUserName();
     _gameLib->stopGame();
     _gameLib.reset();
     if (_listGame.size() - 1 == _idxGame)
@@ -138,6 +142,7 @@ void Arcade::Core::commandNextGame()
     else
         _idxGame += 1;
     loadGame(_listGame[_idxGame]);
+    _gameLib->setUserName(userName);
     _gameLib->startGame();
 }
 
@@ -155,6 +160,7 @@ void Arcade::Core::commandRestartGame()
 {
     if (dynamic_cast<Menu::Menu*>(_gameLib.get()))
         return;
+    saveScore();
     _gameLib->stopGame();
     _gameLib->startGame();
 }
@@ -164,8 +170,10 @@ void Arcade::Core::updateDraw()
     int code;
     _graphicLib->clearWindow();
     code = _gameLib->simulate();
-    if (code != 0)
-        changeGameFromMenu(code);
+    if (code != 0) {
+        if (!changeGameFromMenu(code))
+            stopGame();
+    }
 
     try {
         _graphicLib->playSound(_gameLib->getSounds());
@@ -191,10 +199,11 @@ void Arcade::Core::renderDraw()
     _graphicLib->displayWindow();
 }
 
-void Arcade::Core::changeGameFromMenu(int code)
+bool Arcade::Core::changeGameFromMenu(int code)
 {
     std::string graphic;
     std::string game;
+    std::string userName;
 
     if (dynamic_cast<Menu::Menu*>(_gameLib.get())) {
         if ((code % 10) - 1 >= (int)_listGame.size())
@@ -205,23 +214,36 @@ void Arcade::Core::changeGameFromMenu(int code)
         _idxGraphic = (code / 10) - 1;
         game = _listGame[_idxGame];
         graphic = _listGraphic[_idxGraphic];
+        userName = _gameLib->getUserName();
         _graphicLib.reset();
         _gameLib.reset();
         loadGraphic(graphic);
         loadGame(game);
+        _gameLib->setUserName(userName);
         _gameLib->startGame();
+        return true;
     }
+    return false;
 }
 
-void Arcade::Core::stopGame(int code)
+void Arcade::Core::stopGame()
 {
-    int score = 0;
+    saveScore();
+    _gameLib->stopGame();
+    _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
+    _gameLib = std::move(_menu);
+    _gameLib->startGame();
+}
 
-    if (code == -1) {
-        score = _gameLib->getScore();
-        _gameLib->stopGame();
-        _menu = std::make_unique<Menu::Menu>(_listGraphic, _listGame, _listGraphic[_idxGraphic]);
-        _gameLib = std::move(_menu);
-        _gameLib->startGame();
-    }
+void Arcade::Core::saveScore()
+{
+    InfoLoaderSaver saver;
+    std::string path;
+
+    path = _listGame[_idxGame];
+    path.erase(0, 13);
+    path.erase(path.length() - 3, 3);
+
+    if (!saver.setInfos(_gameLib->getScore(), _gameLib->getUserName(), "./score/" + path + ".mtt"))
+        std::cout << "save not work" << std::endl;    
 }

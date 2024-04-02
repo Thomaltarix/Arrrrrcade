@@ -31,11 +31,11 @@ bool InfoLoaderSaver::getInfos(std::string path) {
 }
 
 bool InfoLoaderSaver::setInfos(int score, std::string username, std::string path) {
-    std::ofstream stream(path);
+    std::ofstream stream(path, std::ios::app);
 
     if (!stream.is_open())
         return false;
-    stream << score << std::endl << username << std::endl;
+    stream << username << "=" << score << std::endl;
     stream.close();
     return true;
 }

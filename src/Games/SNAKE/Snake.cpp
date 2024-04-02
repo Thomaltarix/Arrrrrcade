@@ -100,7 +100,7 @@ std::vector<std::shared_ptr<Arcade::IText>> Arcade::SnakeGame::getTexts()
 {
     _texts.clear();
     std::string score = "Score: " + std::to_string(_score);
-    std::shared_ptr<Arcade::IText> text = std::make_shared<Arcade::Text>(score, 9, 5);
+    std::shared_ptr<Arcade::IText> text = std::make_shared<Arcade::Text>(score, 9, 5, "assets/Snake/SimplyMono-Bold");
     _texts.push_back(text);
     return _texts;
 }

@@ -5,7 +5,7 @@
 ** Entity
 */
 
-#include "Entity.hpp"
+#include "AEntity.hpp"
 
 // Color
 
@@ -44,7 +44,7 @@ short Arcade::Color::getA()
 
 //Entity
 
-Arcade::Entity::Entity()
+Arcade::AEntity::AEntity()
 {
     _pos.push_back(0);
     _pos.push_back(0);
@@ -56,56 +56,56 @@ Arcade::Entity::Entity()
     _rotation = 0;
 }
 
-void Arcade::Entity::setPos(std::size_t x, std::size_t y)
+void Arcade::AEntity::setPos(std::size_t x, std::size_t y)
 {
     _pos.clear();
     _pos.push_back(x);
     _pos.push_back(y);
 }
 
-void Arcade::Entity::setSize(std::size_t x, std::size_t y)
+void Arcade::AEntity::setSize(std::size_t x, std::size_t y)
 {
     _size.clear();
     _size.push_back(x);
     _size.push_back(y);
 }
 
-void Arcade::Entity::setChar(char c)
+void Arcade::AEntity::setChar(char c)
 {
     _c = c;
 }
 
-void Arcade::Entity::setColor(std::unique_ptr<IColor> color)
+void Arcade::AEntity::setColor(std::unique_ptr<IColor> color)
 {
     _color = std::move(color);
 }
 
-void Arcade::Entity::setPath(const std::string &path)
+void Arcade::AEntity::setPath(const std::string &path)
 {
     _path = path;
 }
 
-void Arcade::Entity::setRotation(float rotation)
+void Arcade::AEntity::setRotation(float rotation)
 {
     _rotation = rotation;
 }
 
-std::vector<std::size_t> Arcade::Entity::getPos() const
+std::vector<std::size_t> Arcade::AEntity::getPos() const
 {
     return _pos;
 }
 
-std::vector<std::size_t> Arcade::Entity::getSize() const
+std::vector<std::size_t> Arcade::AEntity::getSize() const
 {
     return _size;
 }
 
-int Arcade::Entity::getChar() const
+int Arcade::AEntity::getChar() const
 {
     return _c;
 }
 
-std::shared_ptr<Arcade::IColor> Arcade::Entity::getColor() const
+std::shared_ptr<Arcade::IColor> Arcade::AEntity::getColor() const
 {
     std::shared_ptr<IColor> color = std::make_shared<Color>();
 
@@ -113,12 +113,12 @@ std::shared_ptr<Arcade::IColor> Arcade::Entity::getColor() const
     return color;
 }
 
-std::string Arcade::Entity::getPath() const
+std::string Arcade::AEntity::getPath() const
 {
     return _path;
 }
 
-float Arcade::Entity::getRotation() const
+float Arcade::AEntity::getRotation() const
 {
     return _rotation;
 }

@@ -32,20 +32,10 @@ namespace Arcade {
             short getA() override;
     };
 
-    class Entity : public virtual IEntity {
-        
-        private:
-            std::vector<std::size_t> _pos;
-            std::vector<std::size_t> _size;
-            char _c;
-            std::unique_ptr<IColor> _color;
-            std::string _path;
-            float _rotation;
-        
-        public:
+    class AEntity : public virtual IEntity {
 
-            Entity();
-            ~Entity() = default;
+        public:
+            AEntity();
 
             //setters
             void setPos(std::size_t x, std::size_t y) override;
@@ -62,5 +52,12 @@ namespace Arcade {
             std::shared_ptr<IColor> getColor() const override;
             std::string getPath() const override;
             float getRotation() const override;
+        protected:
+            std::vector<std::size_t> _pos;
+            std::vector<std::size_t> _size;
+            char _c;
+            std::unique_ptr<IColor> _color;
+            std::string _path;
+            float _rotation;
     };
 }

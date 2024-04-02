@@ -8,7 +8,7 @@
 #include "Menu.hpp"
 #include "Entity.hpp"
 #include "Text.hpp"
-#include "keys.hpp"
+#include "Keys.hpp"
 #include <algorithm>
 #include <iostream>
 
@@ -24,11 +24,6 @@ Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
     _userNameIndex = 0;
     _selectedGraphic = selectedGraphic;
     _selectedGame = "";
-}
-
-Arcade::Menu::Menu::~Menu()
-{
-
 }
 
 //Game
@@ -385,4 +380,14 @@ std::vector<std::shared_ptr<Arcade::ISound>> Arcade::Menu::Menu::getSounds()
 {
     std::vector<std::shared_ptr<Arcade::ISound>> list;
     return list;
+}
+
+void Arcade::Menu::Menu::setUserName(const std::string &name)
+{
+    _userName = name;
+}
+
+std::string Arcade::Menu::Menu::getUserName()
+{
+    return _userName;
 }

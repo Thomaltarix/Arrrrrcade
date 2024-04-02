@@ -5,16 +5,21 @@
 ## Snake Makefile
 ##
 
-SRC			=	snake.cpp \
+SRC			=	Snake.cpp \
+				getInstance.cpp \
+				SnakePlayer.cpp \
+				SnakeEntity.cpp \
 				../Sound.cpp \
 				../Text.cpp \
+				../AEntity.cpp \
+				../APlayer.cpp \
 
 OBJ			= $(SRC:.cpp=.o)
 
 NAME		= arcade_snake.so
 
 INCLUDE		=	-I../ -I../../include/
-CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20
+CXXFLAGS 		= 	-Werror -Wall -Wextra -g -rdynamic -std=c++20 $(INCLUDE)
 
 all: $(NAME)
 

@@ -73,18 +73,6 @@ void Arcade::Centipede::catchKeyEvent(int key)
 }
 
 
-//UserName
-void Arcade::Centipede::setUserName(const std::string &name)
-{
-    _userName = name;
-}
-
-std::string Arcade::Centipede::getUserName()
-{
-    return _userName;
-}
-
-
 //Display
 std::vector<std::shared_ptr<Arcade::IEntity>> Arcade::Centipede::getEntities()
 {

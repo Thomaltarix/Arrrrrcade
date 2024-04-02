@@ -32,10 +32,6 @@ namespace Arcade {
             //Event
             void catchKeyEvent(int key);
 
-            //UserName
-            void setUserName(const std::string &name);
-            std::string getUserName();
-
             //Display
             std::vector<std::shared_ptr<IEntity>> getEntities();
             std::vector<std::shared_ptr<IText>> getTexts();

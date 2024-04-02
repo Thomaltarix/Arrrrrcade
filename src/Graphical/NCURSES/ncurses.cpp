@@ -67,14 +67,16 @@ void Arcade::NCURSESlib::displayEntities(std::vector<std::shared_ptr<IEntity>> e
 
     for (auto &entity : entities) {
         char_todisp = entity.get()->getChar();
-        mvprintw(entity.get()->getPos()[0], entity.get()->getPos()[1], reinterpret_cast<char*>(&char_todisp));
+        move(entity.get()->getPos()[1], entity.get()->getPos()[0]);
+        printw(reinterpret_cast<char*>(&char_todisp));
     }
 };
 
 void Arcade::NCURSESlib::displayText(std::vector<std::shared_ptr<IText>> texts)
 {
     for (auto &text : texts) {
-        mvprintw(text.get()->getPos()[0], text.get()->getPos()[1], text.get()->getText().c_str());
+        move(text.get()->getPos()[1], text.get()->getPos()[0]);
+        printw(text.get()->getText().c_str());
     }
 };
 

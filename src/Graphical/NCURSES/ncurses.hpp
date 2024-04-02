@@ -13,7 +13,6 @@
 
 namespace Arcade {
     class NCURSESlib : public AGraphic {
-
         private:
             bool _isOpen;
             const std::unordered_map<int, int> _keyMap = {

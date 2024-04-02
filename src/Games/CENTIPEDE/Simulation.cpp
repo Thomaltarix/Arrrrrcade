@@ -12,7 +12,7 @@
 
 int Arcade::Centipede::simulate()
 {
-    _player->deplace(_map, _key);
+    _player->moveInMap(_map, _key);
     if (_player->isInsideCentipede(_enemies))
         return -1;
     simulateShoot();

@@ -15,7 +15,7 @@ Arcade::CentipedePlayer::CentipedePlayer(size_t x, size_t y)
     _shoot = std::make_shared<CentipedeShoot>();
 }
 
-bool Arcade::CentipedePlayer::deplace(Map map, int key)
+bool Arcade::CentipedePlayer::moveInMap(Map map, int key)
 {
     switch (key)
     {

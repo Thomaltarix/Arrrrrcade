@@ -24,7 +24,7 @@ namespace Arcade {
             ~CentipedePlayer() = default;
 
             void move(Rotation rotation) { (void) rotation; };
-            bool deplace(Map map, int key);
+            bool moveInMap(Map map, int key);
             bool isInsideCentipede(std::vector<std::shared_ptr<CentipedeEnemy>> enemies);
 
             // Setters

@@ -9,9 +9,6 @@
 
 #include "CentipedeEntity.hpp"
 
-typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
-
-
 namespace Arcade {
     class CentipedeShoot {
         public:

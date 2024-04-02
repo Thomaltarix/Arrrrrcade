@@ -15,8 +15,6 @@
 #include <unordered_map>
 #include <functional>
 
-typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
-
 namespace Arcade {
     class Centipede : public AGame{
         public:

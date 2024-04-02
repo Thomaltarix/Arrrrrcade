@@ -11,8 +11,7 @@
 #include "IText.hpp"
 #include "ISound.hpp"
 #include "CentipedeEntity.hpp"
-
-typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
+#include "AGame.hpp"
 
 namespace Arcade {
     class CentipedeEnemy : public APlayer {

@@ -14,8 +14,6 @@
 #include "CentipedeShoot.hpp"
 #include "CentipedeEnemy.hpp"
 
-typedef std::vector<std::vector<std::shared_ptr<Arcade::IEntity>>> Map;
-
 #include <vector>
 #include <memory>
 

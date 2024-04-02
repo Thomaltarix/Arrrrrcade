@@ -33,6 +33,21 @@ void Arcade::Core::start(const std::string & graphicLib)
     gameLoop();
 }
 
+bool Arcade::Core::isCorrectFormat(const std::string & path)
+{
+    std::string prefix = "./lib/arcade_";
+    std::string suffix = ".so";
+
+    if (path.length() < 17)
+        return false;
+    if (path.compare(path.length() - suffix.length(), suffix.length(), suffix) == 0 &&
+        path.compare(0, prefix.length(), prefix) == 0)
+        return true;
+    std::cout << "nop" << std::endl;
+
+    return false;
+}
+
 void Arcade::Core::createlistsLibs(const std::string & graphicLib)
 {
     std::string path = "./lib/";
@@ -40,6 +55,8 @@ void Arcade::Core::createlistsLibs(const std::string & graphicLib)
     IGraphic *tmpgraphic;
 
     for (const auto& file : std::filesystem::directory_iterator(path)) {
+        if (!isCorrectFormat(file.path()))
+            continue;
         _loaderGame.load(file.path());
         _loaderGraphic.load(file.path());
         tmpgame = _loaderGame.getInstance<IGame>("loadGameInstance");

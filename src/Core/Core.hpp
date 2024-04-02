@@ -45,6 +45,7 @@ namespace Arcade {
             void stopGame();
 
             void saveScore();
+            bool isCorrectFormat(const std::string & path);
 
         public:
             Core();

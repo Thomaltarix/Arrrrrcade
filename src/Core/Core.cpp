@@ -43,8 +43,6 @@ bool Arcade::Core::isCorrectFormat(const std::string & path)
     if (path.compare(path.length() - suffix.length(), suffix.length(), suffix) == 0 &&
         path.compare(0, prefix.length(), prefix) == 0)
         return true;
-    std::cout << "nop" << std::endl;
-
     return false;
 }
 
@@ -262,5 +260,5 @@ void Arcade::Core::saveScore()
     path.erase(path.length() - 3, 3);
 
     if (!saver.setInfos(_gameLib->getScore(), "./score/" + path + "/" + _gameLib->getUserName() + ".mtt"))
-        std::cout << "save not work" << std::endl;    
+        std::cout << "save not work" << std::endl;
 }

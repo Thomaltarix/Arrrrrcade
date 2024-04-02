@@ -23,7 +23,6 @@ bool InfoLoaderSaver::getInfos(std::string path)
         return false;
     }
     score = atoi(line.c_str());
-    std::cout << score << std::endl;
     this->_score = score;
     stream.close();
     return true;

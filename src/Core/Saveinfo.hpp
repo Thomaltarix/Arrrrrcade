@@ -10,10 +10,12 @@
 class InfoLoaderSaver {
     public:
         bool getInfos(std::string path);
-        bool setInfos(int score, std::string username, std::string path);
+        bool setInfos(int score, std::string path);
+
+        int getScore() { return _score; } ;
+
         ~InfoLoaderSaver() = default;
         InfoLoaderSaver() = default;
     private:
-        std::string _username;
         int _score;
 };

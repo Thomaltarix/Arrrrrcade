@@ -261,6 +261,6 @@ void Arcade::Core::saveScore()
     path.erase(0, 13);
     path.erase(path.length() - 3, 3);
 
-    if (!saver.setInfos(_gameLib->getScore(), _gameLib->getUserName(), "./score/" + path + ".mtt"))
+    if (!saver.setInfos(_gameLib->getScore(), "./score/" + path + "/" + _gameLib->getUserName() + ".mtt"))
         std::cout << "save not work" << std::endl;    
 }

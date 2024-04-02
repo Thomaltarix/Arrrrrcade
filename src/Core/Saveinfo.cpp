@@ -9,33 +9,41 @@
 #include <fstream> 
 #include <sstream>
 
-bool InfoLoaderSaver::getInfos(std::string path) {
+bool InfoLoaderSaver::getInfos(std::string path)
+{
     std::ifstream stream = std::ifstream(path);
-    std::string line1;
-    std::string line2;
+    std::string line;
     int score = 0;
-    std::string username;
     std::stringstream tmp;
 
     if (!stream.is_open())
         return false;
-    if(!std::getline(stream, line1))
+    if (!std::getline(stream, line)) {
+        stream.close();
         return false;
-    tmp.str(line1);
-    if(!(tmp >> score))
-        return false;
-    std::getline(stream, username);
+    }
+    score = atoi(line.c_str());
+    std::cout << score << std::endl;
     this->_score = score;
-    this->_username = username;
+    stream.close();
     return true;
 }
 
-bool InfoLoaderSaver::setInfos(int score, std::string username, std::string path) {
-    std::ofstream stream(path, std::ios::app);
+bool InfoLoaderSaver::setInfos(int score, std::string path)
+{
+    int lastScore = 0;
+    if (!getInfos(path))
+        lastScore = 0;
+    else
+        lastScore = getScore();
+    std::ofstream stream(path);
 
     if (!stream.is_open())
         return false;
-    stream << username << "=" << score << std::endl;
+    if (getScore() > score) {
+        score = lastScore;
+    }
+    stream << score << std::endl;
     stream.close();
     return true;
 }

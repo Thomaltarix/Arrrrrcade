@@ -11,6 +11,7 @@
 #include "Keys.hpp"
 #include <algorithm>
 #include <iostream>
+#include "../Saveinfo.hpp"
 
 Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
                             std::vector<std::string> listGame,
@@ -333,6 +334,25 @@ void Arcade::Menu::Menu::createButton(  std::size_t posx, std::size_t posy,
 
 std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
 {
+    InfoLoaderSaver saver;
+    _listText.clear();
+    createText(_userNameDisplay, 5, 23, 28);
+    createLibsTexts();
+
+    // Add highest scores
+    std::string gameName = "Highest scores:";
+    createText(gameName, 3, 2, 24);
+    std::vector<std::string> scores = saver.getHighestScores(_listGame, 5);
+    for (std::size_t i = 0; i < scores.size(); i++) {
+        createText(scores[i], 3, 3 + i, 24);
+    }
+
+    // Add user score
+    int listPlayer = saver.getHighestScoreForPlayer(_listGame, _userName);
+    if (listPlayer == -1)
+        listPlayer = 0;
+    gameName = "Your score: " + std::to_string(listPlayer);
+    createText(gameName, 14, 2, 24);
     return _listText;
 }
 

@@ -141,7 +141,7 @@ void Arcade::Menu::Menu::handleArrowKey(int key)
         break;
     case Arcade::DOWN:
         keyDown();
-        break;    
+        break;
     case Arcade::LEFT:
         keyLeft();
         break;
@@ -248,7 +248,7 @@ void Arcade::Menu::Menu::changeButtonState(std::string path)
         if (_cursor[0] == 1 && _listGraphic[_cursor[1] - 1] == _selectedGraphic)
             path = BUTTON_PRESSED;
         if (_cursor[0] == 2 && _listGame[_cursor[1] - 1] == _selectedGame)
-            path = BUTTON_PRESSED;        
+            path = BUTTON_PRESSED;
     }
     if (_cursor[0] == 3)
         _listEntities[1]->setPath(path);

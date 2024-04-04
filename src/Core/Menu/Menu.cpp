@@ -295,7 +295,7 @@ void Arcade::Menu::Menu::createUserName()
 
 void Arcade::Menu::Menu::createLibsButtons()
 {
-    std::size_t pos = 5;
+    std::size_t pos = 10;
 
     for (std::size_t i = 0; i < _listGraphic.size(); i++) {
         if (_listGraphic[i] == _selectedGraphic)
@@ -305,7 +305,7 @@ void Arcade::Menu::Menu::createLibsButtons()
         pos += 4;
     }
 
-    pos = 5;
+    pos = 10;
     for (std::size_t i = 0; i < _listGame.size(); i++) {
         createButton(15, pos, 164, 76, BUTTON_IDLE);
         pos += 4;
@@ -338,7 +338,7 @@ std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
 
 void Arcade::Menu::Menu::createLibsTexts()
 {
-    std::size_t pos = 6;
+    std::size_t pos = 11;
     std::string tmp;
 
     for (std::size_t i = 0; i < _listGraphic.size(); i++) {
@@ -349,7 +349,7 @@ void Arcade::Menu::Menu::createLibsTexts()
         pos += 4;
     }
 
-    pos = 6;
+    pos = 11;
     for (std::size_t i = 0; i < _listGame.size(); i++) {
         tmp = _listGame[i];
         tmp.erase(0, 13);

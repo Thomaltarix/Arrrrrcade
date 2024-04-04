@@ -253,12 +253,8 @@ void Arcade::Core::stopGame()
 void Arcade::Core::saveScore()
 {
     InfoLoaderSaver saver;
-    std::string path;
-
-    path = _listGame[_idxGame];
-    path.erase(0, 13);
-    path.erase(path.length() - 3, 3);
-
-    if (!saver.setInfos(_gameLib->getScore(), "./score/" + path + "/" + _gameLib->getUserName() + ".mtt"))
+    std::string gameName = _listGame[_idxGame];
+    std::string userName = _gameLib->getUserName();
+    if (!saver.addScore(gameName, userName, _gameLib->getScore()))
         std::cout << "save not work" << std::endl;
 }

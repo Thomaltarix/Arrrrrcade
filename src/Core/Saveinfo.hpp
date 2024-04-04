@@ -6,16 +6,21 @@
 */
 #pragma once
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 class InfoLoaderSaver {
     public:
-        bool getInfos(std::string path);
-        bool setInfos(int score, std::string path);
+        bool addScore(std::string gameName, std::string playerName, int score);
 
-        int getScore() { return _score; } ;
+        int getHighestScoreForPlayer(std::vector<std::string> listGames, std::string gameName);
+        std::vector<std::string> getHighestScores(std::vector<std::string> listGame, size_t number);
 
         ~InfoLoaderSaver() = default;
-        InfoLoaderSaver() = default;
+        InfoLoaderSaver();
     private:
-        int _score;
+        std::string _path;
+
+        std::vector<std::string> getPlayerList();
+        std::vector<std::pair<std::string, size_t>> sortScoreBoard(std::vector<std::pair<std::string, size_t>> list);
 };

@@ -9,6 +9,7 @@
 #include "sdl2.hpp"
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include "Keys.hpp"
 
 Arcade::SDL2lib::SDL2lib()
 {
@@ -60,16 +61,32 @@ void Arcade::SDL2lib::clearWindow()
 
 int Arcade::SDL2lib::getKeyEvent()
 {
-    while (SDL_PollEvent(&_event)) {
-        if (_event.type == SDL_QUIT)
+    SDL_PollEvent(&_event);
+
+    switch (_event.type)
+    {
+        case SDL_QUIT:
             closeWindow();
-        if (_event.type == SDL_KEYDOWN) {
+            break;
+
+        case SDL_MOUSEBUTTONDOWN:
+            switch (_event.button.button)
+            {
+                case SDL_BUTTON_LEFT:
+                    return MOUSE_LEFT;
+                case SDL_BUTTON_RIGHT:
+                    return MOUSE_RIGHT;
+            }
+        break;
+
+        case SDL_KEYDOWN:
             for (auto &mykey : _keyMap) {
                 if (_event.key.keysym.sym == mykey.first)
                     return mykey.second;
             }
-        }
-        return -1;
+            break;
+        default:
+            return -1;
     }
     return -1;
 }

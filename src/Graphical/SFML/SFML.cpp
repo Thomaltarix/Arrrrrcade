@@ -52,6 +52,8 @@ int Arcade::SFMLlib::getKeyEvent()
                 if (_event.key.code == key.first)
                     return key.second;
             }
+            if (_event.key.code == 51)
+                return 41;
         }
         return -1;
     }

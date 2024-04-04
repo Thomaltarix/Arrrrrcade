@@ -86,6 +86,7 @@ namespace Arcade {
 
             //Event
             int getKeyEvent() override;
+            std::pair<int, int> getMousePosition() override { return std::make_pair<int, int>(-1, -1); };
 
             //Display
             void displayWindow();

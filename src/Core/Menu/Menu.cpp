@@ -352,7 +352,7 @@ std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
     if (listPlayer == -1)
         listPlayer = 0;
     gameName = "Your score: " + std::to_string(listPlayer);
-    createText(gameName, 14, 2, 24);
+    createText(gameName, 16, 2, 24);
     return _listText;
 }
 

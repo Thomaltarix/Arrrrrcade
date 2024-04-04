@@ -69,6 +69,7 @@ namespace Arcade {
 
                 //Event
                 void catchKeyEvent(int key) override;
+                void catchMousePosition(int x, int y) override { (void) x; (void) y; };
 
                 //UserName
                 void setUserName(const std::string &name) override;

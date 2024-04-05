@@ -43,6 +43,13 @@ int Arcade::Centipede::startGame()
     _map.clear();
     this->initMap(MAP_WIDTH, MAP_HEIGHT);
 
+    srand (time(NULL));
+    for (int i = 0; i < 8; i ++) {
+        int x = rand() % 14 + 3;
+        int y = rand() % 14 + 3;
+        _map[x][y] = std::make_unique<CentipedeBox>(x, y);
+    }
+
     _player.reset();
     _player = std::make_unique<CentipedePlayer>(10, 19);
     _map[10][19] = _player->getBody();

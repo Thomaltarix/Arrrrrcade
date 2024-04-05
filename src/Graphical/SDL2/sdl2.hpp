@@ -25,6 +25,9 @@ namespace Arcade {
             std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> getEntityTexture(std::string path);
             std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)> getFont(std::string path, std::size_t size);
 
+            int _mouseX;
+            int _mouseY;
+
             const std::unordered_map<SDL_KeyCode, int> _keyMap = {
                 {SDLK_a, 0},
                 {SDLK_b, 1},
@@ -86,6 +89,7 @@ namespace Arcade {
 
             //Event
             int getKeyEvent() override;
+            std::pair<int, int> getMousePosition() override;
 
             //Display
             void displayWindow();

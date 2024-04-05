@@ -54,6 +54,8 @@ namespace Arcade {
         SIX = 43,
         SEVEN = 44,
         EIGHT = 45,
-        NINE = 46
+        NINE = 46,
+        MOUSE_LEFT = 47,
+        MOUSE_RIGHT = 48
     };
 }

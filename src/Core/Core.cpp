@@ -125,6 +125,12 @@ void Arcade::Core::manageEvents()
     default:
         break;
     }
+
+    if (key == MOUSE_LEFT || key == MOUSE_RIGHT) {
+        std::pair<int, int> pos = _graphicLib->getMousePosition();
+        _gameLib->catchMousePosition(pos.first, pos.second);
+        return;
+    }
     _gameLib->catchKeyEvent(key);
 }
 

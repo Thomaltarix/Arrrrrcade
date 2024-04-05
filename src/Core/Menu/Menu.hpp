@@ -53,6 +53,7 @@ namespace Arcade {
                 void keyDown();
                 void keyLeft();
                 void keyRight();
+                bool isOnText(std::shared_ptr<Arcade::IEntity> myText, int x, int y);
 
                 //buttons states
                 void changeButtonState(std::string path);
@@ -69,6 +70,7 @@ namespace Arcade {
 
                 //Event
                 void catchKeyEvent(int key) override;
+                void catchMousePosition(int x, int y) override;
 
                 //UserName
                 void setUserName(const std::string &name) override;

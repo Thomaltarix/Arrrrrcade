@@ -29,6 +29,7 @@ namespace Arcade {
 
             //Event
             void catchKeyEvent(int key);
+            void catchMousePosition(int x, int y) { (void) x; (void) y; };
 
             //Display
             std::vector<std::shared_ptr<IEntity>> getEntities();

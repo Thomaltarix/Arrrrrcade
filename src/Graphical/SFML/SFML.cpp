@@ -6,6 +6,7 @@
 */
 
 #include "SFML.hpp"
+#include "Keys.hpp"
 
 Arcade::SFMLlib::SFMLlib()
 {
@@ -55,9 +56,22 @@ int Arcade::SFMLlib::getKeyEvent()
             if (_event.key.code == 51)
                 return 41;
         }
+        if (_event.type == sf::Event::MouseButtonReleased) {
+            if (_event.mouseButton.button == sf::Mouse::Left)
+                return MOUSE_LEFT;
+            if (_event.mouseButton.button == sf::Mouse::Right)
+                return MOUSE_RIGHT;
+        }
         return -1;
     }
     return -1;
+}
+
+std::pair<int, int> Arcade::SFMLlib::getMousePosition()
+{
+    sf::Vector2i position = sf::Mouse::getPosition(_window);
+
+    return std::make_pair<int, int>(position.x / 29, position.y / 29);
 }
 
 // ------------------ DISPLAY ------------------ //

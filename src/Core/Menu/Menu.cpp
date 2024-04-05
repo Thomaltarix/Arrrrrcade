@@ -99,6 +99,36 @@ void Arcade::Menu::Menu::catchKeyEvent(int key)
     handleArrowKey(key);
 }
 
+bool Arcade::Menu::Menu::isOnText(std::shared_ptr<Arcade::IEntity> entity, int x, int y)
+{
+    if ((int)(entity->getPos()[0]) <= x && x <= (int)(entity->getPos()[0]) + (int)(entity->getSize()[0] / 29) &&
+        (int)(entity->getPos()[1]) <= y && y <= (int)(entity->getPos()[1]) + (int)(entity->getSize()[1] / 29))
+        return true;
+    return false;
+}
+
+void Arcade::Menu::Menu::catchMousePosition(int x, int y)
+{
+    for (size_t i = 1; i < _listEntities.size(); i++) {
+        if (i == 2)
+            continue;
+        if (isOnText(_listEntities[i], x, y)) {
+            _cursor[0] = 3;
+            _cursor[1] = 1;
+            if (i > 2 && i <= 2 + _listGraphic.size()) {
+                _cursor[0] = 1;
+                _cursor[1] = i - _listGraphic.size() + 1;
+            }
+            if (i > 2 + _listGraphic.size() && i <= 2 + _listGraphic.size() + _listGame.size()) {
+                _cursor[0] = 2;
+                _cursor[1] = i - _listGame.size() - _listGraphic.size();
+            }
+            handleEnterKey(Arcade::ENTER);
+            return;
+        }
+    }
+}
+
 void Arcade::Menu::Menu::handleEnterKey(int key)
 {
     std::vector<std::size_t> tmp = _cursor;

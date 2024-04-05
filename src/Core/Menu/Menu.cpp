@@ -20,7 +20,7 @@ Arcade::Menu::Menu::Menu(   std::vector<std::string> listGraphic,
     _isPlayPressed = false;
     _listGame = listGame;
     _listGraphic = listGraphic;
-    _userNameDisplay = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+    _userNameDisplay = "_ _ _ _ _ _ _ _ _ _";
     _userName = "";
     _userNameIndex = 0;
     _selectedGraphic = selectedGraphic;
@@ -88,7 +88,7 @@ void Arcade::Menu::Menu::catchKeyEvent(int key)
         return;
     }
     if (key >= Arcade::A && key <= Arcade::Z) {
-        if (_userNameIndex != 30) {
+        if (_userNameIndex != 20) {
             _userNameDisplay[_userNameIndex] = 65 + key;
             _userName += _userNameDisplay[_userNameIndex];
             _userNameIndex += 2;
@@ -291,25 +291,25 @@ void Arcade::Menu::Menu::createEntityPlay()
 
 void Arcade::Menu::Menu::createUserName()
 {
-    createButton(4, 22, 492, 76, BUTTON_IDLE);
+    createButton(4, 23, 492, 76, BUTTON_IDLE);
 }
 
 void Arcade::Menu::Menu::createLibsButtons()
 {
-    std::size_t pos = 10;
+    std::size_t pos = 7;
 
     for (std::size_t i = 0; i < _listGraphic.size(); i++) {
         if (_listGraphic[i] == _selectedGraphic)
             createButton(5, pos, 164, 76, BUTTON_PRESSED);
         else
             createButton(5, pos, 164, 76, BUTTON_IDLE);
-        pos += 4;
+        pos += 3;
     }
 
-    pos = 10;
+    pos = 7;
     for (std::size_t i = 0; i < _listGame.size(); i++) {
-        createButton(15, pos, 164, 76, BUTTON_IDLE);
-        pos += 4;
+        createButton(14, pos, 164, 76, BUTTON_IDLE);
+        pos += 3;
     }
 }
 
@@ -336,15 +336,21 @@ std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
 {
     InfoLoaderSaver saver;
     _listText.clear();
-    createText(_userNameDisplay, 5, 23, 28);
+
+    // Add start game
+    createText("Play", 11, 27, 24);
+
+    // Add user name
+    createText(_userNameDisplay, 6, 24, 28);
     createLibsTexts();
 
     // Add highest scores
+    int scoreNumber = 3;
     std::string gameName = "Highest scores:";
-    createText(gameName, 3, 2, 24);
-    std::vector<std::string> scores = saver.getHighestScores(_listGame, 5);
+    createText(gameName, 4, 2, 24);
+    std::vector<std::string> scores = saver.getHighestScores(_listGame, scoreNumber);
     for (std::size_t i = 0; i < scores.size(); i++) {
-        createText(scores[i], 3, 3 + i, 24);
+        createText(scores[i], 12, 2 + i, 24);
     }
 
     // Add user score
@@ -352,13 +358,13 @@ std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
     if (listPlayer == -1)
         listPlayer = 0;
     gameName = "Your score: " + std::to_string(listPlayer);
-    createText(gameName, 16, 2, 24);
+    createText(gameName, 9, 22, 24);
     return _listText;
 }
 
 void Arcade::Menu::Menu::createLibsTexts()
 {
-    std::size_t pos = 11;
+    std::size_t pos = 8;
     std::string tmp;
 
     for (std::size_t i = 0; i < _listGraphic.size(); i++) {
@@ -366,16 +372,16 @@ void Arcade::Menu::Menu::createLibsTexts()
         tmp.erase(0, 13);
         tmp.erase(tmp.length() - 3, 3);
         createText(tmp, 6, pos, 18);
-        pos += 4;
+        pos += 3;
     }
 
-    pos = 11;
+    pos = 8;
     for (std::size_t i = 0; i < _listGame.size(); i++) {
         tmp = _listGame[i];
         tmp.erase(0, 13);
         tmp.erase(tmp.length() - 3, 3);
-        createText(tmp, 16, pos, 18);
-        pos += 4;
+        createText(tmp, 15, pos, 18);
+        pos += 3;
     }
 }
 

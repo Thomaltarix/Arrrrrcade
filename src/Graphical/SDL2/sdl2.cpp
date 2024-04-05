@@ -61,43 +61,38 @@ void Arcade::SDL2lib::clearWindow()
 
 int Arcade::SDL2lib::getKeyEvent()
 {
-    SDL_PollEvent(&_event);
+    while (SDL_PollEvent(&_event)) {
 
-    switch (_event.type)
-    {
-        case SDL_QUIT:
-            closeWindow();
-            break;
+        switch (_event.type)
+        {
+            case SDL_QUIT:
+                closeWindow();
+                break;
 
-        case SDL_MOUSEBUTTONDOWN:
-            switch (_event.button.button)
-            {
-                case SDL_BUTTON_LEFT:
-                    return MOUSE_LEFT;
-                case SDL_BUTTON_RIGHT:
-                    return MOUSE_RIGHT;
-            }
-        break;
+            case SDL_MOUSEBUTTONDOWN:
+                if (_event.button.button == SDL_BUTTON_LEFT)
+                        return MOUSE_LEFT;
+                if (_event.button.button == SDL_BUTTON_RIGHT)
+                        return MOUSE_RIGHT;
+                break;
 
-        case SDL_KEYDOWN:
-            for (auto &mykey : _keyMap) {
-                if (_event.key.keysym.sym == mykey.first)
-                    return mykey.second;
-            }
-            break;
-
-        case SDL_MOUSEMOTION:
-            _mouseX = _event.motion.x;
-            _mouseY = _event.motion.y;
-            break;
-        default:
-            return -1;
+            case SDL_KEYDOWN:
+                for (auto &mykey : _keyMap) {
+                    if (_event.key.keysym.sym == mykey.first)
+                        return mykey.second;
+                }
+                break;
+            default:
+                return -1;
+        }
     }
     return -1;
 }
 
 std::pair<int, int> Arcade::SDL2lib::getMousePosition()
 {
+    _mouseX = _event.motion.x;
+    _mouseY = _event.motion.y;
     return std::make_pair<int, int>(_mouseX / 29, _mouseY / 29);
 }
 

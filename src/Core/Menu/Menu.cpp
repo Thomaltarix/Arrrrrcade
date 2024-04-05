@@ -98,12 +98,19 @@ void Arcade::Menu::Menu::catchKeyEvent(int key)
     handleArrowKey(key);
 }
 
+bool Arcade::Menu::Menu::isOnText(std::shared_ptr<Arcade::IEntity> entity, int x, int y)
+{
+    if ((int)(entity->getPos()[0]) == x && (int)(entity->getPos()[1]) == y)
+        return true;
+    return false;
+}
+
 void Arcade::Menu::Menu::catchMousePosition(int x, int y)
 {
     for (size_t i = 1; i < _listEntities.size(); i++) {
         if (i == 2)
             continue;
-        if ((int)(_listEntities[i]->getPos()[0]) == x && (int)(_listEntities[i]->getPos()[1]) == y) {
+        if (isOnText(_listEntities[i], x, y)) {
             _cursor[0] = 3;
             _cursor[1] = 1;
             if (i > 2 && i <= 2 + _listGraphic.size()) {

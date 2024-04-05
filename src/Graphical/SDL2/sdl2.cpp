@@ -85,10 +85,20 @@ int Arcade::SDL2lib::getKeyEvent()
                     return mykey.second;
             }
             break;
+
+        case SDL_MOUSEMOTION:
+            _mouseX = _event.motion.x;
+            _mouseY = _event.motion.y;
+            break;
         default:
             return -1;
     }
     return -1;
+}
+
+std::pair<int, int> Arcade::SDL2lib::getMousePosition()
+{
+    return std::make_pair<int, int>(_mouseX / 29, _mouseY / 29);
 }
 
 //Display

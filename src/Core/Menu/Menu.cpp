@@ -100,7 +100,8 @@ void Arcade::Menu::Menu::catchKeyEvent(int key)
 
 bool Arcade::Menu::Menu::isOnText(std::shared_ptr<Arcade::IEntity> entity, int x, int y)
 {
-    if ((int)(entity->getPos()[0]) == x && (int)(entity->getPos()[1]) == y)
+    if ((int)(entity->getPos()[0]) <= x && x <= (int)(entity->getPos()[0]) + (int)(entity->getSize()[0] / 29) &&
+        (int)(entity->getPos()[1]) <= y && y <= (int)(entity->getPos()[1]) + (int)(entity->getSize()[1] / 29))
         return true;
     return false;
 }

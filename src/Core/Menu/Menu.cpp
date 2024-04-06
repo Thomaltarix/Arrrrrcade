@@ -376,11 +376,13 @@ std::vector<std::shared_ptr<Arcade::IText>> Arcade::Menu::Menu::getTexts()
 
     // Add highest scores
     int scoreNumber = 3;
-    std::string gameName = "Highest scores:";
+    std::string gameName = "Best scores:";
     createText(gameName, 4, 2, 24);
     std::vector<std::string> scores = saver.getHighestScores(_listGame, scoreNumber);
+    if (scores.size() == 0)
+        scores.push_back("0");
     for (std::size_t i = 0; i < scores.size(); i++) {
-        createText(scores[i], 12, 2 + i, 24);
+        createText(scores[i], 16, 2 + i, 24);
     }
 
     // Add user score
